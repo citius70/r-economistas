@@ -1,21 +1,23 @@
 ---
-title: "R para economistas"
-author: "Alberto R. Durán Pérez"
-date: "`r Sys.Date()`"
-output:
-  html_document: 
-    theme: cerulean
-    toc: true
-    toc_float: true
-    number_sections: true
-  pdf_document:
-    toc_depth: 1
-    fig_caption: true
-    latex_engine: xelatex
-    number_sections: true
-    toc: true
-    highlight: tango
+        title: "R para economistas"
+        author: "Alberto R. Durán Pérez"
+        date: "`r Sys.Date()`"
+        output:
+          html_document: 
+            theme: united
+            toc: true
+            toc_float: true
+            number_sections: true
+          pdf_document:
+            toc_depth: 1
+            fig_caption: true
+            latex_engine: xelatex
+            number_sections: true
+            toc: true
+            highlight: tango
 ---
+
+
 
 # Introducción: ¿Qué es R y por qué es útil en Economía?
 
