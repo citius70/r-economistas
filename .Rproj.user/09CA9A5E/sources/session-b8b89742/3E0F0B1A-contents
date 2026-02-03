@@ -1,0 +1,66 @@
+---
+title: "R para economistas"
+author: "Alberto R. Durán Pérez"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# ¿Qué es R?
+
+**R** es un **lenguaje de programación** muy potente diseñado específicamente para el **análisis estadístico y la visualización de datos** 📊. Es el estándar en muchas áreas científicas y de negocios.
+
+Para trabajar cómodamente, normalmente no usamos **R** "a secas", sino que lo combinamos con **RStudio**, que es un entorno de desarrollo (IDE) que hace que *escribir código sea mucho más amigable*.
+
+Se ha dividido su estudio completo tres etapas lógicas:
+
+## 1. Introducción: ¿Qué es R y por qué es útil en Economía?
+
+Es fundamental explicar que **R es un lenguaje diseñado específicamente para el análisis estadístico y la visualización de datos**. En el ámbito de la Economía, esto es vital porque se ha convertido en el **estándar en muchas áreas científicas y de negocios**.
+
+Haciendo un símil con un coche:
+
+-   **R es el "motor"**: Es la potencia que realiza los cálculos.
+
+-   **RStudio es el "volante"**: Es el entorno de desarrollo (IDE) que hace que **escribir código sea mucho más amigable** y cómodo.
+
+## 2. El Taller: Instalación y Configuración
+
+En esta sección, los alumnos deben aprender a preparar su equipo de trabajo. Los puntos clave a incluir son:
+
+-   **Instalación dual**: Deben instalar primero R y luego RStudio.
+
+-   **Interfaz de RStudio**: Es necesario conocer para qué sirve cada ventana del programa para que los usuarios se sientan orientados desde el primer momento.
+
+## 3. El Lenguaje: Primeros pasos con los datos
+
+Aquí es donde los usuarios empiezan a "hablar" con R, gracias a la sintaxis específica de este lenguaje:
+
+-   **Creación de variables**: Cómo asignar valores.
+
+-    **Vectores**: Cómo agrupar datos (esencial para manejar series de datos económicos).
+
+-    **Manipulación de datos**: Los primeros pasos para transformar la información.
+
+## 4. La Publicación: RMarkdown para informes profesionales
+
+Para un usuario, presentar resultados es tan importante como el análisis. **RMarkdown** permite crear documentos profesionales en formatos **PDF, HTML o Word**.
+
+-   **Integración total**: Se explica cómo RMarkdown permite **combinar código, resultados y texto explicativo** en un solo archivo. Esto evita errores al copiar y pegar gráficos o tablas en otros procesadores de texto..
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
