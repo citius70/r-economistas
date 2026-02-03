@@ -1,12 +1,12 @@
 {
-    "id": "49CC77D7",
-    "path": "C:/Users/alber/Box/_Instituto/web_generators/R/Nico/index.Rmd",
-    "project_path": "index.Rmd",
+    "id": "88ED022F",
+    "path": "C:/Users/alber/Box/_Instituto/web_generators/R/Nico/index_borrar.Rmd",
+    "project_path": "index_borrar.Rmd",
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "4199724693",
     "contents": "",
     "dirty": false,
-    "created": 1770145627934.0,
+    "created": 1770150924527.0,
     "source_on_save": false,
     "relative_order": 3,
     "properties": {
@@ -16,11 +16,11 @@
         "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1770125497,
+    "lastKnownWriteTime": 1770150933,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1770125497,
+    "last_content_update": 1770150933,
     "read_only": false,
     "read_only_alternatives": []
 }

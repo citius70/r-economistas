@@ -344,7 +344,7 @@ Este curso inicialmente se diseñó en inglés, pero actualmente se encuentra tr
 
 3.  Crea una carpeta en en la que instalar el curso.
 
-    ![*Crear carpeta*](img/Captura de pantalla 2026-02-03 202059.png){width="652"}
+    ![*Crear carpeta*](img/Captura%20de%20pantalla%202026-02-03%20202059.png){width="652"}
 
 4.  ¡Importante! Asegúrate que lo que vas a escribir en la **Consola** de RStudio se haga dentro de esta carpeta.
 
@@ -352,7 +352,7 @@ Este curso inicialmente se diseñó en inglés, pero actualmente se encuentra tr
 
     -   Asegúrate de que estás trabajando en esta carpeta yendo a la **Consola** de RStudio y escribiendo `getwd()` y pulsando ENTER.
 
-        ![getwd()](img/Captura de pantalla 2026-02-03 203609.png){width="411"}
+        ![getwd()](img/Captura%20de%20pantalla%202026-02-03%20203609.png){width="411"}
 
 ### Instalar curso
 
@@ -374,4 +374,4 @@ Las primeras informaciones estan en ingles porque provienen del paquete swirl. L
 
 El curso está nombrado como **1. Programando en R** que tiene **15 capítulos. Al principio cuesta un poco recorrer los menús.**
 
-![*Los 15 capítulos del curso*](img/Captura de pantalla 2026-02-03 205322.png)
+![*Los 15 capítulos del curso*](img/Captura%20de%20pantalla%202026-02-03%20205322.png)
