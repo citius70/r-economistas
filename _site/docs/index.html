@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Alberto R. Durán Pérez" />
+
+<meta name="date" content="2026-02-03" />
+
+<title>R para economistas</title>
+
+<script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">R para economistas</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Inicio</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">R para economistas</h1>
+<h4 class="author">Alberto R. Durán Pérez</h4>
+<h4 class="date">2026-02-03</h4>
+
+</div>
+
+
+<div id="introducción-qué-es-r-y-por-qué-es-útil-en-economía"
+class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Introducción: ¿Qué es R
+y por qué es útil en Economía?</h1>
+<p><strong>R</strong> es un <strong>lenguaje de programación</strong>
+muy potente diseñado específicamente para el <strong>análisis
+estadístico y la visualización de datos</strong>. Es el estándar en
+muchas áreas científicas y de negocios.</p>
+<p>Para profundizar en la introducción de R aplicada a la
+<strong>Economía</strong>, es necesario entender que no estamos ante una
+simple calculadora, sino ante un laboratorio completo de
+econometría.</p>
+<p>R es un lenguaje de código abierto diseñado específicamente para el
+análisis <strong>estadístico y la visualización de datos</strong>. En el
+ámbito económico, su utilidad radica en que se ha convertido en el
+estándar tanto en áreas científicas como en el mundo de los
+negocios.</p>
+<div id="por-qué-r-es-el-aliado-del-economista" class="section level2"
+number="1.1">
+<h2><span class="header-section-number">1.1</span> ¿Por qué R es el
+aliado del economista?</h2>
+<p>A diferencia de las hojas de cálculo tradicionales, R permite
+<strong>manejar grandes volúmenes de datos</strong> y asegurar la
+<strong>reproducibilidad</strong>. Si realizas un análisis hoy,
+cualquier otra persona puede ejecutar tu código y obtener exactamente
+los mismos resultados, algo vital en la investigación económica.</p>
+<p>Haciendo un símil con un coche para entender las herramientas:</p>
+<ul>
+<li><p><strong>R (El Motor):</strong> Es la potencia bruta que realiza
+los cálculos matemáticos y estadísticos. Sin él, no hay
+movimiento.</p></li>
+<li><p><strong>RStudio (El Volante y Tablero):</strong> Es el entorno de
+desarrollo (IDE) que hace que escribir código sea una experiencia mucho
+más amigable, visual y cómoda. Es la interfaz que te permite controlar
+el motor sin complicaciones innecesarias.</p></li>
+</ul>
+</div>
+<div id="áreas-de-aplicación-en-economía" class="section level2"
+number="1.2">
+<h2><span class="header-section-number">1.2</span> Áreas de aplicación
+en Economía</h2>
+<ol style="list-style-type: decimal">
+<li><strong>Econometría:</strong> Estimación de modelos de regresión
+lineal y no lineal, series temporales y paneles de datos.</li>
+<li><strong>Análisis de Políticas Públicas:</strong> Evaluación de
+impacto mediante la manipulación de microdatos (como censos o encuestas
+de hogares).</li>
+<li><strong>Visualización de Datos:</strong> Creación de gráficos de
+alta calidad para reportes financieros o académicos.</li>
+<li><strong>Automatización:</strong> Generación de informes automáticos
+mediante RMarkdown para combinar análisis y resultados en un solo
+paso.</li>
+</ol>
+<p>EL proceso de trabajo con R está enfocado en el uso de tres
+herramientas:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>R</strong>, es el motor del lenguaje (hace los cálculos
+necesarios).</p></li>
+<li><p><strong>RStudio</strong>, aplicación que facilita la programación
+en R.</p></li>
+<li><p><strong>RMarkdown</strong>, aplicación incluida en RStudio que
+permite presentar los resultados de forma atractiva
+visualmente.</p></li>
+</ol>
+<p><strong>¡Recuerda bien estos tres nombres!</strong></p>
+<p>Esta base sólida es el primer paso del camino, que hemos dividido en
+tres etapas lógicas: el taller (<strong>instalación</strong>), el
+lenguaje (<strong>sintaxis</strong>) y la publicación
+(<strong>RMarkdown</strong>).</p>
+</div>
+<div id="el-taller-instalación-y-configuración" class="section level2"
+number="1.3">
+<h2><span class="header-section-number">1.3</span> El “taller”:
+Instalación y configuración</h2>
+<p>Para trabajar cómodamente, normalmente no usamos <strong>R</strong>
+“a secas”, sino que lo combinamos con <strong>RStudio</strong>, que es
+un entorno de desarrollo (IDE) que hace que <em>escribir código sea
+mucho más amigable</em>.</p>
+<p>En esta sección, aprenderás a preparar tu equipo de trabajo. Los
+puntos clave a incluir son:</p>
+<ul>
+<li><p><strong>Instalación dual</strong>: Deben instalar primero R y
+luego RStudio.</p></li>
+<li><p><strong>Interfaz de RStudio</strong>: Es necesario conocer para
+qué sirve cada ventana del programa para que los usuarios se sientan
+orientados desde el primer momento.</p></li>
+</ul>
+<p>Veamos las instalación <strong>tanto en Windows como en Mac</strong>.
+El proceso es muy similar, pero los archivos de instalación del “motor”
+(R) son distintos.</p>
+<p>Vamos a instalar primero el <strong>motor (R)</strong>. Recuerda: sin
+esto, RStudio no funcionará.</p>
+<blockquote>
+<p><strong>Paso 1: Instalar R (El Motor)</strong></p>
+</blockquote>
+<p>Ve al sitio oficial llamado <strong>CRAN</strong> (Comprehensive R
+Archive Network). Aquí es donde vive R.</p>
+<dl>
+<dt>Para Windows:</dt>
+<dd>
+<ol style="list-style-type: decimal">
+<li><p>Entra en:
+<code>cran.r-project.org/bin/windows/base/</code></p></li>
+<li><p>Haz clic en el enlace grande que dice <strong>“Download R
+[versión] for Windows”</strong>.</p></li>
+<li><p>Ejecuta el archivo <code>.exe</code> y acepta todo por defecto
+(Siguiente, Siguiente…).</p></li>
+</ol>
+</dd>
+<dt>Para Mac:</dt>
+<dd>
+<ol style="list-style-type: decimal">
+<li><p>Entra en: <code>cran.r-project.org/bin/macosx/</code></p></li>
+<li><p>Aquí hay una pequeña bifurcación importante:</p>
+<ul>
+<li><p>Si tu Mac tiene chip <strong>Apple (M1, M2, M3…)</strong>,
+descarga el archivo que dice <code>arm64.pkg</code>.</p></li>
+<li><p>Si es una Mac más antigua con chip <strong>Intel</strong>,
+descarga el archivo que dice <code>x86_64.pkg</code>.</p></li>
+</ul></li>
+<li><p>Instala el archivo <code>.pkg</code> como cualquier otra
+aplicación de Mac.</p></li>
+</ol>
+</dd>
+</dl>
+<blockquote>
+<p><strong>Paso 2: Instalar RStudio (El Tablero)</strong></p>
+</blockquote>
+<p>Una vez que el motor está instalado en ambos equipos, vamos por el
+tablero de control.</p>
+<ol style="list-style-type: decimal">
+<li><p>Ve al sitio de <strong>Posit</strong> (los creadores de RStudio):
+<code>posit.co/download/rstudio-desktop/</code></p></li>
+<li><p>Desplázate hacia abajo hasta encontrar el botón <strong>“Download
+RStudio Desktop for…”</strong> (la página suele detectar tu sistema
+automáticamente).</p></li>
+<li><p>Instálalo (en Mac arrastrándolo a Aplicaciones, en Windows con el
+instalador).</p></li>
+</ol>
+<div id="verificación" class="section level3" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> Verificación</h3>
+<p>Cuando termines, <strong>no abras el icono de “R”</strong>. Busca y
+abre únicamente el programa <strong>RStudio</strong>.</p>
+<p>Deberías ver una ventana dividida en paneles (generalmente 3 o 4).
+¿Pudiste abrir RStudio correctamente y ver algo parecido a esto?</p>
+<div class="float">
+<img src="img/rstudio.png" alt="Interfaz de RStudio" />
+<div class="figcaption">Interfaz de RStudio</div>
+</div>
+</div>
+</div>
+<div id="sintaxis-primeros-pasos-básicos" class="section level2"
+number="1.4">
+<h2><span class="header-section-number">1.4</span> Sintaxis: primeros
+pasos básicos</h2>
+<p>¡Excelente! Si ya tienes <strong>RStudio</strong> abierto, deberías
+ver una interfaz dividida en cuadrantes. Por ahora, lo más importante es
+que localices la <strong>Consola</strong> (Console), que suele ser el
+panel grande a la izquierda o abajo a la izquierda donde aparece un
+símbolo de mayor que <code>&gt;</code>. Ahí es donde R espera tus
+órdenes.</p>
+<p>Vamos a empezar a “hablar” con R para entender cómo maneja la
+información. En R, casi todo se basa en <strong>Variables</strong> y
+<strong>Funciones</strong>.</p>
+<div id="variables-y-asignación" class="section level3" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> Variables y
+Asignación 📥</h3>
+<p>Para <strong>guardar un dato y usarlo después</strong>, usamos el
+operador de asignación <code>&lt;-</code> (flecha hacia la izquierda u
+guión medio). Podemos asemejarlo a una caja de mudanzas con una etiqueta
+(<em>caja con 10 libros</em>, <code>caja = 10</code>).</p>
+<pre class="r"><code>mi_edad &lt;- 25
+# (Guardamos el número 25 en la variable &quot;mi_edad&quot;).
+
+nombre &lt;- &quot;Alex&quot;
+# (Guardamos texto, que siempre va entre comillas).
+
+cantidad = 127</code></pre>
+</div>
+<div id="vectores-las-listas-de-r" class="section level3"
+number="1.4.2">
+<h3><span class="header-section-number">1.4.2</span> Vectores: Las
+listas de R 🧱</h3>
+<p>R no solo maneja números sueltos; su especialidad son las
+<strong>listas de datos</strong> del mismo tipo, llamadas
+<strong>Vectores</strong>. Se crean con la función <code>c()</code> (de
+combinar).</p>
+<pre class="r"><code>precios &lt;- c(10, 15, 20, 25)
+
+nombres &lt;- c(&quot;Ana&quot;, &quot;Luis&quot;, &quot;Marta&quot;)</code></pre>
+<p>Para ver si el motor está bien aceitado, intentemos un ejercicio
+rápido en tu <strong>consola</strong>. Imagina que tienes las notas de
+tres exámenes: 8, 7.75 y 6.50.</p>
+<blockquote>
+<p><strong>¿Cómo escribirías el código para crear un vector (lista)
+llamado <code>mis_notas</code> que contenga esos tres números?</strong>
+(Pista: usa la función <code>c()</code>).</p>
+</blockquote>
+<p>¡Muy bien! Vamos a poner a prueba ese motor.</p>
+<p>En la <strong>Consola</strong>, escribe la siguiente línea y presiona
+<strong>Enter</strong>:</p>
+<pre class="r"><code>mis_notas = c(8, 7.75, 6.50)</code></pre>
+<p>Si lo hiciste bien, notarás que en el panel superior derecho (llamado
+<strong>Environment</strong>) ahora aparece <code>mis_notas</code>. R ya
+lo tiene en su memoria.</p>
+<div id="operaciones-vectorizadas" class="section level4"
+number="1.4.2.1">
+<h4><span class="header-section-number">1.4.2.1</span> Operaciones
+Vectorizadas ⚡</h4>
+<p>Lo mejor de R es que puedes hacer cálculos con toda la lista de datos
+a la vez. No necesitas sumar uno por uno. Por ejemplo, si el profesor
+decide regalar <strong>2 puntos</strong> a todos por buena conducta,
+solo tienes que escribir:</p>
+<pre class="r"><code>mis_notas + 2</code></pre>
+<pre><code>## [1] 10.00  9.75  8.50</code></pre>
+<p>R le sumará 2 a cada número del vector automáticamente.</p>
+<hr />
+</div>
+</div>
+<div id="tu-turno-el-desafío-del-promedio" class="section level3"
+number="1.4.3">
+<h3><span class="header-section-number">1.4.3</span> Tu turno: El
+Desafío del Promedio 📈</h3>
+<p>R tiene funciones integradas para casi todo. La función para calcular
+el <strong>promedio</strong> (o <strong>media aritmética</strong>) se
+llama <code>mean()</code>.</p>
+<p><strong>¿Cómo intentarías calcular el promedio de tu vector
+<code>mis_notas</code> usando esa función?</strong> (Pista: Pon el
+nombre de tu vector dentro de los paréntesis).</p>
+<pre class="r"><code>mean(mis_notas)</code></pre>
+<pre><code>## [1] 7.416667</code></pre>
+<p>¡Exacto! Esa es la forma de “llamar” a una función en R. Si ejecutas
+<code>mean(mis_notas)</code>, R te devolverá el promedio exacto de esos
+tres valores.</p>
+<p>Ahora que ya sabes cómo darle órdenes básicas a R, vamos a subir de
+nivel. Hasta ahora hemos escrito código directamente en la
+<strong>Consola</strong>, pero eso tiene un problema: cuando cierras el
+programa, el código desaparece.</p>
+<p>Para trabajar como un profesional, usamos <strong>R
+Markdown</strong>.</p>
+</div>
+</div>
+<div id="la-publicación-qué-es-r-markdown" class="section level2"
+number="1.5">
+<h2><span class="header-section-number">1.5</span> La publicación: ¿Qué
+es R Markdown?</h2>
+<p><strong>R Markdown</strong> es un formato de archivo que te permite
+mezclar <strong>tres elementos</strong> en un solo lugar:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Texto</strong> normal (para explicar lo que
+haces).</p></li>
+<li><p><strong>Código</strong> de R (para hacer los cálculos).</p></li>
+<li><p><strong>Resultados</strong> (gráficas y tablas que se generan
+automáticamente).</p></li>
+</ol>
+<p>Eto te permitirá presentar los resultados de tus análisis de forma
+más atractiva, e incluso, exportarla a muchos formatos de documentos
+como HTML, PDF, Word, …, o formatos de presentaciones como Power Point,
+Slidy, Beamer…</p>
+<p>Puedes encontrar más información en <a
+href="https://rmarkdown.rstudio.com/"
+class="uri">https://rmarkdown.rstudio.com/</a></p>
+<div id="cómo-crear-tu-primer-documento" class="section level3"
+number="1.5.1">
+<h3><span class="header-section-number">1.5.1</span> Cómo crear tu
+primer documento</h3>
+<ol style="list-style-type: decimal">
+<li><p>En RStudio, ve a <strong>File</strong> -&gt; <strong>New
+File</strong> -&gt; <strong>R Markdown…</strong></p></li>
+<li><p>Ponle un título (por ejemplo: “Mi Primer Análisis”) y haz clic en
+<strong>OK</strong>.</p></li>
+<li><p>Se abrirá un archivo con un texto de ejemplo. Verás unas cajas
+grises que empiezan con <code>```{r}</code>. Esas cajas se llaman
+<strong>Chunks</strong> (trozos de código).</p></li>
+</ol>
+<div id="tu-primera-misión-en-r-markdown" class="section level4"
+number="1.5.1.1">
+<h4><span class="header-section-number">1.5.1.1</span> Tu primera misión
+en R Markdown</h4>
+<p>Busca un botón en la parte superior que tiene un icono de una pequeña
+madeja de lana y dice <strong>Knit</strong> (tejer) 🧶. Al presionarlo,
+RStudio “tejerá” todo tu código y texto para crear un archivo
+<strong>HTML</strong> o <strong>PDF</strong> profesional.</p>
+<p><strong>¿Qué pasa cuando intentas presionar ese botón de “Knit” por
+primera vez?</strong> (A veces RStudio te pedirá instalar unos paquetes
+adicionales antes de continuar).</p>
+<p>Es muy común que la primera vez que presionas <strong>Knit</strong>
+🧶, RStudio te muestre un mensaje en la parte superior diciendo que
+faltan algunos “paquetes” (como <code>knitr</code>,
+<code>rmarkdown</code> o <code>tinytex</code>). Si te aparece un botón
+que dice <strong>Install</strong>, dale clic sin miedo; son las
+herramientas que R necesita para traducir tu código a un documento
+bonito.</p>
+<p>Una vez que el proceso termina, se abrirá una ventana nueva con tu
+documento terminado. Lo que acabas de hacer es “renderizar” el
+archivo.</p>
+</div>
+</div>
+<div id="la-estructura-de-un-r-markdown" class="section level3"
+number="1.5.2">
+<h3><span class="header-section-number">1.5.2</span> La estructura de un
+R Markdown 📝</h3>
+<p>Para que seas un experto en esto, debes distinguir las tres partes de
+un archivo <code>.Rmd</code>:</p>
+<ol style="list-style-type: decimal">
+<li><strong>El Encabezado (YAML):</strong> Está al principio entre
+líneas <code>---</code>. Aquí defines el título, el autor y si quieres
+un HTML, PDF o Word.</li>
+<li><strong>El Texto:</strong> Se escribe fuera de las cajas grises.
+Puedes usar formato simple:</li>
+</ol>
+<ul>
+<li><code>**negrita**</code></li>
+<li><code># Título</code></li>
+<li><code>## Subtítulo</code></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Los Chunks (Código):</strong> Son las cajas grises que
+empiezan con ```<code>{r}</code>. Todo lo que escribas ahí dentro será
+ejecutado por el motor de R.</li>
+</ol>
+<hr />
+</div>
+<div id="vamos-a-personalizarlo" class="section level3" number="1.5.3">
+<h3><span class="header-section-number">1.5.3</span> Vamos a
+personalizarlo 🛠️</h3>
+<p>Busca en tu archivo de ejemplo una de esas cajas grises (chunks).
+Borra lo que tiene adentro y escribe el código que usamos antes:</p>
+<pre class="r"><code>mis_notas &lt;- c(85, 90, 78)
+mean(mis_notas)</code></pre>
+<pre><code>## [1] 84.33333</code></pre>
+<p>Ahora, vuelve a presionar <strong>Knit</strong>. Verás que en tu
+documento final aparece tanto el código como el resultado del promedio
+justo debajo.</p>
+<p><strong>¿Qué te parece el resultado? ¿Te gustaría intentar crear una
+gráfica sencilla dentro de ese mismo documento para ver cómo se incluye
+automáticamente?</strong></p>
+</div>
+</div>
+<div id="visualización-de-los-datos" class="section level2"
+number="1.6">
+<h2><span class="header-section-number">1.6</span> Visualización de los
+datos</h2>
+<p>¡Excelente! Ya tienes tu primer documento “vivo” donde el código y la
+explicación conviven. 📝✨</p>
+<p>Para que tu reporte pase de ser una lista de números a un análisis
+real, vamos a añadir una <strong>gráfica</strong>. R es famoso por su
+capacidad de visualización.</p>
+<div id="gráficas-instantáneas" class="section level3" number="1.6.1">
+<h3><span class="header-section-number">1.6.1</span> Gráficas
+instantáneas 📈</h3>
+<p>En R, existe una función básica llamada <code>plot()</code>. Si le
+pasas un vector de números, R entenderá que quieres ver cómo se
+distribuyen.</p>
+<p>Intenta añadir esto en un nuevo <strong>chunk</strong> (una nueva
+caja gris de código) dentro de tu archivo R Markdown:</p>
+<pre class="r"><code>plot(mis_notas,       
+     type = &quot;b&quot;,
+     main = &quot;Evolución de mis Calificaciones&quot;,
+     xlab = &quot;Número de Examen&quot;,
+     ylab = &quot;Nota&quot;)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" alt="" width="672" /></p>
+<div id="entendiendo-los-argumentos" class="section level4"
+number="1.6.1.1">
+<h4><span class="header-section-number">1.6.1.1</span> Entendiendo los
+argumentos</h4>
+<p>Fíjate que dentro de los paréntesis no solo pusimos los datos, sino
+también “instrucciones” extra:</p>
+<ul>
+<li><p><code>type = "b"</code>: Crea una gráfica de puntos y líneas
+(<strong>b</strong>oth).</p></li>
+<li><p><code>main</code>: El título principal.</p></li>
+<li><p><code>xlab</code> / <code>ylab</code>: Etiquetas para los ejes X
+e Y.</p></li>
+</ul>
+</div>
+</div>
+<div id="el-toque-final-personalización" class="section level3"
+number="1.6.2">
+<h3><span class="header-section-number">1.6.2</span> El toque final:
+Personalización</h3>
+<p><strong>R Markdown</strong> te permite decidir <strong>cómo</strong>
+se ve ese código en el informe final usando opciones dentro de las
+llaves del chunk <code>{r}</code>.</p>
+<p>Por ejemplo, si quieres que la gráfica aparezca en tu PDF/HTML, pero
+no quieres que se vea el código “feo” que la generó, puedes usar
+<code>echo = FALSE</code>.</p>
+<blockquote>
+<p><strong>¿Te gustaría que probemos a cambiar el color de la gráfica o
+prefieres que veamos cómo organizar mejor el texto con títulos y
+subtítulos en el documento?</strong></p>
+</blockquote>
+<p>¡Excelente! Vamos a darle un poco de color y estructura a ese
+documento. 🎨</p>
+<p>Para cambiar el color de la gráfica, usamos el argumento
+<code>col</code>. R reconoce nombres de colores básicos en inglés (como
+<code>"blue"</code>, <code>"red"</code>, <code>"darkgreen"</code>,
+etc.).</p>
+<div id="personalizando-la-gráfica" class="section level4"
+number="1.6.2.1">
+<h4><span class="header-section-number">1.6.2.1</span> Personalizando la
+gráfica 🖌️</h4>
+<p>Modifica el código de tu chunk así:</p>
+<pre class="r"><code>plot(mis_notas, 
+     type = &quot;b&quot;, 
+     col = &quot;blue&quot;,          # Cambia el color a azul
+     pch = 19,              # Cambia el estilo del punto a uno sólido
+     main = &quot;Evolución de mis Calificaciones&quot;, 
+     xlab = &quot;Número de Examen&quot;, 
+     ylab = &quot;Nota&quot;)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" alt="" width="672" /></p>
+<hr />
+</div>
+<div id="estructurando-el-texto-con-markdown" class="section level4"
+number="1.6.2.2">
+<h4><span class="header-section-number">1.6.2.2</span> Estructurando el
+texto con Markdown 📝</h4>
+<p>Fuera de las cajas grises, puedes organizar tu explicación usando
+niveles de títulos. Esto es muy importante para que el documento final
+tenga un índice y sea fácil de leer. Pruébalo escribiendo esto en el
+área de texto:</p>
+<pre class="markdown"><code># Reporte del Semestre
+Este es mi primer análisis automático usando **R Markdown**.
+
+## Análisis de Exámenes
+A continuación, se muestra el promedio y la tendencia de mis notas.</code></pre>
+<p>Al presionar <strong>Knit</strong> 🧶, verás que el texto se
+convierte en títulos grandes y pequeños, y la gráfica aparecerá con el
+nuevo color.</p>
+<hr />
+</div>
+</div>
+<div id="qué-sigue-en-nuestro-aprendizaje" class="section level3"
+number="1.6.3">
+<h3><span class="header-section-number">1.6.3</span> ¿Qué sigue en
+nuestro aprendizaje? 🚀</h3>
+<p>Ahora que ya sabes instalar, escribir código básico y generar un
+reporte, podemos profundizar en lo que más te interese:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Manipulación de Datos:</strong> Aprender a usar
+<code>Data Frames</code> (tablas como las de Excel) y filtrarlas.</li>
+<li><strong>Gráficas Avanzadas:</strong> Introducción a
+<code>ggplot2</code>, la librería estándar para hacer gráficos de nivel
+profesional.</li>
+<li><strong>Configuración de RMarkdown:</strong> Aprender a ocultar el
+código, cambiar el formato a PDF o añadir tablas automáticas.</li>
+</ol>
+<p>¿Cuál de estos caminos te llama más la atención para continuar?</p>
+<hr />
+</div>
+</div>
+</div>
+<div id="y-ahora-qué" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> ¿Y ahora qué?</h1>
+<p>Hay muchos recursos en Internet para seguir avanzando en el estudio
+de R. pero entre ellas hay uno destacado que es seguir el curso <a
+href="https://swirlstats.com/">Swirl</a>. Este curso está diseñado para
+seguirlo dentro de <strong>RStudio</strong>.</p>
+<div id="curso-swirl" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Curso Swirl</h2>
+<p>Este curso inicialmente se diseñó en inglés, pero actualmente se
+encuentra traducido al español por José Rosa (<a
+href="https://github.com/josersosa/Programando_en_R">swirl_español</a>).
+Para seguirlo en RStudio necesitamos instalar en él un par de cosas.</p>
+<div id="crear-carpeta" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Crear carpeta</h3>
+<ol style="list-style-type: decimal">
+<li><p>Instalación del curso Swirl en español.</p></li>
+<li><p>Abre el programa RStudio</p></li>
+<li><p>Crea una carpeta en en la que instalar el curso.</p>
+<div class="float">
+<img src="img/Captura%20de%20pantalla%202026-02-03%20202059.png"
+width="652" alt="Crear carpeta" />
+<div class="figcaption"><em>Crear carpeta</em></div>
+</div></li>
+<li><p>¡Importante! Asegúrate que lo que vas a escribir en la
+<strong>Consola</strong> de RStudio se haga dentro de esta carpeta.</p>
+<ul>
+<li><p>Para ello, haz clic en el icono de engraje y selecciona
+<code>Set as working directory</code>.</p></li>
+<li><p>Asegúrate de que estás trabajando en esta carpeta yendo a la
+<strong>Consola</strong> de RStudio y escribiendo <code>getwd()</code> y
+pulsando ENTER.</p>
+<div class="float">
+<img src="img/Captura%20de%20pantalla%202026-02-03%20203609.png"
+width="411" alt="getwd()" />
+<div class="figcaption">getwd()</div>
+</div></li>
+</ul></li>
+</ol>
+</div>
+<div id="instalar-curso" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Instalar curso</h3>
+<ol style="list-style-type: decimal">
+<li><p>Instala el paquete del curso dede la misma
+<strong>Consola</strong> de RStudio, escribiendo:
+<code>install.packages("swirl")</code></p></li>
+<li><p>A continuación: <code>library(swirl)</code></p></li>
+<li><p>Por último:
+<code>install_course_github('josersosa','Programando_en_R')</code></p></li>
+</ol>
+</div>
+<div id="inicializar-el-curso" class="section level3" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Inicializar el
+curso</h3>
+<p>Cada vez que quieras seguir el curso debes escribir esto:</p>
+<ol style="list-style-type: decimal">
+<li>Escribe: <code>swirl()</code></li>
+</ol>
+<p>Al comienzo nos solicita un <strong>nombre</strong> para
+identificarnos y almacenar los avances que hagamos en el caso que
+deseemos pausar el curso. Si introducimos n todas las sesiones el mismo
+nombre, el curso se abrirá donde lo dejamos anteriormente.</p>
+<p>Las primeras informaciones estan en ingles porque provienen del
+paquete swirl. Luego seleccionamos el curso <strong><em>Programando en
+R</em></strong> y a partir de ahí todo lo esencial estará traducido. Las
+últimas versiones de swirl incluyen una función para seleccionar el
+idioma, que pdemos utilizar para que los mensajes del sistema estén en
+español: <code>select_language(language = "spanish").</code></p>
+<p>El curso está nombrado como <strong>1. Programando en R</strong> que
+tiene <strong>15 capítulos. Al principio cuesta un poco recorrer los
+menús.</strong></p>
+<div class="float">
+<img src="img/Captura%20de%20pantalla%202026-02-03%20205322.png"
+alt="Los 15 capítulos del curso" />
+<div class="figcaption"><em>Los 15 capítulos del curso</em></div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
