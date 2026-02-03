@@ -4,7 +4,7 @@ author: "Alberto R. Durán Pérez"
 date: "`r Sys.Date()`"
 output:
   html_document: 
-    theme: yeti
+    theme: cerulean
     toc: true
     toc_float: true
     number_sections: true
