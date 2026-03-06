@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2026-03-06" />
+
+<title>Introducción a R</title>
+
+<script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">R para economistas</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Inicio</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Introducción a R</h1>
+<h4 class="date">2026-03-06</h4>
+
+</div>
+
+
+<div id="instalación" class="section level1">
+<h1>Instalación</h1>
+<div id="instalación-de-r" class="section level2">
+<h2>Instalación de R</h2>
+<p>Ve al sitio web oficial de R (<a href="https://cran.r-project.org/"
+class="uri">https://cran.r-project.org/</a>) y descarga la versión
+adecuada para tu sistema operativo (Windows, macOS o Linux). Sigue las
+instrucciones de instalación.</p>
+</div>
+<div id="instalación-de-rstudio-opcional-pero-recomendado"
+class="section level2">
+<h2>Instalación de RStudio (opcional pero recomendado)</h2>
+<p>RStudio es un entorno de desarrollo integrado (IDE) popular para R
+que facilita la escritura, ejecución y visualización de código R. Puedes
+descargar RStudio desde <a
+href="https://www.rstudio.com/products/rstudio/download/"
+class="uri">https://www.rstudio.com/products/rstudio/download/</a>.</p>
+<blockquote>
+<p>También se puede ejecutar R/RStudio <strong>en la nube</strong> sin
+necesidad de instalar nada en el ordenador a través de plataformas como
+<a href="https://posit.cloud/">Posit Cloud</a>.</p>
+</blockquote>
+<hr />
+</div>
+</div>
+<div id="introducción-a-r" class="section level1">
+<h1>Introducción a R</h1>
+<p>R es un lenguaje de programación y un entorno de software utilizado
+principalmente para el <strong>análisis estadístico</strong> y la
+<strong>visualización de datos</strong>. Sin embargo, también se puede
+utilizar como una calculadora avanzada. En esta primera parte de la
+Práctica 2, se mostrarán los conceptos básicos para usar R como una
+calculadora.</p>
+<div id="primeros-pasos" class="section level2">
+<h2>Primeros pasos</h2>
+<p>Abre R o RStudio. Deberías ver una consola donde puedes ingresar
+comandos de R.</p>
+</div>
+<div id="una-primera-sesión" class="section level2">
+<h2>Una primera sesión</h2>
+<pre class="r"><code>2 + 2
+
+sqrt(16)
+
+1 + 2 * 4
+
+(1 + 2) * 4
+
+3 + 5; 3 + 6  # las órdenes se separan por ;
+
+pi  # R conoce pi</code></pre>
+</div>
+<div id="ventana-de-script" class="section level2">
+<h2>Ventana de Script</h2>
+<p>Los ficheros script se pueden guardar utilizando <strong>Archivo →
+Guardar como…</strong> y eligiendo a continuación la ubicación que
+interesa en el disco duro del ordenador.</p>
+<p>Por defecto R utiliza una carpeta de trabajo donde guardará la
+información.</p>
+<pre class="r"><code>getwd()  # devuelve la carpeta de trabajo
+
+# Cambiar la carpeta de trabajo
+setwd(&quot;/ruta/a/tu/carpeta&quot;)
+
+# Ejemplo en Windows
+setwd(&quot;c:/&quot;)</code></pre>
+<hr />
+</div>
+</div>
+<div id="funciones-y-operadores-en-r" class="section level1">
+<h1>Funciones y Operadores en R</h1>
+<div id="funciones-principales" class="section level2">
+<h2>Funciones principales</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Función</th>
+<th>Código en R</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Raíz cuadrada de x</td>
+<td><code>sqrt(x)</code></td>
+</tr>
+<tr class="even">
+<td>Exponencial de x</td>
+<td><code>exp(x)</code></td>
+</tr>
+<tr class="odd">
+<td>Logaritmo neperiano</td>
+<td><code>log(x)</code></td>
+</tr>
+<tr class="even">
+<td>Nº de elementos de un vector</td>
+<td><code>length(x)</code></td>
+</tr>
+<tr class="odd">
+<td>Suma los elementos del vector</td>
+<td><code>sum(x)</code></td>
+</tr>
+<tr class="even">
+<td>Seno de x</td>
+<td><code>sin(x)</code></td>
+</tr>
+<tr class="odd">
+<td>Coseno de x</td>
+<td><code>cos(x)</code></td>
+</tr>
+<tr class="even">
+<td>Tangente de x</td>
+<td><code>tan(x)</code></td>
+</tr>
+<tr class="odd">
+<td>Media</td>
+<td><code>mean(x)</code></td>
+</tr>
+<tr class="even">
+<td>Desviación típica</td>
+<td><code>sd(x)</code></td>
+</tr>
+<tr class="odd">
+<td>Varianza</td>
+<td><code>var(x)</code></td>
+</tr>
+<tr class="even">
+<td>Mediana</td>
+<td><code>median(x)</code></td>
+</tr>
+<tr class="odd">
+<td>Quantiles</td>
+<td><code>quantile(x, p)</code></td>
+</tr>
+<tr class="even">
+<td>Máximo y Mínimo</td>
+<td><code>range(x)</code></td>
+</tr>
+<tr class="odd">
+<td>Ordenación</td>
+<td><code>sort(x)</code></td>
+</tr>
+<tr class="even">
+<td>Resumen estadístico</td>
+<td><code>summary(x)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="operadores-en-r" class="section level2">
+<h2>Operadores en R</h2>
+<div id="aritméticos" class="section level3">
+<h3>Aritméticos</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Operador</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>+</code></td>
+<td>Suma</td>
+</tr>
+<tr class="even">
+<td><code>-</code></td>
+<td>Resta</td>
+</tr>
+<tr class="odd">
+<td><code>*</code></td>
+<td>Multiplicación</td>
+</tr>
+<tr class="even">
+<td><code>/</code></td>
+<td>División</td>
+</tr>
+<tr class="odd">
+<td><code>^</code></td>
+<td>Potencia</td>
+</tr>
+<tr class="even">
+<td><code>%/%</code></td>
+<td>División entera</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="comparativos" class="section level3">
+<h3>Comparativos</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Operador</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>==</code></td>
+<td>Igualdad</td>
+</tr>
+<tr class="even">
+<td><code>!=</code></td>
+<td>Diferente de</td>
+</tr>
+<tr class="odd">
+<td><code>&lt;</code></td>
+<td>Menor que</td>
+</tr>
+<tr class="even">
+<td><code>&gt;</code></td>
+<td>Mayor que</td>
+</tr>
+<tr class="odd">
+<td><code>&lt;=</code></td>
+<td>Menor o igual</td>
+</tr>
+<tr class="even">
+<td><code>&gt;=</code></td>
+<td>Mayor o igual</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="lógicos" class="section level3">
+<h3>Lógicos</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Operador</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>&amp;</code></td>
+<td>Y lógico</td>
+</tr>
+<tr class="even">
+<td><code>\|</code></td>
+<td>O lógico</td>
+</tr>
+<tr class="odd">
+<td><code>!</code></td>
+<td>No lógico</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="ejemplos-con-operadores" class="section level2">
+<h2>Ejemplos con operadores</h2>
+<pre class="r"><code>datos &lt;- c(1, 5, 10, 3)
+
+min(datos)
+max(datos)
+which.min(datos)
+which.max(datos)
+range(datos)
+mean(datos)
+median(datos)
+sum(datos)
+
+2 * datos
+
+datos == 5
+datos == 5 &amp; datos == 1
+datos == 5 | datos == 1
+
+3 &lt; 2
+2 &lt; 3 &amp; 4 &lt; 1
+2 &lt; 3 | 4 &lt; 1</code></pre>
+</div>
+<div id="asignación-de-variables" class="section level2">
+<h2>Asignación de variables</h2>
+<pre class="r"><code>resultado_suma           &lt;- 5 + 3
+resultado_resta          &lt;- 10 - 2
+resultado_multiplicacion &lt;- 4 * 6
+resultado_division       &lt;- 20 / 5
+resultado_potenciacion   &lt;- 2^3
+
+# Imprimir los resultados
+print(resultado_suma)</code></pre>
+</div>
+<div id="tipos-de-datos-básicos" class="section level2">
+<h2>Tipos de datos básicos</h2>
+<pre class="r"><code>x1 &lt;- TRUE                              # logical
+x2 &lt;- 3                                 # integer
+x3 &lt;- 3.4                              # numeric
+x5 &lt;- &quot;Esto es una cadena de caracteres&quot;  # string
+
+ls.str()  # detalles de los objetos en memoria
+
+# Conversiones de tipo
+as.integer(x1)
+as.integer(x3)
+
+# Comprobaciones de tipo
+is.integer(x1)
+is.logical(x1)</code></pre>
+<hr />
+</div>
+</div>
+<div id="paquetes" class="section level1">
+<h1>Paquetes</h1>
+<div id="cómo-organiza-r-la-información" class="section level2">
+<h2>¿Cómo organiza R la información?</h2>
+<p>Al iniciar el programa R se cargan por defecto una serie de librerías
+básicas. El <strong>paquete base</strong> contiene las bases de R,
+incluyendo funciones como <code>sum</code>, <code>max</code>, así como
+los principales tipos de objetos: vector, matriz, data.frame.</p>
+<p>A veces es necesario cargar otras librerías específicas. Esto se hace
+a través de los llamados <strong>paquetes (packages)</strong>.</p>
+</div>
+<div id="instalación-y-carga-de-paquetes" class="section level2">
+<h2>Instalación y carga de paquetes</h2>
+<pre class="r"><code>install.packages(&quot;nombre_del_paquete&quot;)
+library(nombre_del_paquete)
+
+library()  # lista de los paquetes disponibles</code></pre>
+</div>
+<div id="ejemplo-paquete-clustcurv" class="section level2">
+<h2>Ejemplo: paquete <code>clustcurv</code></h2>
+<pre class="r"><code># install.packages(&quot;clustcurv&quot;)
+library(clustcurv)            # carga la librería
+library(help = clustcurv)     # documentación de la librería</code></pre>
+</div>
+<div id="ayuda-en-r" class="section level2">
+<h2>Ayuda en R</h2>
+<pre class="r"><code>?max
+help(max)    # equivalente a ?max
+help(mean)   # ayuda de la función mean</code></pre>
+<hr />
+</div>
+</div>
+<div id="vectores-y-matrices" class="section level1">
+<h1>Vectores y Matrices</h1>
+<div id="vectores" class="section level2">
+<h2>Vectores</h2>
+<p>Los vectores son una estructura de datos fundamental en R. Se crean
+utilizando la función <code>c()</code>.</p>
+<pre class="r"><code>x &lt;- c(4.1 , 5, 6.35)
+x &lt;- c(7, x, 2)
+x # Imprime el vector
+mode(x) # Devuelve el tipo de datos del vector
+length(x) # Devuelve el número de elementos del vector
+
+y &lt;- c(&quot;Hola&quot;, &quot;Adios&quot;)
+y
+mode(y)
+
+y &lt;- c(y, x, TRUE)
+y
+mode(y)
+length(y)</code></pre>
+<div id="acceder-a-elementos-de-un-vector" class="section level3">
+<h3>Acceder a elementos de un vector</h3>
+<pre class="r"><code>mi_vector &lt;- c(1, 2, 3, 4, 5)
+elemento &lt;- mi_vector[2]
+elemento</code></pre>
+</div>
+</div>
+<div id="generación-de-secuencias" class="section level2">
+<h2>Generación de secuencias</h2>
+<pre class="r"><code>(x &lt;- 1:5) 
+# El operador : genera una secuencia de enteros consecutivos entre dos valores. Los paréntesis exteriores hacen que el resultado se imprima automáticamente.
+
+seq(1, 5, 0.5)
+
+seq(from = 1, to = 5, length = 9)
+
+sample(1:6, size = 10, replace = TRUE)  # secuencias aleatorias</code></pre>
+</div>
+<div id="matrices" class="section level2">
+<h2>Matrices</h2>
+<div id="crear-y-acceder-a-elementos" class="section level3">
+<h3>Crear y acceder a elementos</h3>
+<pre class="r"><code># Crear una matriz 3x3
+mi_matriz &lt;- matrix(1:9, nrow = 3, ncol = 3)
+print(mi_matriz)
+
+# Acceder al elemento en la segunda fila y tercera columna
+elemento &lt;- mi_matriz[2, 3]
+print(elemento)
+
+# Crear una matriz 2x4
+matrix(1:8, nr = 2, nc = 4)
+matrix(1:8, 2, 4)               # por columnas (como Fortran)
+matrix(1:8, 2, 4, byrow = TRUE) # por filas
+
+x &lt;- matrix(1:6, 2, 3)
+x[2, ]    # segunda fila
+x[, 2]    # segunda columna
+x[1, 1:2] # primera fila, columnas 1ª y 2ª</code></pre>
+</div>
+<div id="arrays" class="section level3">
+<h3>Arrays</h3>
+<pre class="r"><code>x &lt;- array(1:24, dim = c(4, 3, 2))
+x
+
+x1 &lt;- x[, , 1]; x1
+x2 &lt;- x[, 2, 1]; x2
+
+cbind(x, c(50, 55))
+rbind(x, c(50, 55, 60))</code></pre>
+</div>
+</div>
+<div id="operaciones-con-matrices" class="section level2">
+<h2>Operaciones con matrices</h2>
+<pre class="r"><code># Crear dos matrices
+matriz_a &lt;- matrix(1:4, nrow = 2)
+matriz_b &lt;- matrix(5:8, nrow = 2)
+
+# Sumar las matrices
+resultado_suma &lt;- matriz_a + matriz_b
+print(resultado_suma)
+
+# Multiplicar las matrices (producto matricial)
+resultado_multiplicacion &lt;- matriz_a %*% matriz_b
+print(resultado_multiplicacion)
+
+# Transpuesta
+mi_matriz &lt;- matrix(1:6, nrow = 2)
+matriz_transpuesta &lt;- t(mi_matriz)
+print(matriz_transpuesta)</code></pre>
+</div>
+<div id="funciones-para-matrices" class="section level2">
+<h2>Funciones para matrices</h2>
+<table>
+<colgroup>
+<col width="39%" />
+<col width="60%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Función</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>dim()</code>, <code>nrow()</code>, <code>ncol()</code></td>
+<td>Número de filas y/o columnas</td>
+</tr>
+<tr class="even">
+<td><code>diag()</code></td>
+<td>Diagonal de una matriz</td>
+</tr>
+<tr class="odd">
+<td><code>*</code></td>
+<td>Multiplicación elemento a elemento</td>
+</tr>
+<tr class="even">
+<td><code>%*%</code></td>
+<td>Multiplicación matricial</td>
+</tr>
+<tr class="odd">
+<td><code>cbind()</code>, <code>rbind()</code></td>
+<td>Encadenamiento de columnas o filas</td>
+</tr>
+<tr class="even">
+<td><code>t()</code></td>
+<td>Transpuesta de una matriz</td>
+</tr>
+<tr class="odd">
+<td><code>solve(A)</code></td>
+<td>Inversa de la matriz A</td>
+</tr>
+<tr class="even">
+<td><code>solve(A, b)</code></td>
+<td>Solución del sistema de ecuaciones</td>
+</tr>
+<tr class="odd">
+<td><code>qr()</code></td>
+<td>Descomposición QR</td>
+</tr>
+<tr class="even">
+<td><code>eigen()</code></td>
+<td>Autovalores y autovectores</td>
+</tr>
+<tr class="odd">
+<td><code>svd()</code></td>
+<td>Descomposición en valores singulares (SVD)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="nombres-en-matrices" class="section level2">
+<h2>Nombres en matrices</h2>
+<pre class="r"><code>temperatura &lt;- c(20.37, 18.56, 18.4, 21.96, 29.53, 28.16,
+                 36.38, 36.62, 40.03, 27.59, 22.15, 19.85)
+humedad     &lt;- c(88, 86, 81, 79, 80, 78, 71, 69, 78, 82, 85, 83)
+lluvia      &lt;- c(72, 33.9, 37.5, 36.6, 31, 16.6, 1.2, 6.8,
+                 36.8, 30.8, 38.5, 22.7)
+
+datos &lt;- cbind(temperatura, humedad, lluvia)
+
+rownames(datos) &lt;- c(&quot;enero&quot;, &quot;febrero&quot;, &quot;marzo&quot;, &quot;abril&quot;, &quot;mayo&quot;,
+                     &quot;junio&quot;, &quot;julio&quot;, &quot;agosto&quot;, &quot;septiembre&quot;,
+                     &quot;octubre&quot;, &quot;noviembre&quot;, &quot;diciembre&quot;)
+colnames(datos)
+datos
+
+# Dimensiones
+dim(datos)
+nrow(datos)
+ncol(datos)</code></pre>
+<hr />
+</div>
+</div>
+<div id="data-frames" class="section level1">
+<h1>Data Frames</h1>
+<p>Los <strong>data frames</strong> son el objeto más habitual para el
+almacenamiento de datos. Cada fila corresponde a un individuo y cada
+columna a una variable. Se crean con la función
+<code>data.frame()</code>, permitiendo que las columnas sean de distinto
+tipo.</p>
+<pre class="r"><code>temperatura &lt;- c(20.37, 18.56, 18.4, 21.96, 29.53, 28.16,
+                 36.38, 36.62, 40.03, 27.59, 22.15, 19.85)
+humedad     &lt;- c(88, 86, 81, 79, 80, 78, 71, 69, 78, 82, 85, 83)
+lluvia      &lt;- c(72, 33.9, 37.5, 36.6, 31, 16.6, 1.2, 6.8,
+                 36.8, 30.8, 38.5, 22.7)
+mes         &lt;- c(&quot;enero&quot;, &quot;febrero&quot;, &quot;marzo&quot;, &quot;abril&quot;, &quot;mayo&quot;, &quot;junio&quot;,
+                 &quot;julio&quot;, &quot;agosto&quot;, &quot;septiembre&quot;, &quot;octubre&quot;,
+                 &quot;noviembre&quot;, &quot;diciembre&quot;)
+
+datos &lt;- data.frame(mes, temperatura, humedad, lluvia)
+
+# Acceder a una columna
+datos$temperatura
+
+# Resumen estadístico
+summary(datos)</code></pre>
+<div id="acceso-directo-con-attach" class="section level2">
+<h2>Acceso directo con <code>attach</code></h2>
+<pre class="r"><code>attach(datos)   # permite usar variables directamente por su nombre
+detach(datos)   # libera las variables</code></pre>
+</div>
+<div id="datos-de-ejemplo-en-r" class="section level2">
+<h2>Datos de ejemplo en R</h2>
+<pre class="r"><code>data()        # listado de conjuntos de datos disponibles
+
+data(cars)
+head(cars)</code></pre>
+<hr />
+</div>
+</div>
+<div id="lectura-y-escritura-de-archivos" class="section level1">
+<h1>Lectura y Escritura de Archivos</h1>
+<div id="leer-archivos-de-texto" class="section level2">
+<h2>Leer archivos de texto</h2>
+<pre class="r"><code>datos &lt;- read.table(file = &quot;empleados.txt&quot;, header = TRUE)
+head(datos)</code></pre>
+<p>Los argumentos más utilizados de <code>read.table</code>:</p>
+<ul>
+<li><strong><code>header</code></strong>: indica si el fichero tiene
+cabecera (<code>TRUE</code>/<code>FALSE</code>).</li>
+<li><strong><code>sep</code></strong>: carácter separador de columnas
+(por defecto espacio en blanco).</li>
+<li><strong><code>dec</code></strong>: carácter decimal (por defecto
+<code>"."</code>).</li>
+</ul>
+<p>Otras funciones disponibles:</p>
+<pre class="r"><code>read.delim(file,  header = TRUE, sep = &quot;\t&quot;, dec = &quot;.&quot;)
+read.delim2(file, header = TRUE, sep = &quot;\t&quot;, dec = &quot;,&quot;)</code></pre>
+</div>
+<div id="leer-archivos-excel-csv" class="section level2">
+<h2>Leer archivos Excel / CSV</h2>
+<p>Se recomienda exportar desde Excel a CSV antes de leer en R.</p>
+<pre class="r"><code>datos &lt;- read.table(&quot;Vigo2017.csv&quot;, header = TRUE, sep = &quot;;&quot;, dec = &quot;,&quot;)
+head(datos)
+summary(datos)</code></pre>
+<div id="tratamiento-de-valores-perdidos" class="section level3">
+<h3>Tratamiento de valores perdidos</h3>
+<p>En algunos ficheros los valores ausentes están codificados (p. ej.,
+<code>-9999</code>). Se puede indicar con el argumento
+<code>na.strings</code>:</p>
+<pre class="r"><code>datos &lt;- read.csv2(&quot;Vigo2017.csv&quot;, na.strings = &quot;-9999&quot;)
+head(datos)</code></pre>
+</div>
+</div>
+<div id="exportar-datos" class="section level2">
+<h2>Exportar datos</h2>
+<pre class="r"><code>tipo     &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
+longitud &lt;- c(120.34, 99.45, 115.67)
+datos    &lt;- data.frame(tipo, longitud)
+
+write.table(datos, file = &quot;datosPractica2.txt&quot;)
+write.csv2(datos,  file = &quot;datosPractica2.csv&quot;)</code></pre>
+<hr />
+</div>
+</div>
+<div id="funciones-en-r" class="section level1">
+<h1>Funciones en R</h1>
+<p>Crear funciones propias en R es muy sencillo:</p>
+<pre class="r"><code># Definir una función: suma de dos números
+suma_dos_numeros &lt;- function(a, b) {
+  resultado &lt;- a + b
+  return(resultado)
+}
+
+# Llamar a la función
+(resultado_suma &lt;- suma_dos_numeros(5, 3))</code></pre>
+<hr />
+</div>
+<div id="generación-de-números-aleatorios" class="section level1">
+<h1>Generación de Números Aleatorios</h1>
+<pre class="r"><code># Números enteros aleatorios entre 1 y 100
+numeros_enteros &lt;- sample(1:100, 5, replace = TRUE)
+numeros_enteros
+
+# Distribución uniforme [0, 1]
+numeros_aleatorios &lt;- runif(10)
+numeros_aleatorios
+
+# Distribución Normal (media=0, sd=1)
+datos_normal &lt;- rnorm(100, mean = 0, sd = 1)
+
+# Distribución Exponencial (tasa=0.1)
+datos_exp &lt;- rexp(50, rate = 0.1)
+
+# Distribución de Poisson (lambda=2)
+datos_poisson &lt;- rpois(30, lambda = 2)
+
+# Distribución Binomial (n=10 ensayos, p=0.3)
+datos_binom &lt;- rbinom(20, size = 10, prob = 0.3)</code></pre>
+<hr />
+</div>
+<div id="ejercicios" class="section level1">
+<h1>Ejercicios</h1>
+<div id="ejercicio-1-simulación-de-un-dado" class="section level2">
+<h2>Ejercicio 1: Simulación de un dado</h2>
+<p>Crea una función que simule el comportamiento de un dado.</p>
+<pre class="r"><code>dado &lt;- function(n = 30) {
+  resultados   &lt;- seq(1, 6)
+  lanzamientos &lt;- sample(resultados, n, rep = TRUE)
+  frecuencias  &lt;- table(lanzamientos) / n
+
+  barplot(frecuencias, main = paste(&quot;n =&quot;, n))
+  abline(h = 1/6, col = &quot;red&quot;, lwd = 2)
+
+  return(round(frecuencias, 3))
+}
+
+# Lanzar el dado 30 veces
+dado(30)
+
+# Lanzar el dado 10000 veces — ¿qué ocurre?
+dado(10000)</code></pre>
+<blockquote>
+<p><strong>Reflexión:</strong> ¿Qué observas al aumentar el número de
+lanzamientos? ¿Se cumple la <strong>Ley de los Grandes
+Números</strong>?</p>
+</blockquote>
+</div>
+<div id="ejercicio-2-simulación-de-una-moneda" class="section level2">
+<h2>Ejercicio 2: Simulación de una moneda</h2>
+<p>Crea una función que simule el comportamiento de una moneda (cara y
+cruz).</p>
+<ul>
+<li>Simula lanzar la moneda <strong>10 veces</strong>.</li>
+<li>Ahora lánzala <strong>100 veces</strong>. ¿Qué ocurre?</li>
+</ul>
+<pre class="r"><code># Escribe aquí tu función...</code></pre>
+<p>```</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

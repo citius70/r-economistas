@@ -1,10 +1,14 @@
 name: "my-website"
+output_dir: "."
+exclude: ["intro_R.Rmd"]    # ← línea añadida
 navbar:
   title: "R para economistas"
   left:
     - text: "Inicio"
       href: index.html
+    - text: "Introducción a R"
+      href: introduccion_R.html
 output:
   html_document:
     highlight: textmate
-    css: styles.css
+    theme: flatly

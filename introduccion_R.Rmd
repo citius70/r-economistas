@@ -1,0 +1,534 @@
+---
+title: "Introducción a R"
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
+
+# Instalación
+
+## Instalación de R
+
+Ve al sitio web oficial de R (<https://cran.r-project.org/>) y descarga la versión adecuada para tu sistema operativo (Windows, macOS o Linux). Sigue las instrucciones de instalación.
+
+## Instalación de RStudio (opcional pero recomendado)
+
+RStudio es un entorno de desarrollo integrado (IDE) popular para R que facilita la escritura, ejecución y visualización de código R. Puedes descargar RStudio desde <https://www.rstudio.com/products/rstudio/download/>.
+
+> También se puede ejecutar R/RStudio **en la nube** sin necesidad de instalar nada en el ordenador a través de plataformas como [Posit Cloud](https://posit.cloud/).
+
+------------------------------------------------------------------------
+
+# Introducción a R
+
+R es un lenguaje de programación y un entorno de software utilizado principalmente para el **análisis estadístico** y la **visualización de datos**. Sin embargo, también se puede utilizar como una calculadora avanzada. En esta primera parte de la Práctica 2, se mostrarán los conceptos básicos para usar R como una calculadora.
+
+## Primeros pasos
+
+Abre R o RStudio. Deberías ver una consola donde puedes ingresar comandos de R.
+
+## Una primera sesión
+
+```{r primera-sesion, echo=TRUE}
+2 + 2
+
+sqrt(16)
+
+1 + 2 * 4
+
+(1 + 2) * 4
+
+3 + 5; 3 + 6  # las órdenes se separan por ;
+
+pi  # R conoce pi
+```
+
+## Ventana de Script
+
+Los ficheros script se pueden guardar utilizando **Archivo → Guardar como...** y eligiendo a continuación la ubicación que interesa en el disco duro del ordenador.
+
+Por defecto R utiliza una carpeta de trabajo donde guardará la información.
+
+```{r directorio-trabajo, eval=FALSE}
+getwd()  # devuelve la carpeta de trabajo
+
+# Cambiar la carpeta de trabajo
+setwd("/ruta/a/tu/carpeta")
+
+# Ejemplo en Windows
+setwd("c:/")
+```
+
+------------------------------------------------------------------------
+
+# Funciones y Operadores en R
+
+## Funciones principales
+
+| Función                       | Código en R      |
+|-------------------------------|------------------|
+| Raíz cuadrada de x            | `sqrt(x)`        |
+| Exponencial de x              | `exp(x)`         |
+| Logaritmo neperiano           | `log(x)`         |
+| Nº de elementos de un vector  | `length(x)`      |
+| Suma los elementos del vector | `sum(x)`         |
+| Seno de x                     | `sin(x)`         |
+| Coseno de x                   | `cos(x)`         |
+| Tangente de x                 | `tan(x)`         |
+| Media                         | `mean(x)`        |
+| Desviación típica             | `sd(x)`          |
+| Varianza                      | `var(x)`         |
+| Mediana                       | `median(x)`      |
+| Quantiles                     | `quantile(x, p)` |
+| Máximo y Mínimo               | `range(x)`       |
+| Ordenación                    | `sort(x)`        |
+| Resumen estadístico           | `summary(x)`     |
+
+## Operadores en R
+
+### Aritméticos
+
+| Operador | Descripción     |
+|----------|-----------------|
+| `+`      | Suma            |
+| `-`      | Resta           |
+| `*`      | Multiplicación  |
+| `/`      | División        |
+| `^`      | Potencia        |
+| `%/%`    | División entera |
+
+### Comparativos
+
+| Operador | Descripción   |
+|----------|---------------|
+| `==`     | Igualdad      |
+| `!=`     | Diferente de  |
+| `<`      | Menor que     |
+| `>`      | Mayor que     |
+| `<=`     | Menor o igual |
+| `>=`     | Mayor o igual |
+
+### Lógicos
+
+| Operador | Descripción |
+|----------|-------------|
+| `&`      | Y lógico    |
+| `\|`     | O lógico    |
+| `!`      | No lógico   |
+
+## Ejemplos con operadores
+
+```{r operadores-ejemplos, echo=TRUE, results='hold'}
+datos <- c(1, 5, 10, 3)
+
+min(datos)
+max(datos)
+which.min(datos)
+which.max(datos)
+range(datos)
+mean(datos)
+median(datos)
+sum(datos)
+
+2 * datos
+
+datos == 5
+datos == 5 & datos == 1
+datos == 5 | datos == 1
+
+3 < 2
+2 < 3 & 4 < 1
+2 < 3 | 4 < 1
+```
+
+## Asignación de variables
+
+```{r asignacion, echo=TRUE, results='hold'}
+resultado_suma           <- 5 + 3
+resultado_resta          <- 10 - 2
+resultado_multiplicacion <- 4 * 6
+resultado_division       <- 20 / 5
+resultado_potenciacion   <- 2^3
+
+# Imprimir los resultados
+print(resultado_suma)
+```
+
+## Tipos de datos básicos
+
+```{r tipos-datos, echo=TRUE, results='hold'}
+x1 <- TRUE                              # logical
+x2 <- 3                                 # integer
+x3 <- 3.4                              # numeric
+x5 <- "Esto es una cadena de caracteres"  # string
+
+ls.str()  # detalles de los objetos en memoria
+
+# Conversiones de tipo
+as.integer(x1)
+as.integer(x3)
+
+# Comprobaciones de tipo
+is.integer(x1)
+is.logical(x1)
+```
+
+------------------------------------------------------------------------
+
+# Paquetes
+
+## ¿Cómo organiza R la información?
+
+Al iniciar el programa R se cargan por defecto una serie de librerías básicas. El **paquete base** contiene las bases de R, incluyendo funciones como `sum`, `max`, así como los principales tipos de objetos: vector, matriz, data.frame.
+
+A veces es necesario cargar otras librerías específicas. Esto se hace a través de los llamados **paquetes (packages)**.
+
+## Instalación y carga de paquetes
+
+```{r paquetes, eval=FALSE}
+install.packages("nombre_del_paquete")
+library(nombre_del_paquete)
+
+library()  # lista de los paquetes disponibles
+```
+
+## Ejemplo: paquete `clustcurv`
+
+```{r clustcurv, eval=FALSE}
+# install.packages("clustcurv")
+library(clustcurv)            # carga la librería
+library(help = clustcurv)     # documentación de la librería
+```
+
+## Ayuda en R
+
+```{r ayuda, eval=FALSE}
+?max
+help(max)    # equivalente a ?max
+help(mean)   # ayuda de la función mean
+```
+
+------------------------------------------------------------------------
+
+# Vectores y Matrices
+
+## Vectores
+
+Los vectores son una estructura de datos fundamental en R. Se crean utilizando la función `c()`.
+
+```{r vectores}
+x <- c(4.1 , 5, 6.35)
+x <- c(7, x, 2)
+x # Imprime el vector
+mode(x) # Devuelve el tipo de datos del vector
+length(x) # Devuelve el número de elementos del vector
+
+y <- c("Hola", "Adios")
+y
+mode(y)
+
+y <- c(y, x, TRUE)
+y
+mode(y)
+length(y)
+```
+
+### Acceder a elementos de un vector
+
+```{r acceso-vector}
+mi_vector <- c(1, 2, 3, 4, 5)
+elemento <- mi_vector[2]
+elemento
+```
+
+## Generación de secuencias
+
+```{r secuencias}
+(x <- 1:5) 
+# El operador : genera una secuencia de enteros consecutivos entre dos valores. Los paréntesis exteriores hacen que el resultado se imprima automáticamente.
+
+seq(1, 5, 0.5)
+
+seq(from = 1, to = 5, length = 9)
+
+sample(1:6, size = 10, replace = TRUE)  # secuencias aleatorias
+```
+
+## Matrices
+
+### Crear y acceder a elementos
+
+```{r matrices}
+# Crear una matriz 3x3
+mi_matriz <- matrix(1:9, nrow = 3, ncol = 3)
+print(mi_matriz)
+
+# Acceder al elemento en la segunda fila y tercera columna
+elemento <- mi_matriz[2, 3]
+print(elemento)
+
+# Crear una matriz 2x4
+matrix(1:8, nr = 2, nc = 4)
+matrix(1:8, 2, 4)               # por columnas (como Fortran)
+matrix(1:8, 2, 4, byrow = TRUE) # por filas
+
+x <- matrix(1:6, 2, 3)
+x[2, ]    # segunda fila
+x[, 2]    # segunda columna
+x[1, 1:2] # primera fila, columnas 1ª y 2ª
+```
+
+### Arrays
+
+```{r arrays}
+x <- array(1:24, dim = c(4, 3, 2))
+x
+
+x1 <- x[, , 1]; x1
+x2 <- x[, 2, 1]; x2
+
+cbind(x, c(50, 55))
+rbind(x, c(50, 55, 60))
+```
+
+## Operaciones con matrices
+
+```{r operaciones-matrices}
+# Crear dos matrices
+matriz_a <- matrix(1:4, nrow = 2)
+matriz_b <- matrix(5:8, nrow = 2)
+
+# Sumar las matrices
+resultado_suma <- matriz_a + matriz_b
+print(resultado_suma)
+
+# Multiplicar las matrices (producto matricial)
+resultado_multiplicacion <- matriz_a %*% matriz_b
+print(resultado_multiplicacion)
+
+# Transpuesta
+mi_matriz <- matrix(1:6, nrow = 2)
+matriz_transpuesta <- t(mi_matriz)
+print(matriz_transpuesta)
+```
+
+## Funciones para matrices
+
+| Función                     | Descripción                                |
+|-----------------------------|--------------------------------------------|
+| `dim()`, `nrow()`, `ncol()` | Número de filas y/o columnas               |
+| `diag()`                    | Diagonal de una matriz                     |
+| `*`                         | Multiplicación elemento a elemento         |
+| `%*%`                       | Multiplicación matricial                   |
+| `cbind()`, `rbind()`        | Encadenamiento de columnas o filas         |
+| `t()`                       | Transpuesta de una matriz                  |
+| `solve(A)`                  | Inversa de la matriz A                     |
+| `solve(A, b)`               | Solución del sistema de ecuaciones         |
+| `qr()`                      | Descomposición QR                          |
+| `eigen()`                   | Autovalores y autovectores                 |
+| `svd()`                     | Descomposición en valores singulares (SVD) |
+
+## Nombres en matrices
+
+```{r nombres-matrices}
+temperatura <- c(20.37, 18.56, 18.4, 21.96, 29.53, 28.16,
+                 36.38, 36.62, 40.03, 27.59, 22.15, 19.85)
+humedad     <- c(88, 86, 81, 79, 80, 78, 71, 69, 78, 82, 85, 83)
+lluvia      <- c(72, 33.9, 37.5, 36.6, 31, 16.6, 1.2, 6.8,
+                 36.8, 30.8, 38.5, 22.7)
+
+datos <- cbind(temperatura, humedad, lluvia)
+
+rownames(datos) <- c("enero", "febrero", "marzo", "abril", "mayo",
+                     "junio", "julio", "agosto", "septiembre",
+                     "octubre", "noviembre", "diciembre")
+colnames(datos)
+datos
+
+# Dimensiones
+dim(datos)
+nrow(datos)
+ncol(datos)
+```
+
+------------------------------------------------------------------------
+
+# Data Frames
+
+Los **data frames** son el objeto más habitual para el almacenamiento de datos. Cada fila corresponde a un individuo y cada columna a una variable. Se crean con la función `data.frame()`, permitiendo que las columnas sean de distinto tipo.
+
+```{r dataframes}
+temperatura <- c(20.37, 18.56, 18.4, 21.96, 29.53, 28.16,
+                 36.38, 36.62, 40.03, 27.59, 22.15, 19.85)
+humedad     <- c(88, 86, 81, 79, 80, 78, 71, 69, 78, 82, 85, 83)
+lluvia      <- c(72, 33.9, 37.5, 36.6, 31, 16.6, 1.2, 6.8,
+                 36.8, 30.8, 38.5, 22.7)
+mes         <- c("enero", "febrero", "marzo", "abril", "mayo", "junio",
+                 "julio", "agosto", "septiembre", "octubre",
+                 "noviembre", "diciembre")
+
+datos <- data.frame(mes, temperatura, humedad, lluvia)
+
+# Acceder a una columna
+datos$temperatura
+
+# Resumen estadístico
+summary(datos)
+```
+
+## Acceso directo con `attach`
+
+```{r attach, eval=FALSE}
+attach(datos)   # permite usar variables directamente por su nombre
+detach(datos)   # libera las variables
+```
+
+## Datos de ejemplo en R
+
+```{r datos-ejemplo, eval=FALSE}
+data()        # listado de conjuntos de datos disponibles
+
+data(cars)
+head(cars)
+```
+
+------------------------------------------------------------------------
+
+# Lectura y Escritura de Archivos
+
+## Leer archivos de texto
+
+```{r read-table, eval=FALSE}
+datos <- read.table(file = "empleados.txt", header = TRUE)
+head(datos)
+```
+
+Los argumentos más utilizados de `read.table`:
+
+-   **`header`**: indica si el fichero tiene cabecera (`TRUE`/`FALSE`).
+-   **`sep`**: carácter separador de columnas (por defecto espacio en blanco).
+-   **`dec`**: carácter decimal (por defecto `"."`).
+
+Otras funciones disponibles:
+
+```{r read-delim, eval=FALSE}
+read.delim(file,  header = TRUE, sep = "\t", dec = ".")
+read.delim2(file, header = TRUE, sep = "\t", dec = ",")
+```
+
+## Leer archivos Excel / CSV
+
+Se recomienda exportar desde Excel a CSV antes de leer en R.
+
+```{r read-csv, eval=FALSE}
+datos <- read.table("Vigo2017.csv", header = TRUE, sep = ";", dec = ",")
+head(datos)
+summary(datos)
+```
+
+### Tratamiento de valores perdidos
+
+En algunos ficheros los valores ausentes están codificados (p. ej., `-9999`). Se puede indicar con el argumento `na.strings`:
+
+```{r na-strings, eval=FALSE}
+datos <- read.csv2("Vigo2017.csv", na.strings = "-9999")
+head(datos)
+```
+
+## Exportar datos
+
+```{r write-table, eval=FALSE}
+tipo     <- c("A", "B", "C")
+longitud <- c(120.34, 99.45, 115.67)
+datos    <- data.frame(tipo, longitud)
+
+write.table(datos, file = "datosPractica2.txt")
+write.csv2(datos,  file = "datosPractica2.csv")
+```
+
+------------------------------------------------------------------------
+
+# Funciones en R
+
+Crear funciones propias en R es muy sencillo:
+
+```{r funciones}
+# Definir una función: suma de dos números
+suma_dos_numeros <- function(a, b) {
+  resultado <- a + b
+  return(resultado)
+}
+
+# Llamar a la función
+(resultado_suma <- suma_dos_numeros(5, 3))
+```
+
+------------------------------------------------------------------------
+
+# Generación de Números Aleatorios
+
+```{r aleatorios}
+# Números enteros aleatorios entre 1 y 100
+numeros_enteros <- sample(1:100, 5, replace = TRUE)
+numeros_enteros
+
+# Distribución uniforme [0, 1]
+numeros_aleatorios <- runif(10)
+numeros_aleatorios
+
+# Distribución Normal (media=0, sd=1)
+datos_normal <- rnorm(100, mean = 0, sd = 1)
+
+# Distribución Exponencial (tasa=0.1)
+datos_exp <- rexp(50, rate = 0.1)
+
+# Distribución de Poisson (lambda=2)
+datos_poisson <- rpois(30, lambda = 2)
+
+# Distribución Binomial (n=10 ensayos, p=0.3)
+datos_binom <- rbinom(20, size = 10, prob = 0.3)
+```
+
+------------------------------------------------------------------------
+
+# Ejercicios
+
+## Ejercicio 1: Simulación de un dado
+
+Crea una función que simule el comportamiento de un dado.
+
+```{r ejercicio1}
+dado <- function(n = 30) {
+  resultados   <- seq(1, 6)
+  lanzamientos <- sample(resultados, n, rep = TRUE)
+  frecuencias  <- table(lanzamientos) / n
+
+  barplot(frecuencias, main = paste("n =", n))
+  abline(h = 1/6, col = "red", lwd = 2)
+
+  return(round(frecuencias, 3))
+}
+
+# Lanzar el dado 30 veces
+dado(30)
+
+# Lanzar el dado 10000 veces — ¿qué ocurre?
+dado(10000)
+```
+
+> **Reflexión:** ¿Qué observas al aumentar el número de lanzamientos? ¿Se cumple la **Ley de los Grandes Números**?
+
+## Ejercicio 2: Simulación de una moneda
+
+Crea una función que simule el comportamiento de una moneda (cara y cruz).
+
+-   Simula lanzar la moneda **10 veces**.
+-   Ahora lánzala **100 veces**. ¿Qué ocurre?
+
+```{r ejercicio2}
+# Escribe aquí tu función...
+```
+
+\`\`\`
