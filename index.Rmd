@@ -4,7 +4,7 @@
         date: "`r Sys.Date()`"
 ---
 
-# Introducción: ¿Qué es R y por qué es útil en Economía?
+# Introducción ¿Qué es R y por qué es útil en Economía?
 
 -   **R** es un **lenguaje de programación** muy potente diseñado específicamente para el **análisis estadístico y la visualización de datos**. Es el estándar en muchas áreas científicas y de negocios.
 
