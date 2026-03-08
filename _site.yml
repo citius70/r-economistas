@@ -28,8 +28,8 @@ navbar:
       href: 11_funciones.html
     - text: "12 Generación de números aleatorios"
       href: 12_aleatorios.html
-    - text: "01. Gráficos de dispersión"
-      href: graficos/1_dispersion.html
+    - text: "A. Gráficos de dispersión"
+      href: A_dispersion.html
 output:
   html_document:
     highlight: textmate

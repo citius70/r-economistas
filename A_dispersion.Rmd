@@ -1,9 +1,9 @@
 ---
-title: "1. Gráfico de dispersión"
+title: "A. Gráfico de dispersión"
 output:
   html_document:
     toc: false
-    theme: cosmo  # Puedes elegir: united, cosmo, lumen, flatly...
+    theme: united  # Puedes elegir: united, cosmo, lumen, flatly...
     highlight: tango
   word_document: default
   pdf_document: default

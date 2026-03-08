@@ -5,10 +5,6 @@ output:
   pdf_document: default
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
-```
-
 ## Gráficos de Dispersión
 
 Los gráficos de dispersión son útiles para visualizar la relación entre dos variables numéricas. Aquí hay un ejemplo de cómo crear uno:
