@@ -319,7 +319,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Inicio</a>
+  <a href="index.html">Resumen</a>
 </li>
 <li>
   <a href="1_instalacion.html">1 Instalación</a>
@@ -337,7 +337,10 @@ div.tocify {
   <a href="5_vectores.html">5 Vectores</a>
 </li>
 <li>
-  <a href="graficos/graficos.html">Visualizaciones en R</a>
+  <a href="6_matrices.html">6 Matrices</a>
+</li>
+<li>
+  <a href="7_arrays.html">7 Arrays</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -363,6 +366,7 @@ elementos del mismo tipo de datos**. En R, la unidad básica de
 almacenamiento es el vector; incluso un número aislado se trata como un
 vector de longitud uno. Se crean utilizando la función <code>c()</code>
 (<em>combine</em>).</p>
+<p><img src="img/vector.png" /></p>
 <pre class="r"><code># --- Creación y manipulación ---
 x &lt;- c(4.1, 5, 6.35)
 x                          # Imprime el vector</code></pre>
@@ -428,7 +432,7 @@ seq(from = 1, to = 5, length.out = 6)</code></pre>
 <pre class="r"><code># Función sample(): Genera secuencias aleatorias
 # &#39;replace = TRUE&#39; permite que los números se repitan
 sample(1:6, size = 10, replace = TRUE) </code></pre>
-<pre><code>##  [1] 4 6 3 5 5 1 3 1 2 2</code></pre>
+<pre><code>##  [1] 4 5 3 2 3 2 5 3 4 3</code></pre>
 <hr />
 <div id="notas" class="section level3">
 <h3>Notas:</h3>

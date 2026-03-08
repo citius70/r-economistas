@@ -18,6 +18,8 @@ navbar:
       href: 5_vectores.html
     - text: "6 Matrices"
       href: 6_matrices.html
+    - text: "7 Arrays"
+      href: 7_arrays.html
 
 output:
   html_document:
