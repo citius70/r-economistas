@@ -1,6 +1,8 @@
 ---
-title: "7_arrays"
-output: html_document
+title: "R"
+output:
+  word_document: default
+  pdf_document: default
 ---
 
 ```{r arrays}

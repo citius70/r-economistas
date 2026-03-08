@@ -19,8 +19,6 @@ navbar:
     - text: "6 Matrices"
       href: 6_matrices.html
 
-    - text: "Visualizaciones en R"
-      href: graficos/graficos.html
 output:
   html_document:
     highlight: textmate
