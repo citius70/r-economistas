@@ -1,0 +1,278 @@
+---
+title: "Visualización en R"
+date: "`r Sys.Date()`"
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Gráficos de Dispersión
+
+Los gráficos de dispersión son útiles para visualizar la relación entre dos variables numéricas. Aquí hay un ejemplo de cómo crear uno:
+```{r scatter-basic}
+# Crear datos de ejemplo
+x <- c(1, 2, 3, 4, 5)
+y <- c(2, 4, 6, 8, 10)
+
+# Crear el gráfico de dispersión
+plot(x, y,
+     main = "Gráfico de Dispersión",
+     xlab = "Eje X",
+     ylab = "Eje Y",
+     pch = 16,  # Cambiar el tipo de punto
+     col = "blue"  # Cambiar el color de los puntos
+)
+```
+
+### Ejercicio 1
+
+Representa en un diagrama de dispersión la variable X "speed" y la variable Y "dist" de la base de datos **data(cars)**
+```{r ejercicio1}
+data(cars)
+plot(cars$speed, cars$dist)
+```
+
+## Gráficos de Barras y Sectores
+
+Los gráficos de barras son excelentes para mostrar la distribución de datos categóricos. Aquí hay un ejemplo:
+```{r barplot-basic}
+# Crear datos de ejemplo
+categorias <- c("A", "B", "C", "D", "E")
+frecuencias <- c(10, 15, 8, 12, 20)
+
+# Crear el gráfico de barras
+barplot(frecuencias,
+        names.arg = categorias,
+        main = "Gráfico de Barras",
+        xlab = "Categorías",
+        ylab = "Frecuencia",
+        col = "green"  # Cambiar el color de las barras
+)
+```
+
+### Ejercicio 2
+
+Cuando una variable toma sólo un número pequeño de valores distintos es habitual resumir la información utilizando una tabla de frecuencias función `table()` que se puede representar con un gráfico de barras.
+```{r ejercicio2}
+data(mtcars)
+attach(mtcars)
+
+# Tabla de frecuencias
+tabla <- table(cyl)
+tabla
+
+# Gráfico de barras
+barplot(tabla, 
+        main = "Gráfico de barras",  # título
+        xlab = "Número de cilindros", 
+        ylab = "Frecuencia",  # etiquetas
+        col = c("darkgrey", "darkblue", "red"),  # color
+        legend = rownames(tabla))  # leyenda
+
+barplot(tabla, 
+        main = "Gráfico de barras", 
+        ylab = "Número de cilindros", 
+        xlab = "Frecuencia", 
+        horiz = TRUE)
+```
+
+## Histogramas y Gráfico de Densidad
+
+Este gráfico es uno de los más habituales para representar datos continuos, y consiste en representar con barras con las frecuencias con que aparecen las mediciones agrupadas en ciertos intervalos. Se pueden crear histogramas con la función `hist(x)` donde:
+
+- **x**: es un vector numérico de valores a representar
+- **freq = FALSE**: representa densidades de probabilidad en lugar de frecuencias
+- **breaks**: controla el número de barras
+```{r histogram-data}
+distancias <- c(
+  291.5, 274.4, 290.2, 276.4, 272.0, 268.7, 281.6, 281.6, 276.3, 285.9,
+  269.6, 266.6, 283.6, 269.6, 277.8, 287.8, 267.6, 292.6, 273.4, 284.4,
+  270.7, 274.0, 285.2, 275.5, 272.1, 261.3, 274.0, 279.3, 281.0, 293.1,
+  277.5, 278.0, 272.5, 271.7, 280.8, 265.6, 260.1, 272.5, 281.3, 263.0,
+  279.0, 267.3, 283.5, 271.2, 268.5, 277.1, 266.2, 266.4, 271.5, 280.3,
+  267.8, 272.1, 269.7, 278.5, 277.3, 280.5, 270.8, 267.7, 255.1, 276.4,
+  283.7, 281.7, 282.2, 274.1, 264.5, 281.0, 273.2, 274.4, 281.6, 273.7,
+  271.0, 271.5, 289.7, 271.1, 256.9, 274.5, 286.2, 273.9, 268.5, 262.6,
+  261.9, 258.9, 293.2, 267.1, 255.0, 269.7, 281.9, 269.6, 279.8, 269.9,
+  282.6, 270.0, 265.2, 277.7, 275.5, 272.2, 270.0, 271.0, 284.3, 268.4
+)
+
+# Histograma de frecuencias
+hist(distancias, main = "Histograma de Frecuencias")
+```
+```{r histogram-density}
+# Histograma de densidad
+hist(distancias, prob = TRUE, main = "Histograma de Densidad")
+```
+
+Los histogramas son muy útiles para apreciar la forma de la distribución de los datos. Sin embargo, este tipo de gráfico se ve muy afectado por el número de cortes (y su posición) utilizado.
+
+- Con pocas clases se agrupan demasiado las observaciones, y
+- Con muchas clases habrá pocas observaciones en cada una de ellas aumentando la variabilidad del gráfico obtenido.
+- La función `hist()` por defecto selecciona el número de clases siguiendo el llamado método de Sturges.
+```{r histogram-breaks}
+par(mfrow = c(1, 3))
+hist(distancias, breaks = 2, main = "Pocas clases")
+hist(distancias, breaks = 50, main = "Muchas clases")
+hist(distancias, main = "Regla de Sturges")
+par(mfrow = c(1, 1))
+```
+
+## Gráficos de Caja o Boxplot
+
+Los diagramas de caja (boxplot) son representaciones gráficas que permiten: resumir las principales características de los datos (posición, dispersión, asimetría,...) e identificar la presencia de observaciones atípicas (valores missing). La función `boxplot(x, data=)` permite crear este gráfico donde:
+
+- **x**: es la fórmula que hace el gráfico. Un ejemplo de fórmula es `y~group` de forma que se obtiene un boxplot separado para la variable numérica `y` por cada grupo.
+- **data=**: data.frame con los datos
+- **horizontal=TRUE**: barras horizontales
+- **varwidth=TRUE**: ancho de las cajas proporcional a la raíz cuadrada de los tamaños muestrales de los grupos
+```{r boxplot-basic}
+boxplot(distancias, horizontal = TRUE, main = "Boxplot de Distancias")
+```
+
+### Ejercicio 3
+
+Representa en gráfico de cajas la variable "mpg" y "cyl" de la base de datos **mtcars**
+```{r ejercicio3, eval=FALSE}
+# Tu código aquí
+```
+
+## Matrices de Gráficos de Dispersión
+
+La función `pairs` permite obtener directamente una matriz de gráficos de dispersión
+```{r pairs-plot}
+pairs(~mpg + disp + hp + wt, data = mtcars)
+```
+
+## Coeficiente de Correlación Variables Continuas
+```{r correlation, eval=FALSE}
+pediatria <- read.csv2("children.csv")
+corr <- abs(cor(pediatria[, -1]))  # correlación en valor absoluto
+corr
+```
+
+### EJERCICIO 4
+
+1. Carga los datos children.csv (puedes utilizar la función `read.csv2`)
+2. Elimina la primera columna de los datos
+3. Representa una matriz de gráficos de dispersión con las variables edad, peso y talla, utilizando distinto color en función del sexo.
+4. Calcula el coeficiente de correlación para las variables edad, peso y talla.
+
+## Tablas de Frecuencias
+
+Usando el comando `table` calculamos las frecuencias absolutas y con el comando `prop.table` las relativas.
+```{r frequency-tables, eval=FALSE}
+datos <- read.table(file = "empleados.txt", header = TRUE)
+head(datos)
+
+tabla1d <- table(datos$sexo)
+tabla1d
+
+tabla1d.relativa <- prop.table(tabla1d)
+tabla1d.relativa
+```
+
+Podemos crear la tabla de frecuencias bidimensional:
+```{r frequency-tables-2d, eval=FALSE}
+tab2d <- table(datos$sexo, datos$catlab)
+tab2d
+
+# Total de toda la tabla
+prop.table(tab2d) * 100
+
+# Total de cada fila
+prop.table(tab2d, 1) * 100
+
+# Total de cada columna
+prop.table(tab2d, 2) * 100
+```
+
+### Construcción de Tabla de Frecuencias Completa
+```{r frequency-table-complete, eval=FALSE}
+fa <- table(datos$edu)  # frecuencia absoluta
+fac <- cumsum(fa)  # frecuencia absoluta acumulada
+fr <- prop.table(fa)  # frecuencia relativa
+facr <- cumsum(fr)  # frecuencia relativa acumulada
+
+mitabla <- data.frame(fa, fac, fr, facr, row.names = NULL)[, -4]
+colnames(mitabla) <- c("Data", "ni", "Ni", "fi", "Fi")
+mitabla
+```
+
+### Agrupación en Intervalos
+
+Para construir tablas de frecuencias de variables numéricas, debemos agrupar los valores de la variable en intervalos y convertirlos en categorías ordenadas.
+```{r cut-intervals}
+temp <- c(22.52, 18.70, 19.61, 22.79, 29.38, 30.19, 33.16,
+          36.97, 33.29, 28.98, 24.31, 22.43)
+
+temp2 <- cut(temp, breaks = c(0, 20, 30, 50))
+temp2
+```
+
+Ejemplo con datos de pediatría creando intervalos para la variable edad:
+```{r pediatria-intervals, eval=FALSE}
+pediatria <- read.csv2("children.csv")
+edad2 <- cut(pediatria$edad, breaks = seq(5, 19))
+aggregate(pediatria[, -1], by = list(edad = edad2), FUN = mean, na.rm = TRUE)
+```
+
+## Medidas de Posición
+```{r measures-position, eval=FALSE}
+mean(datos$salario)
+
+median(datos$salario)
+
+# Cuartiles
+quantile(datos$salario, c(0.25, 0.5, 0.75))
+
+# Deciles
+quantile(datos$salario, prob = seq(0, 1, length = 11))
+
+# Percentiles
+quantile(datos$salario, prob = seq(0, 1, length = 101))
+```
+
+## Medidas de Dispersión
+```{r measures-dispersion, eval=FALSE}
+rango <- max(datos$salario) - min(datos$salario)
+rango
+
+IQR(datos$salario)
+
+var(datos$salario)
+
+sd(datos$salario)  # sqrt(var(datos$salario))
+
+coeficiente.variacion <- function(x) {
+  sd(x) / abs(mean(x))
+}
+coeficiente.variacion(datos$salario)
+```
+
+## Medidas de Forma
+
+El coeficiente de asimetría de Fisher se basa en momentos centrales de orden 3, y utilizamos la función `skewness` del paquete `moments` para calcularlo.
+```{r skewness, eval=FALSE}
+library(moments)
+
+hist(datos$salario, main = "Histograma de Salarios")
+
+asim_salario <- skewness(datos$salario)
+```
+
+El coeficiente de curtosis o apuntamiento es una medida de forma que mide cómo de escarpada o achatada está la distribución de la variable. Se basa en los momentos centrales de orden 4 y se calcula con la función `kurtosis` del mismo paquete. Puede ser:
+
+- **Mesocúrtica** (valor 0, como la campana de Gauss)
+- **Leptocúrtica** (valor positivo, más apuntamiento que la campana de Gauss)
+- **Platicúrtica** (valor negativo, menos apuntamiento que la campana de Gauss)
+
+El exceso de curtosis se le resta 3 al valor obtenido con la función `kurtosis` con objeto de generar un coeficiente que valga 0 para la Normal y tome a ésta como referencia de curtosis.
+```{r kurtosis, eval=FALSE}
+hist(datos$tiempemp, main = "Histograma de Tiempo de Empleo")
+
+curt_tiempo <- kurtosis(datos$tiempemp) - 3
+
+cat("Asimetría:", asim_salario, "\nCurtosis:", curt_tiempo)
+```
+')
