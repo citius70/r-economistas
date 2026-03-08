@@ -1,0 +1,122 @@
+---
+title: "B. Gráfico de barras (dispersión)"
+output:
+  html_document:
+    toc: false
+    theme: united  # Puedes elegir: united, cosmo, lumen, flatly...
+    highlight: tango
+  word_document: default
+  pdf_document: defaul
+---
+
+Los **gráficos de barras** son la herramienta estándar para visualizar la distribución de **datos categóricos** (o variables discretas con pocos niveles), permitiendo comparar frecuencias entre distintos grupos de forma rápida.
+
+**¿Qué son los datos categóricos?**
+
+Un **dato categórico** (también llamado cualitativo) es aquel que no representa una cantidad numérica en sí misma, sino que describe una cualidad, propiedad o etiqueta que permite clasificar a los individuos o elementos en grupos (o "categorías").
+
+En pocas palabras: No te dice "cuánto hay", te dice "qué tipo es".
+
+-   **Género**: Hombre, Mujer, No binario.
+
+    -   Ejemplo: número hombres y mujeres que hay en una clase.
+
+-   **Estado civil:** Soltero, Casado, Divorciado, Viudo.
+
+    -   Ejemplo: número solteros, casados... que trabajen en una empresa.
+
+-   **Nivel educativo**: Primaria, Secundaria, Bachillerato, Universidad.
+
+-   Color de ojos: Marrón, Azul, Verde, Negro.
+
+## Sintaxis:
+
+`barplor`
+
+#### 1. Ejemplo básico: Barras verticales
+
+Este ejemplo muestra cómo definir manualmente las categorías y sus frecuencias para crear un gráfico sencillo.
+
+```{r barplot-basic}
+# Crear datos de ejemplo
+categorias <- c("A", "B", "C", "D", "E")
+frecuencias <- c(10, 15, 8, 12, 20)
+
+# Crear el gráfico de barras
+barplot(frecuencias,
+        names.arg = categorias,
+        main = "Distribución de Categorías",
+        xlab = "Categorías",
+        ylab = "Frecuencia",
+        col = "seagreen3") # Color más equilibrado
+
+```
+
+------------------------------------------------------------------------
+
+#### Ejercicio 2: Frecuencias con `mtcars`
+
+Cuando trabajamos con bases de datos, no podemos contar los casos a mano. Usamos R para resumir y visualizar:
+
+1.  **Resumir:** Usamos `table()` para contar cuántos elementos hay en cada categoría.
+
+2.  **Visualizar:** Usamos `barplot()` para representar esas frecuencias.
+
+Fragmento de código
+
+```{r}
+# Cargar datos mtcars 
+data(mtcars) 
+
+# Visualizamos los cinco primeras filas para hacernos una idea de la estructura
+head(mtcars)
+
+
+
+```
+
+Ahora, con el comando `table` creamos una tabla resumen con el número de coches diferenciados por cilindros. Verás que hay
+
+-   con 4 cilindros: 11 coches
+
+-   con 6 cilindros: 7 coches
+
+-   con 8 cilindros; 14 coches
+
+```{r}
+# Resumir: Contar cuántos coches hay según número de cilindros (cyl) 
+mitabla <- table(mtcars$cyl) 
+print(mitabla) 
+```
+
+Ahora creamos el gráfico de barras con esta tabla (mitabla) que hemos obtenido de mtcars:
+
+```{r}
+# Visualizar: Gráfico de barras verticales 
+barplot(mitabla,          
+        main = "Distribución de Cilindros",         
+        xlab = "Número de cilindros",          
+        ylab = "Frecuencia",         
+        col = c("slategray", "steelblue", "firebrick"),         
+        legend = rownames(mitabla))  
+```
+
+Si el número de categorías es muy grande, oodemos convertir un gráfico de barras vertical, en uno horizontal añadiendo la propiedad `horiz = TRUE`.
+
+```{r}
+# Gráfico de barras horizontales (útil si los nombres de las categorías son largos)
+barplot(mitabla, 
+        main = "Distribución de Cilindros (Horizontal)",
+        ylab = "Número de cilindros", 
+        xlab = "Frecuencia", 
+        horiz = TRUE,
+        col = "skyblue")
+```
+
+### Conceptos clave:
+
+-   **Dato Categórico:** Es una etiqueta o grupo (ej. 4, 6 u 8 cilindros). No calculamos medias, **contamos** cuántos elementos pertenecen a cada grupo.
+
+-   **`table()`:** Es el contador automático de R.
+
+-   **Reutilización:** Si cambias `mtcars$cyl` por otra columna (como `mtcars$gear`), el gráfico se actualizará automáticamente con el número de marchas (gear, en inglés)

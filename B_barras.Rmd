@@ -1,5 +1,5 @@
 ---
-title: "B. Gráfico de barras (dispersión)"
+title: "B. Gráfico de barras o dispersión"
 output:
   html_document:
     toc: false
@@ -86,7 +86,7 @@ Ahora, con el comando `table` creamos una tabla resumen con el número de coches
 ```{r}
 # Resumir: Contar cuántos coches hay según número de cilindros (cyl) 
 mitabla <- table(mtcars$cyl) 
-print(tabla) 
+print(mitabla) 
 ```
 
 Ahora creamos el gráfico de barras con esta tabla (mitabla) que hemos obtenido de mtcars:
@@ -98,14 +98,14 @@ barplot(mitabla,
         xlab = "Número de cilindros",          
         ylab = "Frecuencia",         
         col = c("slategray", "steelblue", "firebrick"),         
-        legend = rownames(tabla))  
+        legend = rownames(mitabla))  
 ```
 
 Si el número de categorías es muy grande, oodemos convertir un gráfico de barras vertical, en uno horizontal añadiendo la propiedad `horiz = TRUE`.
 
 ```{r}
 # Gráfico de barras horizontales (útil si los nombres de las categorías son largos)
-barplot(tabla, 
+barplot(mitabla, 
         main = "Distribución de Cilindros (Horizontal)",
         ylab = "Número de cilindros", 
         xlab = "Frecuencia", 
@@ -119,4 +119,4 @@ barplot(tabla,
 
 -   **`table()`:** Es el contador automático de R.
 
--   **Reutilización:** Si cambias `mtcars$cyl` por otra columna (como `mtcars$gear`), el gráfico se actualizará automáticamente con el nú mero de marchas (gear, en inglés)
+-   **Reutilización:** Si cambias `mtcars$cyl` por otra columna (como `mtcars$gear`), el gráfico se actualizará automáticamente con el número de marchas (gear, en inglés)

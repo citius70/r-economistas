@@ -11,12 +11,12 @@
 
 
 
-<title>10. Lectura y escritura de datos</title>
+<title>E. Matrices de Gráficos de Dispersión</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -377,6 +377,12 @@ $(document).ready(function () {
 <li>
   <a href="C_histograma.html">C Histograma</a>
 </li>
+<li>
+  <a href="D_boxplot.html">D Gráfico de Caja o Boxplot</a>
+</li>
+<li>
+  <a href="E_matrices_dispersion.html">E Matrices de Gráficos de Dispersión</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -389,147 +395,61 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">10. Lectura y escritura de datos</h1>
+<h1 class="title toc-ignore">E. Matrices de Gráficos de Dispersión</h1>
 
 </div>
 
 
-<div id="lectura-de-archivos" class="section level2">
-<h2>10.1. Lectura de archivos</h2>
-<p>En la práctica, la mayoría de los datos que analizarás no serán
-creados directamente dentro de R, sino que <strong>estarán almacenados
-en archivos externos</strong> como <strong>archivos de texto</strong>
-(.txt), <strong>valores separados por comas</strong> (.csv) o
-<strong>hojas de cálculo de Excel</strong> (.xls, .xlsx). Para trabajar
-con ellos, el primer paso es acceder a esa información y cargarla en R
-para convertirla en un data frame.</p>
-<div id="resumen-de-funciones-para-leerimportar-datos"
+<div id="análisis-multivariante-la-matriz-de-dispersión-pairs"
 class="section level3">
-<h3>10.1.1. Resumen de Funciones para Leer/Importar Datos</h3>
-<table style="width:99%;">
-<colgroup>
-<col width="32%" />
-<col width="14%" />
-<col width="51%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Extensión (tipo de archivo)</th>
-<th align="left">Función en R</th>
-<th align="left">¿Por qué usarla?</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left"><p><strong><code>.txt</code></strong></p>
-<p>Archivo de texto</p></td>
-<td align="left"><code>read.table()</code></td>
-<td align="left">Es muy flexible con espacios y tabuladores.</td>
-</tr>
-<tr class="even">
-<td align="left"><p><strong><code>.csv</code></strong></p>
-<p><strong>C</strong>omma <strong>S</strong>eparated
-<strong>V</strong>alues</p></td>
-<td align="left"><code>read.csv()</code></td>
-<td align="left">Configurada por defecto para separar por comas.</td>
-</tr>
-<tr class="odd">
-<td align="left"><p><strong><code>.xlsx</code></strong></p>
-<p>Archio de Excel</p></td>
-<td align="left"><code>read_excel()</code></td>
-<td align="left">Requiere el paquete <code>readxl</code> (maneja
-archivos binarios).</td>
-</tr>
-</tbody>
-</table>
-<hr />
-</div>
-<div id="guía-rápida-de-importación" class="section level3">
-<h3>10.1.2. Guía Rápida de Importación</h3>
-<p>Para importar datos correctamente, asegúrate de que el archivo esté
-en la misma carpeta que tu proyecto o indica la ruta completa.</p>
-</div>
-<div id="importar-archivos-de-texto-.txt-read.tablearchivo.txt"
-class="section level3">
-<h3><strong>Importar archivos de texto (.txt)</strong>
-<code>read.table("archivo.txt")</code></h3>
-<p>Un archivo “table” o de texto es un archivo plano que puedes abrir
-con el Bloc de Notas.</p>
-<p>Ejemplo de estructura de un archivo .txt:</p>
-<p><code>Nombre Edad Sueldo</code></p>
-<p><code>Juan 25 1500</code></p>
-<p><code>Ana 30 2200</code></p>
-<p>Nota: Normalmente los archivos .txt están separados por un
-<strong>espacio</strong>. Si usas <strong>tabulaciones</strong> en vez
-de espacios, añade: <code>sep = "\t"</code></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>misdatos_txt <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;empleados.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>)</span></code></pre></div>
-<p>Los argumentos más utilizados de <code>read.table</code>:</p>
+<h3>Análisis Multivariante: La Matriz de Dispersión
+(<code>pairs</code>)</h3>
+<p>El <strong>análisis multivariante</strong> consiste en trabajar con
+<strong>varias variables numéricas</strong> de un mismo conjunto de
+estudio, cono por ejemplo:</p>
 <ul>
-<li><strong><code>header</code></strong>: indica si el fichero tiene
-cabecera (<code>TRUE</code>/<code>FALSE</code>).</li>
-<li><strong><code>sep</code></strong>: carácter separador de columnas
-(por defecto espacio en blanco).</li>
-<li><strong><code>dec</code></strong>: carácter decimal (por defecto
-<code>"."</code>).</li>
+<li><p>pesos, alturas, bmi, … de un cojunto de personas</p></li>
+<li><p>poetncia, peso, cilindros, de un conjunto de automóviles</p></li>
 </ul>
+<p>no basta con mirar una por una. La función <code>pairs()</code> es la
+forma más rápida de detectar <strong>correlaciones y relaciones</strong>
+entre todas las variables a la vez.</p>
+<p>Esta “matriz de gráficos” nos permite ver, en un solo golpe de
+vista:</p>
+<ul>
+<li><strong>Relaciones lineales:</strong> Si los puntos forman una línea
+(positiva o negativa).</li>
+<li><strong>Posibles valores atípicos:</strong> Puntos que se alejan del
+patrón global.</li>
+<li><strong>Correlaciones:</strong> Qué variables se mueven juntas.</li>
+</ul>
+<p>Ejercicio: Queremos saber cómo se afectan entre sí par a par, las
+distintas características de un automóvil.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Matriz de dispersión para las variables más importantes de mtcars</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co"># mpg: consumo, disp: cilindrada, hp: caballos de fuerza, wt: peso</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">pairs</span>(<span class="sc">~</span>mpg <span class="sc">+</span> disp <span class="sc">+</span> hp <span class="sc">+</span> wt, </span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>      <span class="at">data =</span> mtcars,</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">&quot;Matriz de Dispersión de mtcars&quot;</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>      <span class="at">pch =</span> <span class="dv">21</span>,          <span class="co"># Forma del punto</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>      <span class="at">bg =</span> <span class="st">&quot;steelblue&quot;</span>)  <span class="co"># Color de relleno</span></span></code></pre></div>
+<p><img src="E_matrices_dispersion_files/figure-html/pairs-plot-1.png" alt="" width="672" /></p>
 </div>
-<div id="importar-archivos-.csv-read.csvarchivo.csv"
-class="section level3">
-<h3><strong>Importar archivos .csv</strong>
-<code>read.csv("archivo.csv")</code></h3>
-<p>Un archivo .csv es un archivo de tevto separado por comas o por punto
-y comas. Se recomienda exportar desde Excel a CSV antes de leer en R, ya
-que son archivos que pesan y ocupan menos.</p>
-<p>Ejemplo de estructura de un archivo .txt:</p>
-<p><strong>Nombre,Edad,Departamento</strong> Juan,25,Ventas
-Ana,30,Marketing Luis,45,Ingeniería</p>
-<p><code>read.csv</code> es más directo porque asume que el separador es
-una coma. Utilizar <code>read.csv2</code> si el archivo fue guardado
-desde un Excel en español</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co">#misdatos_csv &lt;- read.csv(&quot;empleados.csv&quot;, header = TRUE)</span></span></code></pre></div>
-<p>Otras funciones disponibles:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">read.delim</span>(file,  <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">dec =</span> <span class="st">&quot;.&quot;</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">read.delim2</span>(file, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">dec =</span> <span class="st">&quot;,&quot;</span>)</span></code></pre></div>
-</div>
-<div id="importar-archivos-de-excel-.xls-o-.xlxs-read.excelarchivo.xls"
-class="section level3">
-<h3><strong>Importar archivos de Excel (.xls o .xlxs)</strong>
-<code>read.excel("archivo.xls")</code></h3>
-<p>Un archivo .xls es un archivo creado con Excel.</p>
-<p><img src="img/excel.png" width="400" /></p>
-<p>Requiere instalar el paquete:
-<code>install.packages("readxl")</code></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Requiere instalar el paquete: install.packages(&quot;readxl&quot;)</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>datos_excel <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;empleados.xlsx&quot;</span>)</span></code></pre></div>
-<blockquote>
-<p><strong>Consejo Pro:</strong> Si vas a compartir tu código, coloca
-<code>install.packages("readxl")</code> como comentario al inicio. Esto
-ayudará a otros usuarios a saber qué dependencias necesitan instalar
-antes de ejecutar tu script.</p>
-</blockquote>
-<p>Otro ejemplo:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># datos &lt;- read.table(&quot;Vigo2017.csv&quot;, header = TRUE, sep = &quot;;&quot;, dec = &quot;,&quot;)</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">head</span>(datos)</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="fu">summary</span>(datos)</span></code></pre></div>
-</div>
-<div id="tratamiento-de-valores-perdidos" class="section level3">
-<h3>Tratamiento de valores perdidos</h3>
-<p>En algunos ficheros los valores ausentes están codificados (p. ej.,
-<code>-9999</code>). Se puede indicar con el argumento
-<code>na.strings</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># datos &lt;- read.csv2(&quot;Vigo2017.csv&quot;, na.strings = &quot;-9999&quot;)</span></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code></pre></div>
-</div>
-</div>
-<div id="exportar-datos" class="section level2">
-<h2>10.2. Exportar datos</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>tipo     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>longitud <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">120.34</span>, <span class="fl">99.45</span>, <span class="fl">115.67</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>datos    <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(tipo, longitud)</span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="fu">write.table</span>(datos, <span class="at">file =</span> <span class="st">&quot;datosPractica2.txt&quot;</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="fu">write.csv2</span>(datos,  <span class="at">file =</span> <span class="st">&quot;datosPractica2.csv&quot;</span>)</span></code></pre></div>
+<div id="guía-de-interpretación-rápida" class="section level3">
+<h3>Guía de interpretación rápida:</h3>
+<p>Cuando vean el gráfico generadohay que fijarse enen estos tres
+detalles:</p>
+<ol style="list-style-type: decimal">
+<li><strong>La Diagonal:</strong> Representa el nombre de la variable.
+Es el “eje” que cruza toda la matriz.</li>
+<li><strong>Relación Inversa (Negativa):</strong> Si los puntos bajan de
+izquierda a derecha (como en el caso de <code>mpg</code> frente a
+<code>wt</code>), significa que <strong>a mayor peso, menor
+consumo</strong>. ¡Es una relación inversamente proporcional!</li>
+<li><strong>Relación Directa (Positiva):</strong> Si los puntos suben de
+izquierda a derecha (como <code>hp</code> frente a <code>disp</code>),
+significa que <strong>a mayor cilindrada, más caballos de
+fuerza</strong>.</li>
+</ol>
 </div>
 
 

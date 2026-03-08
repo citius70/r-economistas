@@ -369,7 +369,13 @@ $(document).ready(function () {
   <a href="12_aleatorios.html">12 Generación de números aleatorios</a>
 </li>
 <li>
-  <a href="A_dispersion.html">A. Gráficos de dispersión</a>
+  <a href="A_dispersion.html">A Gráficos de dispersión</a>
+</li>
+<li>
+  <a href="B_barras.html">B Gráficos de barra o distribución</a>
+</li>
+<li>
+  <a href="C_histograma.html">C Histograma</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -391,6 +397,9 @@ $(document).ready(function () {
 <p>Los <strong>gráficos de dispersión</strong> son la herramienta
 fundamental para analizar si <strong>existe correlación entre dos
 variables</strong>.</p>
+<div id="sintaxis" class="section level2">
+<h2>Sintaxis:</h2>
+<p><code>plot</code></p>
 <div id="ejemplo-básico" class="section level4">
 <h4>Ejemplo básico</h4>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Crear datos de ejemplo</span></span>
@@ -444,6 +453,7 @@ tendencia</strong> (regresión lineal) sobre los puntos para que vean la
 <span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>     <span class="at">frame.plot =</span> <span class="cn">FALSE</span>,     <span class="co"># Estilo más limpio (sin recuadro)</span></span>
 <span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>     <span class="fu">abline</span>(<span class="fu">lm</span>(dist <span class="sc">~</span> speed, <span class="at">data =</span> cars), <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>))</span></code></pre></div>
 <p><img src="A_dispersion_files/figure-html/unnamed-chunk-3-1.png" alt="" width="672" /></p>
+</div>
 </div>
 
 

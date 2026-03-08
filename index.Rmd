@@ -10,9 +10,6 @@ output:
   pdf_document: default
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
-```
 
 
 # 1. Instalación de R

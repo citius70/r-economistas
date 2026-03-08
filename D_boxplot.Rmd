@@ -1,0 +1,96 @@
+---
+title: "D. Boxplot o Gráfico de Cajas"
+output:
+  html_document:
+    toc: false
+    theme: united  # Puedes elegir: united, cosmo, lumen, flatly...
+    highlight: tango
+  word_document: default
+  pdf_document: default
+---
+
+
+El **diagrama de caja (boxplot)** es una de las herramientas **más potentes en estadística** porque resume **cinco números clave** en un solo vistazo:
+
+-   el **mínimo**,
+
+-   el **primer cuartil** ($Q_1$),
+
+-   la **mediana**, también llamado **segundo cuartil** ($Q_2$),
+
+-   el **tercer cuartil** ($Q_3$) y
+
+-   el **máximo**,
+
+además de identificar posibles **valores atípicos** (outliers).
+
+## Sintaxis:
+
+La función principal es `boxplot(formula, data = ...)`, donde:
+
+-   **`formula`**: Sigue la estructura `variable_numerica ~ variable_agrupadora`. Por ejemplo: `mpg ~ cyl`. (millas por galon - cilindros)
+-   **`horizontal = TRUE`**: Gira el gráfico para una lectura más cómoda.
+-   **`varwidth = TRUE`**: Hace que el ancho de cada caja sea proporcional al tamaño de la muestra (útil para ver qué grupos tienen más datos).
+
+Vamos a utilizar el vector `distancias` que ya se utilizó en gráficos anteriores:
+
+```{r boxplot-basic}
+# Datos de distancias
+distancias <- c(
+  291.5, 274.4, 290.2, 276.4, 272.0, 268.7, 281.6, 281.6, 276.3, 285.9,
+  269.6, 266.6, 283.6, 269.6, 277.8, 287.8, 267.6, 292.6, 273.4, 284.4,
+  270.7, 274.0, 285.2, 275.5, 272.1, 261.3, 274.0, 279.3, 281.0, 293.1,
+  277.5, 278.0, 272.5, 271.7, 280.8, 265.6, 260.1, 272.5, 281.3, 263.0,
+  279.0, 267.3, 283.5, 271.2, 268.5, 277.1, 266.2, 266.4, 271.5, 280.3,
+  267.8, 272.1, 269.7, 278.5, 277.3, 280.5, 270.8, 267.7, 255.1, 276.4,
+  283.7, 281.7, 282.2, 274.1, 264.5, 281.0, 273.2, 274.4, 281.6, 273.7,
+  271.0, 271.5, 289.7, 271.1, 256.9, 274.5, 286.2, 273.9, 268.5, 262.6,
+  261.9, 258.9, 293.2, 267.1, 255.0, 269.7, 281.9, 269.6, 279.8, 269.9,
+  282.6, 270.0, 265.2, 277.7, 275.5, 272.2, 270.0, 271.0, 284.3, 268.4
+)
+
+# Boxplot simple de una sola variable
+boxplot(distancias, 
+        horizontal = TRUE, 
+        main = "Boxplot de Distancias",
+        col = "skyblue")
+
+```
+
+------------------------------------------------------------------------
+
+### Ejercicio 3: Comparación con Boxplots
+
+Representa en gráfico de cajas la variable "mpg" y "cyl" de la base de datos **mtcars**
+
+
+En estadística, los boxplots son ideales para **comparar grupos**. Vamos a analizar cómo varía el consumo de combustible (`mpg`) según el número de cilindros (`cyl`) en el conjunto de datos `mtcars`.
+
+> **Nota:** Para que R entienda `cyl` como grupos y no como un número, a veces es útil convertirlo a factor usando `as.factor()`.
+
+```{r ejercicio3}
+# Cargamos los datos
+data(mtcars)
+head(mtcars)   # Veamos los primeros datos
+
+# Representación: ¿Cómo cambia el consumo (mpg) según el número de cilindros?
+boxplot(mpg ~ as.factor(cyl),     # Le estamos diciendo: Dibuja el consumo de gasolina (mpg) en función de los cilindros (cyl)"
+        data = mtcars,
+        main = "Consumo (mpg) según número de cilindros",
+        xlab = "Número de cilindros",
+        ylab = "Millas por galón (mpg)",
+        col = c("slategray", "steelblue", "firebrick"),
+        varwidth = TRUE)
+
+```
+
+------------------------------------------------------------------------
+
+### Interpretación rápida para tus alumnos:
+
+-   **La línea central:** Es la mediana (el valor que divide los datos a la mitad).
+-   **La caja:** Contiene el 50% central de los datos (entre el cuartil 25% y 75%).
+-   **Los "bigotes":** Muestran el rango de los datos (excluyendo valores atípicos).
+-   **Los puntos aislados:** Son **observaciones atípicas** (valores que se alejan mucho del comportamiento normal).
+
+**¿Qué observan en el ejercicio 3?** Deberían notar que a mayor número de cilindros, la mediana del consumo de combustible (`mpg`) suele ser menor. ¡El boxplot nos permite confirmar esta relación de forma visual inmediata!

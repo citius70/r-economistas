@@ -32,6 +32,13 @@ navbar:
       href: A_dispersion.html
     - text: "B Gráficos de barra o distribución"
       href: B_barras.html
+    - text: "C Histograma"
+      href: C_histograma.html
+    - text: "D Gráfico de Caja o Boxplot"
+      href: D_boxplot.html
+    - text: "E Matrices de Gráficos de Dispersión"
+      href: E_matrices_dispersion.html
+
 output:
   html_document:
     highlight: textmate

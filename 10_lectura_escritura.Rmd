@@ -70,10 +70,7 @@ Un archivo .csv es un archivo de tevto separado por comas o por punto y comas. S
 
 Ejemplo de estructura de un archivo .txt:
 
-**Nombre,Edad,Departamento**
-Juan,25,Ventas
-Ana,30,Marketing
-Luis,45,Ingeniería
+**Nombre,Edad,Departamento** Juan,25,Ventas Ana,30,Marketing Luis,45,Ingeniería
 
 `read.csv` es más directo porque asume que el separador es una coma. Utilizar `read.csv2` si el archivo fue guardado desde un Excel en español
 

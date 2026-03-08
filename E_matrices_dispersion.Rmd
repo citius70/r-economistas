@@ -1,0 +1,47 @@
+---
+title: "E. Matrices de Gráficos de Dispersión"
+output:
+  html_document:
+    toc: false
+    theme: united  # Puedes elegir: united, cosmo, lumen, flatly...
+    highlight: tango
+  word_document: default
+  pdf_document: default
+---
+
+### Análisis Multivariante: La Matriz de Dispersión (`pairs`)
+
+El **análisis multivariante** consiste en trabajar con **varias variables numéricas** de un mismo conjunto de estudio, cono por ejemplo:
+
+-    pesos, alturas, bmi, ... de un cojunto de personas
+
+-   poetncia, peso, cilindros, de un conjunto de automóviles
+
+no basta con mirar una por una. La función `pairs()` es la forma más rápida de detectar **correlaciones y relaciones** entre todas las variables a la vez.
+
+Esta "matriz de gráficos" nos permite ver, en un solo golpe de vista:
+
+-   **Relaciones lineales:** Si los puntos forman una línea (positiva o negativa).
+-   **Posibles valores atípicos:** Puntos que se alejan del patrón global.
+-   **Correlaciones:** Qué variables se mueven juntas.
+
+Ejercicio: Queremos saber cómo se afectan entre sí par a par, las distintas características de un automóvil.
+
+```{r pairs-plot}
+# Matriz de dispersión para las variables más importantes de mtcars
+# mpg: consumo, disp: cilindrada, hp: caballos de fuerza, wt: peso
+pairs(~mpg + disp + hp + wt, 
+      data = mtcars,
+      main = "Matriz de Dispersión de mtcars",
+      pch = 21,          # Forma del punto
+      bg = "steelblue")  # Color de relleno
+
+```
+
+### Guía de interpretación rápida:
+
+Cuando vean el gráfico generadohay que fijarse enen estos tres detalles:
+
+1.  **La Diagonal:** Representa el nombre de la variable. Es el "eje" que cruza toda la matriz.
+2.  **Relación Inversa (Negativa):** Si los puntos bajan de izquierda a derecha (como en el caso de `mpg` frente a `wt`), significa que **a mayor peso, menor consumo**. ¡Es una relación inversamente proporcional!
+3.  **Relación Directa (Positiva):** Si los puntos suben de izquierda a derecha (como `hp` frente a `disp`), significa que **a mayor cilindrada, más caballos de fuerza**.
