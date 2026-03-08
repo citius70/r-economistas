@@ -28,6 +28,10 @@ navbar:
       href: 11_funciones.html
     - text: "12 Generación de números aleatorios"
       href: 12_aleatorios.html
+    - text: "Ejercicio 1"
+      href: Ejercicio_1.html
+    - text: "Ejercicio 2"
+      href: Ejercicio_2.html
     - text: "A Gráficos de dispersión"
       href: A_dispersion.html
     - text: "B Gráficos de barra o distribución"

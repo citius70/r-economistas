@@ -6,7 +6,7 @@ output:
     theme: united  # Puedes elegir: united, cosmo, lumen, flatly...
     highlight: tango
   word_document: default
-  pdf_document: defaul
+  pdf_document: default
 ---
 
 Los **gráficos de barras** son la herramienta estándar para visualizar la distribución de **datos categóricos** (o variables discretas con pocos niveles), permitiendo comparar frecuencias entre distintos grupos de forma rápida.

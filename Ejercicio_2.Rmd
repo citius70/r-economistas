@@ -1,0 +1,59 @@
+---
+title: "Ejercicio 2"
+output:
+  html_document:
+    toc: false
+    theme: lumen  # Puedes elegir: united, cosmo, lumen, flatly...
+    highlight: tango
+  word_document: default
+  pdf_document: default
+---
+
+## Ejercicio 2: Simulación de Lanzamientos de una Moneda
+
+**Objetivo:** Aplicar los conocimientos sobre muestreo aleatorio para simular una variable dicotómica (dos resultados posibles) y observar la convergencia de frecuencias.
+
+### Instrucciones:
+
+1.  **Programación de la función:** Crea una función en R denominada `moneda(n)` que simule el lanzamiento de una moneda justa (dos caras posibles: "Cara" y "Cruz") `n` veces. Tu función debe:
+
+-   Definir el espacio muestral: Un vector con los elementos `"Cara"` y `"Cruz"`.
+-   Simular el experimento: Utilizar `sample()` con reemplazo para realizar `n` lanzamientos.
+-   Calcular la frecuencia relativa: Obtener la tabla de frecuencias dividida por `n`.
+-   Visualización: Representar los resultados en un gráfico de barras (`barplot`).
+-   Referencia teórica: Añadir una línea horizontal (`abline`) en el valor $0.5$ (la probabilidad teórica de cada cara/cruz) usando color rojo.
+-   Resultado: Devolver la tabla de frecuencias redondeada a 3 decimales.
+
+2.  **Experimentación:** Ejecuta la función creada para los siguientes tamaños muestrales:
+
+-   $n = 10$ lanzamientos.
+-   $n = 100$ lanzamientos.
+
+3.  **Análisis de resultados:**
+
+-   Compara los gráficos obtenidos.
+-   ¿Cómo se comportan las frecuencias relativas en comparación con la probabilidad teórica ($0.5$)?
+-   ¿Es la variabilidad mayor en el experimento de 10 lanzamientos o en el de 100? Justifica tu respuesta brevemente.
+
+------------------------------------------------------------------------
+
+### Código sugerido para la solución:
+
+```{r}
+moneda <- function(n) {
+  resultados = c("Cara", "Cruz")
+  lanzamientos = sample(resultados, n, replace = TRUE)
+  frecuencias = table(lanzamientos) / n
+  
+  barplot(frecuencias, main = paste("n =", n), ylim = c(0, 1))
+  abline(h = 0.5, col = "red", lwd = 2)
+  
+  return(round(frecuencias, 3))
+}
+
+# Ejecución
+moneda(10)
+moneda(100)
+```
+
+**Nota:** Al ejecutar este ejercicio, notaremos que, con solo 10 lanzamientos, es muy probable obtener resultados lejanos al 50/50 (por ejemplo, 7 caras y 3 cruces). Con 100 lanzamientos, la distribución tiende a ser mucho más equilibrada, ilustrando de nuevo la **Ley de los Grandes Números**.

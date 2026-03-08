@@ -9,10 +9,6 @@ output:
   pdf_document: default
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
-```
-
 Estas son las funciones y operadores que encluye R en su instalación básica.
 
 ## 3.1. Funciones principales
