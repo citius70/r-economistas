@@ -1,5 +1,8 @@
 ---
-title: "R "
+title: "R"
+output:
+  word_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -33,7 +36,7 @@ Es un archivo de **documento dinámico**.
 ### 2.1.3. Cómo los diferencia RStudio?
 
 | Característica | Archivo `.R` | Archivo `.Rmd` |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | **Idioma principal** | Código R | Markdown (texto) + bloques de código |
 | **Para escribir texto** | Necesitas `#` en cada línea | Escribes libremente sin símbolos |
 | **Resultado final** | El código ejecutado | Un documento legible (reporte) |
