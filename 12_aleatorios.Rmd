@@ -1,0 +1,129 @@
+---
+title: "12. Generación de números aleatorios"
+output: html_document
+---
+
+En R, podemos **simular fenómenos aleatorios** mediante funciones específicas. Cada una corresponde a una distribución estadística distinta.
+
+## 1. Muestreo Simple
+
+Esta categoría se utiliza cuando queremos seleccionar **elementos totalmente al azar de un conjunto definido sin aplicar una curva** estadística compleja.
+
+### **Muestreo Aleatorio (Enteros)**
+
+Esta función extrae una muestra al azar. Usamos `replace = TRUE` para permitir que el mismo número pueda aparecer más de una vez (muestreo con reemplazo).
+
+```{r}
+# Elegimos 7 números del 1 al 100 con posibilidad de repetición
+numeros_enteros <- sample(1:100, 7, replace = TRUE)
+numeros_enteros 
+```
+
+## 2. Distribuciones Continuas
+
+Se utilizan para **valores que pueden tomar cualquier valor dentro de un intervalo** (números con decimales).
+
+### **Distribución Uniforme**
+
+**Crea números que tienen exactamente la misma probabilidad de aparecer**. Ideal para simular situaciones donde cualquier resultado es igual de probable.
+
+```{r}
+# Generamos 10 números entre 0 y 1 con la misma probabilidad 
+uniforme <- runif(10) 
+uniforme 
+
+
+```
+
+### **Distribución Normal (Campana de Gauss)**
+
+**Genera datos que se agrupan mayoritariamente alrededor de una media**. Es la distribución más importante para modelar fenómenos naturales y errores de medición.
+
+```{r}
+# Generamos 100 datos con media 0 y desviación típica 1
+normal <- rnorm(100, mean = 0, sd = 1) 
+head(normal) 
+```
+
+### **Distribución Exponencial**
+
+**Modeliza el tiempo que transcurre entre eventos que ocurren de forma independiente a un ritmo constante** (por ejemplo, el tiempo de espera hasta el próximo cliente).
+
+```{r}
+# Generamos 50 valores con una tasa (rate) de 0.1
+exponencial <- rexp(50, rate = 0.1)
+head(exponencial)
+```
+
+## 3. Distribuciones Discretas
+
+Se utilizan para **valores que toman valores contables, generalmente números enteros** (ej. cantidad de personas, cantidad de éxitos).
+
+### **Distribución de Poisson**
+
+Se utiliza para **contar cuántas veces ocurre un evento "raro" en un intervalo fijo, dado un promedio esperado** (`lambda`).
+
+```{r}
+# Generamos 30 valores para eventos raros con promedio 2 
+poisson <- rpois(30, lambda = 2) 
+poisson 
+```
+
+### **Distribución Binomial**
+
+**Simula experimentos con solo dos resultados posibles** (éxito/fracaso, cara/cruz, sí/no, fuera/dentro, ganar/perder).
+
+**Ejemplo 1:**
+
+Lanzar una moneda 10 veces y contar cuántas veces sale cara.
+
+```{r}
+# Simulamos 10 experimentos
+# En cada experimento, lanzamos la moneda 20 veces. En total se tirarán 10 veces x 20 veces cada tanda = 200 veces
+# La probalidad de que salga cara 0.5 es igual a que salga cruz 0.5
+# Queremos contar cuántas caras (éxitos) obtenemos en cada experimento
+
+moneda <- rbinom(n = 10, size = 20, prob = 0.5)
+
+# Mostramos cuántas caras salieron en cada uno de los 10 experimentos
+moneda
+
+# Aparecerán las veces que salió cara en cada uno de las 10 tandas/experimentos
+```
+
+**Ejemplo 2:**
+
+Imagina que **1 alumno** responde a un examen tipo test de **20** preguntas al azar. Cada **pregunta tiene 4 opciones** y solo **una es correcta** (probabilidad de acertar por suerte: $1/4 = 0.25$).
+
+```{r}
+# Simulamos 1 alumno diferentes respondiendo el mismo examen:
+# n = 1 (alumnos), size = 20 (preguntas), prob = 0.25 (probabilidad de acertar)
+
+resultados_examen <- rbinom(n = 1, size = 20, prob = 0.25)
+resultados_examen 
+
+# El resultado de abajo es el número de preguntas acertadas por 1 alumno de las 20 preguntas
+
+```
+
+Y si el examen lo hacen **2 alumnos** (n=2):
+
+```{r}
+resultados_examen <- rbinom(n = 2, size = 20, prob = 0.25)
+resultados_examen 
+
+# El resultado de abajo es el número de preguntas acertadas por cada uno de los 2 alumnos de las 20 preguntas
+
+```
+
+**Ejemplo 3:**
+
+Tiros libres en baloncesto. Un jugador de baloncesto tiene un prob= % de acierto ($0.7$) en tiros libres. Lanza 15 tiros (size) en 4 entrenamientos/sesiones/tandas distintas (n).
+
+```{r}
+# Simulamos 4 sesiones de entrenamiento donde lanza 15 veces
+# n = 4 (sesiones), size = 15 (tiros), prob = 0.7 (acierto)
+canastas_anotadas <- rbinom(n = 4, size = 15, prob = 0.7)
+canastas_anotadas
+# LAs canastas anotadas en cada entrenamiento es de:
+```

@@ -28,6 +28,8 @@ navbar:
       href: 10_lectura_escritura.html
     - text: "11 Funciones (function)"
       href: 11_funciones.html
+    - text: "12 Genaración de números alartorios"
+      href: 12_aleatorios.html
 
 output:
   html_document:

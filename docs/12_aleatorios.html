@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>12. Generación de números aleatorios</title>
+
+<script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">R para economistas</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Resumen</a>
+</li>
+<li>
+  <a href="1_instalacion.html">1 Instalación</a>
+</li>
+<li>
+  <a href="2_ventanas.html">2 Introducción a R</a>
+</li>
+<li>
+  <a href="3_funciones_operadores.html">3 Funciones y operadores básicos</a>
+</li>
+<li>
+  <a href="4_paquetes.html">4 Gestión de paquetes</a>
+</li>
+<li>
+  <a href="5_vectores.html">5 Vectores</a>
+</li>
+<li>
+  <a href="6_matrices.html">6 Matrices</a>
+</li>
+<li>
+  <a href="7_arrays.html">7 Arrays</a>
+</li>
+<li>
+  <a href="8_dataframes.html">8 Data Frames</a>
+</li>
+<li>
+  <a href="9_data.html">9 Datos de ejemplo (data)</a>
+</li>
+<li>
+  <a href="10_lectura_escritura.html">10 Lectura y escritura de archivos externos</a>
+</li>
+<li>
+  <a href="11_funciones.html">11 Funciones (function)</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">12. Generación de números aleatorios</h1>
+
+</div>
+
+
+<p>En R, podemos <strong>simular fenómenos aleatorios</strong> mediante
+funciones específicas. Cada una corresponde a una distribución
+estadística distinta.</p>
+<div id="muestreo-simple" class="section level2">
+<h2>1. Muestreo Simple</h2>
+<p>Esta categoría se utiliza cuando queremos seleccionar
+<strong>elementos totalmente al azar de un conjunto definido sin aplicar
+una curva</strong> estadística compleja.</p>
+<div id="muestreo-aleatorio-enteros" class="section level3">
+<h3><strong>Muestreo Aleatorio (Enteros)</strong></h3>
+<p>Esta función extrae una muestra al azar. Usamos
+<code>replace = TRUE</code> para permitir que el mismo número pueda
+aparecer más de una vez (muestreo con reemplazo).</p>
+<pre class="r"><code># Elegimos 7 números del 1 al 100 con posibilidad de repetición
+numeros_enteros &lt;- sample(1:100, 7, replace = TRUE)
+numeros_enteros </code></pre>
+<pre><code>## [1] 61 63 84 29 86 13 17</code></pre>
+</div>
+</div>
+<div id="distribuciones-continuas" class="section level2">
+<h2>2. Distribuciones Continuas</h2>
+<p>Se utilizan para <strong>valores que pueden tomar cualquier valor
+dentro de un intervalo</strong> (números con decimales).</p>
+<div id="distribución-uniforme" class="section level3">
+<h3><strong>Distribución Uniforme</strong></h3>
+<p><strong>Crea números que tienen exactamente la misma probabilidad de
+aparecer</strong>. Ideal para simular situaciones donde cualquier
+resultado es igual de probable.</p>
+<pre class="r"><code># Generamos 10 números entre 0 y 1 con la misma probabilidad 
+uniforme &lt;- runif(10) 
+uniforme </code></pre>
+<pre><code>##  [1] 0.752633226 0.445821404 0.452426122 0.680330137 0.925645201 0.808744854
+##  [7] 0.064534077 0.895283528 0.273177166 0.007349386</code></pre>
+</div>
+<div id="distribución-normal-campana-de-gauss" class="section level3">
+<h3><strong>Distribución Normal (Campana de Gauss)</strong></h3>
+<p><strong>Genera datos que se agrupan mayoritariamente alrededor de una
+media</strong>. Es la distribución más importante para modelar fenómenos
+naturales y errores de medición.</p>
+<pre class="r"><code># Generamos 100 datos con media 0 y desviación típica 1
+normal &lt;- rnorm(100, mean = 0, sd = 1) 
+head(normal) </code></pre>
+<pre><code>## [1]  0.7691353  0.4395679 -1.5694419 -0.3626210  1.0217838  2.5065717</code></pre>
+</div>
+<div id="distribución-exponencial" class="section level3">
+<h3><strong>Distribución Exponencial</strong></h3>
+<p><strong>Modeliza el tiempo que transcurre entre eventos que ocurren
+de forma independiente a un ritmo constante</strong> (por ejemplo, el
+tiempo de espera hasta el próximo cliente).</p>
+<pre class="r"><code># Generamos 50 valores con una tasa (rate) de 0.1
+exponencial &lt;- rexp(50, rate = 0.1)
+head(exponencial)</code></pre>
+<pre><code>## [1] 11.40563257 14.83488179  6.17570980  6.04899742  0.06244187 10.89328215</code></pre>
+</div>
+</div>
+<div id="distribuciones-discretas" class="section level2">
+<h2>3. Distribuciones Discretas</h2>
+<p>Se utilizan para <strong>valores que toman valores contables,
+generalmente números enteros</strong> (ej. cantidad de personas,
+cantidad de éxitos).</p>
+<div id="distribución-de-poisson" class="section level3">
+<h3><strong>Distribución de Poisson</strong></h3>
+<p>Se utiliza para <strong>contar cuántas veces ocurre un evento “raro”
+en un intervalo fijo, dado un promedio esperado</strong>
+(<code>lambda</code>).</p>
+<pre class="r"><code># Generamos 30 valores para eventos raros con promedio 2 
+poisson &lt;- rpois(30, lambda = 2) 
+poisson </code></pre>
+<pre><code>##  [1] 0 1 0 0 1 2 2 3 2 3 2 3 7 1 1 1 1 3 1 1 3 3 4 5 3 1 1 0 2 2</code></pre>
+</div>
+<div id="distribución-binomial" class="section level3">
+<h3><strong>Distribución Binomial</strong></h3>
+<p><strong>Simula experimentos con solo dos resultados posibles</strong>
+(éxito/fracaso, cara/cruz, sí/no, fuera/dentro, ganar/perder).</p>
+<p><strong>Ejemplo 1:</strong></p>
+<p>Lanzar una moneda 10 veces y contar cuántas veces sale cara.</p>
+<pre class="r"><code># Simulamos 10 experimentos
+# En cada experimento, lanzamos la moneda 20 veces. En total se tirarán 10 veces x 20 veces cada tanda = 200 veces
+# La probalidad de que salga cara 0.5 es igual a que salga cruz 0.5
+# Queremos contar cuántas caras (éxitos) obtenemos en cada experimento
+
+moneda &lt;- rbinom(n = 10, size = 20, prob = 0.5)
+
+# Mostramos cuántas caras salieron en cada uno de los 10 experimentos
+moneda</code></pre>
+<pre><code>##  [1]  6 12 12 13 11  9 10  9 11 14</code></pre>
+<pre class="r"><code># Aparecerán las veces que salió cara en cada uno de las 10 tandas/experimentos</code></pre>
+<p><strong>Ejemplo 2:</strong></p>
+<p>Imagina que <strong>1 alumno</strong> responde a un examen tipo test
+de <strong>20</strong> preguntas al azar. Cada <strong>pregunta tiene 4
+opciones</strong> y solo <strong>una es correcta</strong> (probabilidad
+de acertar por suerte: <span class="math inline">\(1/4 =
+0.25\)</span>).</p>
+<pre class="r"><code># Simulamos 1 alumno diferentes respondiendo el mismo examen:
+# n = 1 (alumnos), size = 20 (preguntas), prob = 0.25 (probabilidad de acertar)
+
+resultados_examen &lt;- rbinom(n = 1, size = 20, prob = 0.25)
+resultados_examen </code></pre>
+<pre><code>## [1] 8</code></pre>
+<pre class="r"><code># El resultado de abajo es el número de preguntas acertadas por 1 alumno de las 20 preguntas</code></pre>
+<p>Y si el examen lo hacen <strong>2 alumnos</strong> (n=2):</p>
+<pre class="r"><code>resultados_examen &lt;- rbinom(n = 2, size = 20, prob = 0.25)
+resultados_examen </code></pre>
+<pre><code>## [1] 1 5</code></pre>
+<pre class="r"><code># El resultado de abajo es el número de preguntas acertadas por cada uno de los 2 alumnos de las 20 preguntas</code></pre>
+<p><strong>Ejemplo 3:</strong></p>
+<p>Tiros libres en baloncesto. Un jugador de baloncesto tiene un 70% de
+acierto (<span class="math inline">\(0.7\)</span>) en tiros libres.
+Lanza 15 tiros en 4 entrenamientos/sesiones/tandas distintas.</p>
+<pre class="r"><code># Simulamos 4 sesiones de entrenamiento donde lanza 15 veces
+# n = 4 (sesiones), size = 15 (tiros), prob = 0.7 (acierto)
+canastas_anotadas &lt;- rbinom(n = 4, size = 15, prob = 0.7)
+canastas_anotadas</code></pre>
+<pre><code>## [1]  7 12  6  8</code></pre>
+<pre class="r"><code># LAs canastas anotadas en cada entrenamiento es de:</code></pre>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
