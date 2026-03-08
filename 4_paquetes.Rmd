@@ -1,0 +1,61 @@
+---
+title: "R"
+output: html_document
+---
+
+# 4. Gestión de Paquetes y Ayuda
+
+## 4.1. ¿Cómo organiza R sus funcionalidades?
+
+Al iniciar R, se carga automáticamente el **paquete base**. Este conjunto incluye las funciones esenciales (como `sum` o `max`) y las estructuras de datos fundamentales como vectores, matrices y *data frames*.
+
+Sin embargo, el ecosistema de R es modular: para acceder a funciones especializadas, utilizamos **paquetes (*packages*)**. Un paquete es una colección de funciones, datos y documentación desarrollada por la comunidad para tareas específicas.
+
+## 4.2. Instalación vs. Carga de paquetes
+
+Es vital distinguir entre estos dos procesos:
+
+1. **Instalar (`install.packages`):** Descarga el paquete de los servidores a tu computadora. **Solo se hace una vez.**
+2. **Cargar (`library`):** Activa el paquete en tu sesión actual de R para poder usar sus funciones. **Debes hacerlo cada vez que reinicies R.**
+
+```{r paquetes, eval=FALSE}
+# Instalación (ejecutar solo una vez por computadora)
+install.packages("nombre_del_paquete")
+
+# Carga (ejecutar siempre al iniciar un nuevo script)
+library(nombre_del_paquete)
+
+# Ver todos los paquetes instalados en tu sistema
+library()  
+
+```
+
+## 4.3. Ejemplo práctico: paquete `clustcurv`
+
+```{r clustcurv, eval=FALSE}
+# Instalación (se hace una sola vez)
+# install.packages("clustcurv")
+
+# Carga la librería para usarla en el script actual
+library(clustcurv)
+
+# Documentación de la librería
+library(help = clustcurv)
+
+```
+
+## 4.4. Ayuda en R
+
+R tiene un sistema de documentación integrado muy eficiente. Si necesitas entender cómo funciona una función, usa el signo de interrogación o la función `help()`.
+
+```{r ayuda, eval=FALSE}
+# Obtener ayuda sobre una función específica
+?max         
+help(max)    # Es el equivalente a ?max
+
+# Ayuda específica para la función mean
+help(mean)   
+
+```
+
+

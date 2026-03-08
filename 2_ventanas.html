@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>R</title>
+
+<script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">R para economistas</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Inicio</a>
+</li>
+<li>
+  <a href="1_instalacion.html">1 Instalación</a>
+</li>
+<li>
+  <a href="2_ventanas.html">2 Introducción a R</a>
+</li>
+<li>
+  <a href="3_funciones_operadores.html">3 Funciones y operadores básicos</a>
+</li>
+<li>
+  <a href="4_paquetes.html">4 Gestión de paquetes</a>
+</li>
+<li>
+  <a href="5_vectores.html">5 Vectores</a>
+</li>
+<li>
+  <a href="graficos/graficos.html">Visualizaciones en R</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">R</h1>
+
+</div>
+
+
+<div id="archivos-y-ventanas-de-rstudio" class="section level1">
+<h1>2. Archivos y ventanas de RStudio</h1>
+<p>R es un lenguaje de programación y un entorno de software utilizado
+principalmente para el <strong>análisis estadístico</strong> y la
+<strong>visualización de datos</strong>. Sin embargo, también se puede
+utilizar como una calculadora avanzada.</p>
+<div id="tipos-de-archivos" class="section level2">
+<h2>2.1 Tipos de archivos</h2>
+<div id="archivos-.r-scripts-puros" class="section level3">
+<h3>2.1.1. Archivos <code>.R</code> (Scripts puros)</h3>
+<p>Es un archivo de <strong>código plano</strong>.</p>
+<ul>
+<li><strong>Contenido:</strong> Solo puedes escribir código de R. Si
+escribes texto normal (como una frase), R te dará un error a menos que
+lo pongas detrás de un símbolo <code>#</code> (comentario).</li>
+<li><strong>Uso:</strong> Ideal para crear funciones, limpiar datos a
+gran escala o automatizar procesos que no necesitan explicaciones
+textuales.</li>
+<li><strong>Ejecución:</strong> Ejecutas línea por línea o bloques de
+código seleccionados con <code>Ctrl + Enter</code>.</li>
+</ul>
+</div>
+<div id="archivos-.rmd-r-markdown" class="section level3">
+<h3>2.1.2. Archivos <code>.Rmd</code> (R Markdown)</h3>
+<p>Es un archivo de <strong>documento dinámico</strong>.</p>
+<ul>
+<li><strong>Contenido:</strong> Es una mezcla de <strong>texto
+enriquecido</strong> (Markdown) y <strong>bloques de código</strong>
+(Chunks). Puedes escribir un informe completo, explicar qué hace tu
+código y mostrar los resultados (gráficos, tablas) en el mismo
+sitio.</li>
+<li><strong>Uso:</strong> Es el estándar de oro para reportes, tareas,
+artículos científicos o presentaciones.</li>
+<li><strong>Ejecución:</strong> Se “compila” entero mediante el botón
+<strong>Knit</strong>. El resultado final no es solo código, sino un
+documento terminado en formato HTML, PDF o Word.</li>
+</ul>
+<hr />
+</div>
+<div id="cómo-los-diferencia-rstudio" class="section level3">
+<h3>2.1.3. Cómo los diferencia RStudio?</h3>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Característica</th>
+<th>Archivo <code>.R</code></th>
+<th>Archivo <code>.Rmd</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Idioma principal</strong></td>
+<td>Código R</td>
+<td>Markdown (texto) + bloques de código</td>
+</tr>
+<tr class="even">
+<td><strong>Para escribir texto</strong></td>
+<td>Necesitas <code>#</code> en cada línea</td>
+<td>Escribes libremente sin símbolos</td>
+</tr>
+<tr class="odd">
+<td><strong>Resultado final</strong></td>
+<td>El código ejecutado</td>
+<td>Un documento legible (reporte)</td>
+</tr>
+<tr class="even">
+<td><strong>Botón clave</strong></td>
+<td><strong>Source</strong> (ejecuta todo)</td>
+<td><strong>Knit</strong> (crea el documento)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<blockquote>
+<p>Un consejo práctico:</p>
+</blockquote>
+<p>Si estás empezando, te recomiendo usar
+<strong><code>.Rmd</code></strong> la mayor parte del tiempo.
+<strong>¿Por qué?</strong> Porque al escribir código, a menudo olvidamos
+qué hacíamos hace dos semanas. En un <code>.Rmd</code> puedes
+escribir:</p>
+<blockquote>
+<p><em>“Este bloque sirve para calcular el promedio de los empleados de
+la empresa…”</em> …y debajo poner el código. Eso te ayuda a ti mismo (y
+a otros) a entender tu propio trabajo sin tener que descifrar cada línea
+de código.</p>
+</blockquote>
+<p>¿Te sientes más cómodo escribiendo en un formato de “documento”
+(<code>.Rmd</code>) o prefieres la simplicidad de un script
+(<code>.R</code>)?</p>
+<p>Abre R o RStudio. Deberías ver una consola donde puedes ingresar
+comandos de R.</p>
+</div>
+</div>
+<div id="la-ventana-de-consola-y-la-ventana-de-script"
+class="section level2">
+<h2>2.3 La ventana de consola y la ventana de script</h2>
+<div id="la-ventana-consola" class="section level3">
+<h3>2.3.1. La ventana Consola</h3>
+<p>La <strong>consola</strong> es el motor operativo de RStudio,
+diseñado exclusivamente para la <strong>ejecución dinámica y
+temporal</strong> de código. Aunque es la herramienta donde observas el
+resultado de tus operaciones, es un <strong>error tratarla como un lugar
+de almacenamiento</strong>.</p>
+<p>La consola funciona bajo una lógica de “pizarra blanca”: <strong>está
+hecha para probar ideas, verificar funciones rápidamente, detectar
+errores de forma inmediata, o incluso, para instalar paquetes</strong>.
+Sin embargo, carece de una función de guardado automático para el
+usuario. <strong>Al cerrar RStudio, todo el contenido de la consola se
+pierde de manera definitiva</strong>.</p>
+<p><img src="img/ventana_consola.png" /></p>
+<p>En definitival podemos considerar la consola como una
+<strong>calculadora rápida</strong> de R que ejecuta línea a línea al
+pulsar <strong>CTRL + ENTER</strong>.</p>
+<pre class="r"><code># La consola puede funcionar como una pequeña calculadora
+
+2 + 3</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre class="r"><code>sqrt(16)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code>1 + 2 * 4</code></pre>
+<pre><code>## [1] 9</code></pre>
+<pre class="r"><code>(1 + 2) * 4</code></pre>
+<pre><code>## [1] 12</code></pre>
+<pre class="r"><code>3 + 5; 3 + 6  # varias órdenes se separan por ;</code></pre>
+<pre><code>## [1] 8</code></pre>
+<pre><code>## [1] 9</code></pre>
+<pre class="r"><code>5*pi  # R conoce pi (3.1415)</code></pre>
+<pre><code>## [1] 15.70796</code></pre>
+</div>
+<div id="la-ventana-de-script" class="section level3">
+<h3>2.3.2. La ventana de Script</h3>
+<p>La ventana de Script es la ventana/editor más versátil de RStudio. Es
+el “taller” de RStudio. Mientras que :</p>
+<ul>
+<li><p>la *Consola** es donde pruebas cosas rápidas y ves los
+resultados,</p></li>
+<li><p>el *Script** es donde escribes tus programas, guardas tu código y
+lo haces reproducible.</p></li>
+<li><p><img src="img/ventana_script.png" /></p></li>
+</ul>
+<p>Si estás trabajando en RMarkdown (.Rmd), tu ventana de script es la
+que tiene el fondo blanco donde escribes el texto y los bloques de
+código ```{r}.</p>
+<p>Los archivos guardados en esta ventana tienen la extenxión .rmd y
+combinan bloques de texto con bloques de código.</p>
+</div>
+<div id="por-qué-deberías-escribir-siempre-en-el-script"
+class="section level3">
+<h3>¿Por qué deberías escribir siempre en el Script?</h3>
+<p>**Persistencia**: Si cierras RStudio, todo lo que escribiste en la
+Consola se pierde. Lo que guardas en un archivo de Script (.R) o
+RMarkdown (.Rmd) se queda ahí para siempre.</p>
+<p>**Edición**: Es mucho más fácil corregir un error de dedo en un
+script que intentar editar una línea que ya ejecutaste en la
+consola.</p>
+<p>**Reproducibilidad**: Puedes compartir tu archivo .Rmd con otra
+persona, y ellos podrán ejecutarlo y obtener los mismos resultados que
+tú.</p>
+<p>Los ficheros script de R se pueden guardar utilizando <strong>Archivo
+→ Guardar como…</strong> y eligiendo a continuación la ubicación que
+interesa en el disco duro del ordenador.</p>
+<p>Por defecto R utiliza una carpeta de trabajo donde guardará la
+información.</p>
+<pre class="r"><code>getwd()  # devuelve la carpeta de trabajo
+
+# Cambiar la carpeta de trabajo
+setwd(&quot;/ruta/a/tu/carpeta&quot;)
+
+# Ejemplo en Windows
+setwd(&quot;c:/&quot;)</code></pre>
+<hr />
+</div>
+</div>
+</div>
+<div id="funciones-y-operadores-en-r" class="section level1">
+<h1>Funciones y Operadores en R</h1>
+<div id="funciones-principales" class="section level2">
+<h2>Funciones principales</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Función</th>
+<th>Código en R</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Raíz cuadrada de x</td>
+<td><code>sqrt(x)</code></td>
+</tr>
+<tr class="even">
+<td>Exponencial de x</td>
+<td><code>exp(x)</code></td>
+</tr>
+<tr class="odd">
+<td>Logaritmo neperiano</td>
+<td><code>log(x)</code></td>
+</tr>
+<tr class="even">
+<td>Nº de elementos de un vector</td>
+<td><code>length(x)</code></td>
+</tr>
+<tr class="odd">
+<td>Suma los elementos del vector</td>
+<td><code>sum(x)</code></td>
+</tr>
+<tr class="even">
+<td>Seno de x</td>
+<td><code>sin(x)</code></td>
+</tr>
+<tr class="odd">
+<td>Coseno de x</td>
+<td><code>cos(x)</code></td>
+</tr>
+<tr class="even">
+<td>Tangente de x</td>
+<td><code>tan(x)</code></td>
+</tr>
+<tr class="odd">
+<td>Media</td>
+<td><code>mean(x)</code></td>
+</tr>
+<tr class="even">
+<td>Desviación típica</td>
+<td><code>sd(x)</code></td>
+</tr>
+<tr class="odd">
+<td>Varianza</td>
+<td><code>var(x)</code></td>
+</tr>
+<tr class="even">
+<td>Mediana</td>
+<td><code>median(x)</code></td>
+</tr>
+<tr class="odd">
+<td>Quantiles</td>
+<td><code>quantile(x, p)</code></td>
+</tr>
+<tr class="even">
+<td>Máximo y Mínimo</td>
+<td><code>range(x)</code></td>
+</tr>
+<tr class="odd">
+<td>Ordenación</td>
+<td><code>sort(x)</code></td>
+</tr>
+<tr class="even">
+<td>Resumen estadístico</td>
+<td><code>summary(x)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Ejemplos:</p>
+<pre class="r"><code>x = 16
+sqrt(x)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code>exp(x)</code></pre>
+<pre><code>## [1] 8886111</code></pre>
+<pre class="mivector"><code>length(mivector)
+mean(mivector)</code></pre>
+</div>
+<div id="operadores-en-r" class="section level2">
+<h2>Operadores en R</h2>
+<div id="aritméticos" class="section level3">
+<h3>Aritméticos</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Operador</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>+</code></td>
+<td>Suma</td>
+</tr>
+<tr class="even">
+<td><code>-</code></td>
+<td>Resta</td>
+</tr>
+<tr class="odd">
+<td><code>*</code></td>
+<td>Multiplicación</td>
+</tr>
+<tr class="even">
+<td><code>/</code></td>
+<td>División</td>
+</tr>
+<tr class="odd">
+<td><code>^</code></td>
+<td>Potencia</td>
+</tr>
+<tr class="even">
+<td><code>%/%</code></td>
+<td>División entera</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="comparativos" class="section level3">
+<h3>Comparativos</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Operador</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>==</code></td>
+<td>Igualdad</td>
+</tr>
+<tr class="even">
+<td><code>!=</code></td>
+<td>Diferente de</td>
+</tr>
+<tr class="odd">
+<td><code>&lt;</code></td>
+<td>Menor que</td>
+</tr>
+<tr class="even">
+<td><code>&gt;</code></td>
+<td>Mayor que</td>
+</tr>
+<tr class="odd">
+<td><code>&lt;=</code></td>
+<td>Menor o igual</td>
+</tr>
+<tr class="even">
+<td><code>&gt;=</code></td>
+<td>Mayor o igual</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="lógicos" class="section level3">
+<h3>Lógicos</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Operador</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>&amp;</code></td>
+<td>Y lógico</td>
+</tr>
+<tr class="even">
+<td><code>|</code></td>
+<td>O lógico</td>
+</tr>
+<tr class="odd">
+<td><code>!</code></td>
+<td>No lógico</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="ejemplos-con-operadores" class="section level2">
+<h2>Ejemplos con operadores</h2>
+<pre class="r"><code>datos &lt;- c(1, 5, 10, 3)
+
+min(datos)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>max(datos)</code></pre>
+<pre><code>## [1] 10</code></pre>
+<pre class="r"><code>which.min(datos)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>which.max(datos)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code>range(datos)</code></pre>
+<pre><code>## [1]  1 10</code></pre>
+<pre class="r"><code>mean(datos)</code></pre>
+<pre><code>## [1] 4.75</code></pre>
+<pre class="r"><code>median(datos)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code>sum(datos)</code></pre>
+<pre><code>## [1] 19</code></pre>
+<pre class="r"><code>2 * datos</code></pre>
+<pre><code>## [1]  2 10 20  6</code></pre>
+<pre class="r"><code>datos == 5</code></pre>
+<pre><code>## [1] FALSE  TRUE FALSE FALSE</code></pre>
+<pre class="r"><code>datos == 5 &amp; datos == 1</code></pre>
+<pre><code>## [1] FALSE FALSE FALSE FALSE</code></pre>
+<pre class="r"><code>datos == 5 | datos == 1</code></pre>
+<pre><code>## [1]  TRUE  TRUE FALSE FALSE</code></pre>
+<pre class="r"><code>3 &lt; 2</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>2 &lt; 3 &amp; 4 &lt; 1</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>2 &lt; 3 | 4 &lt; 1</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+<div id="asignación-de-variables" class="section level2">
+<h2>Asignación de variables</h2>
+<pre class="r"><code>resultado_suma           &lt;- 5 + 3
+resultado_resta          &lt;- 10 - 2
+resultado_multiplicacion &lt;- 4 * 6
+resultado_division       &lt;- 20 / 5
+resultado_potenciacion   &lt;- 2^3
+
+print(resultado_suma)</code></pre>
+<pre><code>## [1] 8</code></pre>
+</div>
+<div id="tipos-de-datos-básicos" class="section level2">
+<h2>Tipos de datos básicos</h2>
+<pre class="r"><code>x1 &lt;- TRUE                                # logical
+x2 &lt;- 3L                                  # integer
+x3 &lt;- 3.4                                 # numeric
+x5 &lt;- &quot;Esto es una cadena de caracteres&quot;  # character
+
+ls.str()</code></pre>
+<pre><code>## datos :  num [1:4] 1 5 10 3
+## resultado_division :  num 4
+## resultado_multiplicacion :  num 24
+## resultado_potenciacion :  num 8
+## resultado_resta :  num 8
+## resultado_suma :  num 8
+## x :  num 16
+## x1 :  logi TRUE
+## x2 :  int 3
+## x3 :  num 3.4
+## x5 :  chr &quot;Esto es una cadena de caracteres&quot;</code></pre>
+<pre class="r"><code># Conversiones
+as.integer(x1)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>as.integer(x3)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code># Comprobaciones
+is.integer(x1)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>is.logical(x1)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>is.integer(x2)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

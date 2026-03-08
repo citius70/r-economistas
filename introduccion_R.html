@@ -249,6 +249,9 @@ $(document).ready(function () {
 <li>
   <a href="introduccion_R.html">Introducción a R</a>
 </li>
+<li>
+  <a href="graficos/graficos.html">Visualizaciones en R</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -508,7 +511,7 @@ setwd(&quot;c:/&quot;)</code></pre>
 <td>Y lógico</td>
 </tr>
 <tr class="even">
-<td><code>\|</code></td>
+<td><code>|</code></td>
 <td>O lógico</td>
 </tr>
 <tr class="odd">
@@ -523,39 +526,36 @@ setwd(&quot;c:/&quot;)</code></pre>
 <h2>Ejemplos con operadores</h2>
 <pre class="r"><code>datos &lt;- c(1, 5, 10, 3)
 
-min(datos)
-max(datos)
-which.min(datos)
-which.max(datos)
-range(datos)
-mean(datos)
-median(datos)
-sum(datos)
-
-2 * datos
-
-datos == 5
-datos == 5 &amp; datos == 1
-datos == 5 | datos == 1
-
-3 &lt; 2
-2 &lt; 3 &amp; 4 &lt; 1
-2 &lt; 3 | 4 &lt; 1</code></pre>
-<pre><code>## [1] 1
-## [1] 10
-## [1] 1
-## [1] 3
-## [1]  1 10
-## [1] 4.75
-## [1] 4
-## [1] 19
-## [1]  2 10 20  6
-## [1] FALSE  TRUE FALSE FALSE
-## [1] FALSE FALSE FALSE FALSE
-## [1]  TRUE  TRUE FALSE FALSE
-## [1] FALSE
-## [1] FALSE
-## [1] TRUE</code></pre>
+min(datos)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>max(datos)</code></pre>
+<pre><code>## [1] 10</code></pre>
+<pre class="r"><code>which.min(datos)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>which.max(datos)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code>range(datos)</code></pre>
+<pre><code>## [1]  1 10</code></pre>
+<pre class="r"><code>mean(datos)</code></pre>
+<pre><code>## [1] 4.75</code></pre>
+<pre class="r"><code>median(datos)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code>sum(datos)</code></pre>
+<pre><code>## [1] 19</code></pre>
+<pre class="r"><code>2 * datos</code></pre>
+<pre><code>## [1]  2 10 20  6</code></pre>
+<pre class="r"><code>datos == 5</code></pre>
+<pre><code>## [1] FALSE  TRUE FALSE FALSE</code></pre>
+<pre class="r"><code>datos == 5 &amp; datos == 1</code></pre>
+<pre><code>## [1] FALSE FALSE FALSE FALSE</code></pre>
+<pre class="r"><code>datos == 5 | datos == 1</code></pre>
+<pre><code>## [1]  TRUE  TRUE FALSE FALSE</code></pre>
+<pre class="r"><code>3 &lt; 2</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>2 &lt; 3 &amp; 4 &lt; 1</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>2 &lt; 3 | 4 &lt; 1</code></pre>
+<pre><code>## [1] TRUE</code></pre>
 </div>
 <div id="asignación-de-variables" class="section level2">
 <h2>Asignación de variables</h2>
@@ -565,26 +565,17 @@ resultado_multiplicacion &lt;- 4 * 6
 resultado_division       &lt;- 20 / 5
 resultado_potenciacion   &lt;- 2^3
 
-# Imprimir los resultados
 print(resultado_suma)</code></pre>
 <pre><code>## [1] 8</code></pre>
 </div>
 <div id="tipos-de-datos-básicos" class="section level2">
 <h2>Tipos de datos básicos</h2>
-<pre class="r"><code>x1 &lt;- TRUE                              # logical
-x2 &lt;- 3                                 # integer
-x3 &lt;- 3.4                              # numeric
-x5 &lt;- &quot;Esto es una cadena de caracteres&quot;  # string
+<pre class="r"><code>x1 &lt;- TRUE                                # logical
+x2 &lt;- 3L                                  # integer
+x3 &lt;- 3.4                                 # numeric
+x5 &lt;- &quot;Esto es una cadena de caracteres&quot;  # character
 
-ls.str()  # detalles de los objetos en memoria
-
-# Conversiones de tipo
-as.integer(x1)
-as.integer(x3)
-
-# Comprobaciones de tipo
-is.integer(x1)
-is.logical(x1)</code></pre>
+ls.str()</code></pre>
 <pre><code>## datos :  num [1:4] 1 5 10 3
 ## resultado_division :  num 4
 ## resultado_multiplicacion :  num 24
@@ -592,13 +583,21 @@ is.logical(x1)</code></pre>
 ## resultado_resta :  num 8
 ## resultado_suma :  num 8
 ## x1 :  logi TRUE
-## x2 :  num 3
+## x2 :  int 3
 ## x3 :  num 3.4
-## x5 :  chr &quot;Esto es una cadena de caracteres&quot;
-## [1] 1
-## [1] 3
-## [1] FALSE
-## [1] TRUE</code></pre>
+## x5 :  chr &quot;Esto es una cadena de caracteres&quot;</code></pre>
+<pre class="r"><code># Conversiones
+as.integer(x1)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>as.integer(x3)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code># Comprobaciones
+is.integer(x1)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>is.logical(x1)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>is.integer(x2)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
 <hr />
 </div>
 </div>
@@ -641,7 +640,11 @@ help(mean)   # ayuda de la función mean</code></pre>
 <p>Los vectores son una estructura de datos fundamental en R. Se crean
 utilizando la función <code>c()</code>.</p>
 <pre class="r"><code>x &lt;- c(4.1 , 5, 6.35)
-x &lt;- c(7, x, 2)
+x</code></pre>
+<pre><code>## [1] 4.10 5.00 6.35</code></pre>
+<pre class="r"><code>print(x)</code></pre>
+<pre><code>## [1] 4.10 5.00 6.35</code></pre>
+<pre class="r"><code>x &lt;- c(7, x, 2)
 x # Imprime el vector</code></pre>
 <pre><code>## [1] 7.00 4.10 5.00 6.35 2.00</code></pre>
 <pre class="r"><code>mode(x) # Devuelve el tipo de datos del vector</code></pre>
@@ -662,10 +665,12 @@ y</code></pre>
 <pre><code>## [1] 8</code></pre>
 <div id="acceder-a-elementos-de-un-vector" class="section level3">
 <h3>Acceder a elementos de un vector</h3>
-<pre class="r"><code>mi_vector &lt;- c(1, 2, 3, 4, 5)
+<pre class="r"><code>mi_vector &lt;- c(8, 9, 3, 4, 5)
 elemento &lt;- mi_vector[2]
 elemento</code></pre>
-<pre><code>## [1] 2</code></pre>
+<pre><code>## [1] 9</code></pre>
+<pre class="r"><code>mode(mi_vector)</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
 </div>
 </div>
 <div id="generación-de-secuencias" class="section level2">
@@ -676,28 +681,39 @@ elemento</code></pre>
 
 seq(1, 5, 0.5)</code></pre>
 <pre><code>## [1] 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0</code></pre>
-<pre class="r"><code>seq(from = 1, to = 5, length = 9)</code></pre>
-<pre><code>## [1] 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0</code></pre>
+<pre class="r"><code>seq(from = 1, to = 5, length = 6)</code></pre>
+<pre><code>## [1] 1.0 1.8 2.6 3.4 4.2 5.0</code></pre>
 <pre class="r"><code>sample(1:6, size = 10, replace = TRUE)  # secuencias aleatorias</code></pre>
-<pre><code>##  [1] 4 4 2 4 2 4 3 2 5 5</code></pre>
+<pre><code>##  [1] 5 4 1 3 6 3 5 6 4 2</code></pre>
 </div>
 <div id="matrices" class="section level2">
 <h2>Matrices</h2>
 <div id="crear-y-acceder-a-elementos" class="section level3">
 <h3>Crear y acceder a elementos</h3>
 <pre class="r"><code># Crear una matriz 3x3
-mi_matriz &lt;- matrix(1:9, nrow = 3, ncol = 3)
-print(mi_matriz)</code></pre>
+matrix(1:9, nrow = 3, ncol = 3)</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    4    7
 ## [2,]    2    5    8
 ## [3,]    3    6    9</code></pre>
 <pre class="r"><code># Acceder al elemento en la segunda fila y tercera columna
-elemento &lt;- mi_matriz[2, 3]
-print(elemento)</code></pre>
+mi_matriz = matrix(1:9, nrow = 3,  ncol = 3)
+print(mi_matriz)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    4    7
+## [2,]    2    5    8
+## [3,]    3    6    9</code></pre>
+<pre class="r"><code>elemento &lt;- mi_matriz[2, 3]
+print(&quot;**-------**&quot;)</code></pre>
+<pre><code>## [1] &quot;**-------**&quot;</code></pre>
+<pre class="r"><code>print(elemento)</code></pre>
 <pre><code>## [1] 8</code></pre>
-<pre class="r"><code># Crear una matriz 2x4
-matrix(1:8, nr = 2, nc = 4)</code></pre>
+</div>
+</div>
+</div>
+<div id="crear-una-matriz-2x4" class="section level1">
+<h1>Crear una matriz 2x4</h1>
+<pre class="r"><code>matrix(1:8, nr = 2, nc = 4)</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4]
 ## [1,]    1    3    5    7
 ## [2,]    2    4    6    8</code></pre>
@@ -710,13 +726,16 @@ matrix(1:8, nr = 2, nc = 4)</code></pre>
 ## [1,]    1    2    3    4
 ## [2,]    5    6    7    8</code></pre>
 <pre class="r"><code>x &lt;- matrix(1:6, 2, 3)
-x[2, ]    # segunda fila</code></pre>
+x</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6</code></pre>
+<pre class="r"><code>x[2, ]    # segunda fila</code></pre>
 <pre><code>## [1] 2 4 6</code></pre>
 <pre class="r"><code>x[, 2]    # segunda columna</code></pre>
 <pre><code>## [1] 3 4</code></pre>
 <pre class="r"><code>x[1, 1:2] # primera fila, columnas 1ª y 2ª</code></pre>
 <pre><code>## [1] 1 3</code></pre>
-</div>
 <div id="arrays" class="section level3">
 <h3>Arrays</h3>
 <pre class="r"><code>x &lt;- array(1:24, dim = c(4, 3, 2))
@@ -778,14 +797,21 @@ x</code></pre>
 ## x    15    16    17    18    19    20    21    22    23    24
 ##      60    50    55    60    50    55    60    50    55    60</code></pre>
 </div>
-</div>
 <div id="operaciones-con-matrices" class="section level2">
 <h2>Operaciones con matrices</h2>
 <pre class="r"><code># Crear dos matrices
 matriz_a &lt;- matrix(1:4, nrow = 2)
 matriz_b &lt;- matrix(5:8, nrow = 2)
 
-# Sumar las matrices
+print(matriz_a)</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4</code></pre>
+<pre class="r"><code>print(matriz_b)</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    5    7
+## [2,]    6    8</code></pre>
+<pre class="r"><code># Sumar las matrices
 resultado_suma &lt;- matriz_a + matriz_b
 print(resultado_suma)</code></pre>
 <pre><code>##      [,1] [,2]
@@ -793,13 +819,18 @@ print(resultado_suma)</code></pre>
 ## [2,]    8   12</code></pre>
 <pre class="r"><code># Multiplicar las matrices (producto matricial)
 resultado_multiplicacion &lt;- matriz_a %*% matriz_b
+
 print(resultado_multiplicacion)</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]   23   31
 ## [2,]   34   46</code></pre>
 <pre class="r"><code># Transpuesta
 mi_matriz &lt;- matrix(1:6, nrow = 2)
-matriz_transpuesta &lt;- t(mi_matriz)
+print(mi_matriz)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6</code></pre>
+<pre class="r"><code>matriz_transpuesta &lt;- t(mi_matriz)
 print(matriz_transpuesta)</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    2
@@ -924,9 +955,26 @@ mes         &lt;- c(&quot;enero&quot;, &quot;febrero&quot;, &quot;marzo&quot;, &
 
 datos &lt;- data.frame(mes, temperatura, humedad, lluvia)
 
-# Acceder a una columna
+print(datos)</code></pre>
+<pre><code>##           mes temperatura humedad lluvia
+## 1       enero       20.37      88   72.0
+## 2     febrero       18.56      86   33.9
+## 3       marzo       18.40      81   37.5
+## 4       abril       21.96      79   36.6
+## 5        mayo       29.53      80   31.0
+## 6       junio       28.16      78   16.6
+## 7       julio       36.38      71    1.2
+## 8      agosto       36.62      69    6.8
+## 9  septiembre       40.03      78   36.8
+## 10    octubre       27.59      82   30.8
+## 11  noviembre       22.15      85   38.5
+## 12  diciembre       19.85      83   22.7</code></pre>
+<pre class="r"><code># Acceder a una columna (temperatura)
 datos$temperatura</code></pre>
 <pre><code>##  [1] 20.37 18.56 18.40 21.96 29.53 28.16 36.38 36.62 40.03 27.59 22.15 19.85</code></pre>
+<pre class="r"><code># Acceder a una columna (lluvia)
+datos$lluvia</code></pre>
+<pre><code>##  [1] 72.0 33.9 37.5 36.6 31.0 16.6  1.2  6.8 36.8 30.8 38.5 22.7</code></pre>
 <pre class="r"><code># Resumen estadístico
 summary(datos)</code></pre>
 <pre><code>##      mes             temperatura       humedad         lluvia     
@@ -943,17 +991,104 @@ detach(datos)   # libera las variables</code></pre>
 </div>
 <div id="datos-de-ejemplo-en-r" class="section level2">
 <h2>Datos de ejemplo en R</h2>
-<pre class="r"><code>data()        # listado de conjuntos de datos disponibles
+<pre class="r"><code># RStudio viene con una serie de tablas de ejemplo
 
-data(cars)
-head(cars)</code></pre>
-<hr />
+data()        # listado de conjuntos de datos disponibles
+
+data(cars)     # Acceso a los datos de cars
+head(cars)    # Visualiza las primeras filas del dataframe</code></pre>
+<pre><code>##   speed dist
+## 1     4    2
+## 2     4   10
+## 3     7    4
+## 4     7   22
+## 5     8   16
+## 6     9   10</code></pre>
+<pre class="r"><code>tail(cars)     # Visualiza las últimas filas del dataframe</code></pre>
+<pre><code>##    speed dist
+## 45    23   54
+## 46    24   70
+## 47    24   92
+## 48    24   93
+## 49    24  120
+## 50    25   85</code></pre>
+<p>.</p>
 </div>
 </div>
 <div id="lectura-y-escritura-de-archivos" class="section level1">
 <h1>Lectura y Escritura de Archivos</h1>
-<div id="leer-archivos-de-texto" class="section level2">
-<h2>Leer archivos de texto</h2>
+<div id="resumen-de-funciones-para-leerimportar-datos"
+class="section level2">
+<h2>Resumen de Funciones para Leer/Importar Datos</h2>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Extensión</th>
+<th align="left">Función en R</th>
+<th align="left">¿Por qué usarla?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong><code>.txt</code></strong></td>
+<td align="left"><code>read.table()</code></td>
+<td align="left">Es muy flexible con espacios y tabuladores.</td>
+</tr>
+<tr class="even">
+<td align="left"><strong><code>.csv</code></strong></td>
+<td align="left"><code>read.csv()</code></td>
+<td align="left">Configurada por defecto para separar por comas.</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong><code>.xlsx</code></strong></td>
+<td align="left"><code>read_excel()</code></td>
+<td align="left">Requiere el paquete <code>readxl</code> (maneja
+archivos binarios).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+<div id="guía-rápida-de-importación" class="section level2">
+<h2>Guía Rápida de Importación</h2>
+<p>Para importar datos correctamente, asegúrate de que el archivo esté
+en la misma carpeta que tu proyecto o indica la ruta completa.</p>
+<pre class="r"><code># 1. PARA ARCHIVOS DE TEXTO (.txt)
+Un archivo &quot;table&quot; o de texto es un archivo plano que puedes abrir con el Bloc de Notas. 
+Ejemplo de estructura:
+  
+Nombre Edad Sueldo
+Juan 25 1500
+Ana 30 2200
+
+Nota: Si usas tabulaciones en vez de espacios, añade: sep = &quot;\t&quot;
+datos_txt &lt;- read.table(&quot;empleados.txt&quot;, header = TRUE, sep = &quot;\t&quot;)
+
+# 2. PARA ARCHIVOS CSV (.csv)
+read.csv es más directo porque asume que el separador es una coma.
+Nota: Si el archivo fue guardado desde un Excel en español, usa: read.csv2()
+datos_csv &lt;- read.csv(&quot;empleados.csv&quot;, header = TRUE)
+
+# 3. PARA ARCHIVOS DE EXCEL (.xlsx)
+Requiere instalar el paquete: install.packages(&quot;readxl&quot;)
+library(readxl)
+datos_excel &lt;- read_excel(&quot;empleados.xlsx&quot;)</code></pre>
+<blockquote>
+<p><strong>Consejo Pro:</strong> Si vas a compartir tu código, coloca
+<code>install.packages("readxl")</code> como comentario al inicio. Esto
+ayudará a otros usuarios a saber qué dependencias necesitan instalar
+antes de ejecutar tu script.</p>
+</blockquote>
+<pre><code>
+</code></pre>
+</div>
+<div id="leer-archivos-de-texto-o-tipo-tabla" class="section level2">
+<h2>Leer archivos de texto o tipo tabla</h2>
 <pre class="r"><code>datos &lt;- read.table(file = &quot;empleados.txt&quot;, header = TRUE)
 head(datos)</code></pre>
 <p>Los argumentos más utilizados de <code>read.table</code>:</p>
@@ -1014,12 +1149,12 @@ suma_dos_numeros &lt;- function(a, b) {
 <pre class="r"><code># Números enteros aleatorios entre 1 y 100
 numeros_enteros &lt;- sample(1:100, 5, replace = TRUE)
 numeros_enteros</code></pre>
-<pre><code>## [1] 20 26 18 85 22</code></pre>
+<pre><code>## [1] 11 40  6 33 18</code></pre>
 <pre class="r"><code># Distribución uniforme [0, 1]
 numeros_aleatorios &lt;- runif(10)
 numeros_aleatorios</code></pre>
-<pre><code>##  [1] 0.7325370 0.2669861 0.3015798 0.0592986 0.5092798 0.6017006 0.4128751
-##  [8] 0.8927050 0.5785171 0.3161715</code></pre>
+<pre><code>##  [1] 0.52293135 0.87215311 0.06654374 0.57284502 0.06520422 0.73433306
+##  [7] 0.95536177 0.21204719 0.11265947 0.90704691</code></pre>
 <pre class="r"><code># Distribución Normal (media=0, sd=1)
 datos_normal &lt;- rnorm(100, mean = 0, sd = 1)
 
@@ -1054,13 +1189,13 @@ dado(30)</code></pre>
 <p><img src="introduccion_R_files/figure-html/ejercicio1-1.png" alt="" width="672" /></p>
 <pre><code>## lanzamientos
 ##     1     2     3     4     5     6 
-## 0.100 0.233 0.133 0.167 0.167 0.200</code></pre>
+## 0.167 0.167 0.167 0.200 0.233 0.067</code></pre>
 <pre class="r"><code># Lanzar el dado 10000 veces — ¿qué ocurre?
 dado(10000)</code></pre>
 <p><img src="introduccion_R_files/figure-html/ejercicio1-2.png" alt="" width="672" /></p>
 <pre><code>## lanzamientos
 ##     1     2     3     4     5     6 
-## 0.174 0.165 0.160 0.166 0.165 0.171</code></pre>
+## 0.164 0.166 0.166 0.170 0.172 0.163</code></pre>
 <blockquote>
 <p><strong>Reflexión:</strong> ¿Qué observas al aumentar el número de
 lanzamientos? ¿Se cumple la <strong>Ley de los Grandes

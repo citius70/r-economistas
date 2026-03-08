@@ -1,7 +1,5 @@
 ---
-        title: "R para economistas"
-        author: "Alberto R. Durán Pérez"
-        date: "`r Sys.Date()`"
+title: "R para economistas"
 ---
 
 # Introducción ¿Qué es R y por qué es útil en Economía?

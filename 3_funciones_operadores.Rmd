@@ -1,0 +1,214 @@
+---
+title: 'R '
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
+
+# 3. Funciones y Operadores en R
+
+Estas son las funciones y operadores que encluye R en su instalación básica.
+
+## 3.1. Funciones principales
+
+| Función                       | Código en R      |
+|-------------------------------|------------------|
+| Raíz cuadrada de x            | `sqrt(x)`        |
+| Exponencial de x              | `exp(x)`         |
+| Logaritmo neperiano           | `log(x)`         |
+| Nº de elementos de un vector  | `length(x)`      |
+| Suma los elementos del vector | `sum(x)`         |
+| Seno de x                     | `sin(x)`         |
+| Coseno de x                   | `cos(x)`         |
+| Tangente de x                 | `tan(x)`         |
+| Media                         | `mean(x)`        |
+| Desviación típica             | `sd(x)`          |
+| Varianza                      | `var(x)`         |
+| Mediana                       | `median(x)`      |
+| Quantiles                     | `quantile(x, p)` |
+| Máximo y Mínimo               | `range(x)`       |
+| Ordenación                    | `sort(x)`        |
+| Resumen estadístico           | `summary(x)`     |
+
+Ejemplos:
+
+```{r}
+x = 16
+sqrt(x)
+exp(x)
+
+```
+
+```{r}
+mivector = c(3,6,2,7)
+length(mivector)
+mean(mivector)
+```
+
+## Operadores en R
+
+### Aritméticos
+
+| Operador | Descripción     |
+|----------|-----------------|
+| `+`      | Suma            |
+| `-`      | Resta           |
+| `*`      | Multiplicación  |
+| `/`      | División        |
+| `^`      | Potencia        |
+| `%/%`    | División entera |
+
+Ejemplos:
+
+```{r}
+# Definición de variables
+a <- 10
+b <- 3
+
+# Resultados de las operaciones
+resultado_suma    <- a + b
+resultado_resta   <- a - b
+resultado_multi   <- a * b
+resultado_div     <- a / b
+resultado_pot     <- a ^ b
+resultado_entera  <- a %/% b
+
+# Imprimir solo los resultados
+print(resultado_suma)
+print(resultado_resta)
+print(resultado_multi)
+print(resultado_div)
+print(resultado_pot)
+print(resultado_entera)
+```
+
+### Comparativos
+
+| Operador | Descripción   |
+|----------|---------------|
+| `==`     | Igualdad      |
+| `!=`     | Diferente de  |
+| `<`      | Menor que     |
+| `>`      | Mayor que     |
+| `<=`     | Menor o igual |
+| `>=`     | Mayor o igual |
+
+Ejemplo:
+
+```{r}
+# Definimos valores para comparar
+x <- 10
+y <- 5
+
+# 1. Igualdad (==)
+print(x == y)      # ¿Es 10 igual a 5? (FALSE)
+
+# 2. Diferente de (!=)
+print(x != y)      # ¿Es 10 diferente de 5? (TRUE)
+
+# 3. Menor que (<)
+print(x < y)       # ¿Es 10 menor que 5? (FALSE)
+
+# 4. Mayor que (>)
+print(x > y)       # ¿Es 10 mayor que 5? (TRUE)
+
+# 5. Menor o igual (<=)
+print(x <= 10)     # ¿Es 10 menor o igual a 10? (TRUE)
+
+# 6. Mayor o igual (>=)
+print(y >= 15)     # ¿Es 5 mayor o igual a 15? (FALSE)
+```
+
+### Lógicos
+
+| Operador | Descripción |
+|----------|-------------|
+| `&`      | Y lógico    |
+| `|`      | O lógico    |
+| `!`      | No lógico   |
+
+Ejemplos:
+
+```{r}
+x <- 10
+y <- 5
+
+# 1. Y lógico (&)
+# ¿Es x mayor que 5 Y es y menor que 10?
+print(x > 5 & y < 10) # TRUE porque ambas se cumplen
+
+# 2. O lógico (|)
+# ¿Es x igual a 100 O es y igual a 5?
+print(x == 100 | y == 5) # TRUE porque al menos una se cumple
+
+# 3. NO lógico (!)
+# ¿Es x diferente de 10? (No, es igual, así que dará FALSE)
+print(!(x == 10))
+```
+
+## Ejemplos con operadores
+
+```{r operadores-ejemplos, echo=TRUE}
+
+# Creamos la list/vector `datos`
+datos <- c(4, 5, 10, 3)
+
+min(datos)
+max(datos)
+which.min(datos)
+which.max(datos)
+range(datos)
+mean(datos)
+median(datos)
+sum(datos)
+
+```
+
+```{r operadores-ejemplos2, echo=TRUE}
+2 * datos
+2 < 3 & 4 < 1
+2 < 3 | 4 < 1
+```
+
+## Asignación de variables
+
+```{r asignacion}
+# Asignación de valores indivuduales a una variable
+a = 45
+b =5
+nombre = "Nicolás"
+
+print(a)
+
+#Asignación de operaciones a una variable
+resultado_suma           <- 5 + 3
+resultado_resta          <- 10 - 2
+resultado_multiplicacion <- 4 * 6
+resultado_division       <- 20 / 5
+resultado_potenciacion   <- 2^3
+
+print(resultado_suma)
+
+```
+
+## Tipos de datos básicos
+
+```{r tipos-datos}
+x1 <- TRUE                                # logical
+x2 <- 3L                                  # integer
+x3 <- 3.4                                 # numeric
+x5 <- "Esto es una cadena de caracteres"  # character
+
+ls.str()
+
+# Conversiones
+as.integer(x1)
+as.integer(x3)
+
+# Comprobaciones
+is.integer(x1)
+is.logical(x1)
+is.integer(x2)
+
+```

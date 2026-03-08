@@ -1,0 +1,18 @@
+---
+title: "R "
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
+
+
+# 1. Instalación de R
+
+Ve al sitio web oficial de R (<https://cran.r-project.org/>) y descarga la versión adecuada para tu sistema operativo (Windows, macOS o Linux). Sigue las instrucciones de instalación.
+
+## 1.1 Instalación de RStudio (opcional pero recomendado)
+
+RStudio es un entorno de desarrollo integrado (IDE) popular para R que facilita la escritura, ejecución y visualización de código R. Puedes descargar RStudio desde <https://www.rstudio.com/products/rstudio/download/>.
+
+> También se puede ejecutar R/RStudio **en la nube** sin necesidad de instalar nada en el ordenador a través de plataformas como [Posit Cloud](https://posit.cloud/).

@@ -1,0 +1,17 @@
+---
+# title: "practica1"
+output: html_document
+---
+
+# Elersmkmksma 1
+
+hjsduhsduhajsdasd asdasdasd
+
+## sdfsdf
+
+scvdf
+
+``` r
+x =45
+print(x)
+```

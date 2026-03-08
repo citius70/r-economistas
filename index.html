@@ -9,16 +9,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Alberto R. Durán Pérez" />
 
-<meta name="date" content="2026-03-07" />
 
 <title>R para economistas</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -31,9 +29,6 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -224,69 +219,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -294,16 +226,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -324,7 +246,22 @@ div.tocify {
   <a href="index.html">Inicio</a>
 </li>
 <li>
-  <a href="introduccion_R.html">Introducción a R</a>
+  <a href="1_instalacion.html">1 Instalación</a>
+</li>
+<li>
+  <a href="2_ventanas.html">2 Introducción a R</a>
+</li>
+<li>
+  <a href="3_funciones_operadores.html">3 Funciones y operadores básicos</a>
+</li>
+<li>
+  <a href="4_paquetes.html">4 Gestión de paquetes</a>
+</li>
+<li>
+  <a href="5_vectores.html">5 Vectores</a>
+</li>
+<li>
+  <a href="graficos/graficos.html">Visualizaciones en R</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -339,16 +276,13 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">R para economistas</h1>
-<h4 class="author">Alberto R. Durán Pérez</h4>
-<h4 class="date">2026-03-07</h4>
 
 </div>
 
 
 <div id="introducción-qué-es-r-y-por-qué-es-útil-en-economía"
-class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Introducción: ¿Qué es R
-y por qué es útil en Economía?</h1>
+class="section level1">
+<h1>Introducción ¿Qué es R y por qué es útil en Economía?</h1>
 <ul>
 <li><strong>R</strong> es un <strong>lenguaje de programación</strong>
 muy potente diseñado específicamente para el <strong>análisis
@@ -364,10 +298,8 @@ análisis <strong>estadístico y la visualización de datos</strong>. En el
 ámbito económico, su utilidad radica en que se ha convertido en el
 estándar tanto en áreas científicas como en el mundo de los
 negocios.</p>
-<div id="por-qué-r-es-el-aliado-del-economista" class="section level2"
-number="1.1">
-<h2><span class="header-section-number">1.1</span> ¿Por qué R es el
-aliado del economista?</h2>
+<div id="por-qué-r-es-el-aliado-del-economista" class="section level2">
+<h2>¿Por qué R es el aliado del economista?</h2>
 <p>A diferencia de las hojas de cálculo tradicionales, R permite
 <strong>manejar grandes volúmenes de datos</strong> y asegurar la
 <strong>reproducibilidad</strong>. Si realizas un análisis hoy,
@@ -384,10 +316,8 @@ más amigable, visual y cómoda. Es la interfaz que te permite controlar
 el motor sin complicaciones innecesarias.</p></li>
 </ul>
 </div>
-<div id="áreas-de-aplicación-en-economía" class="section level2"
-number="1.2">
-<h2><span class="header-section-number">1.2</span> Áreas de aplicación
-en Economía</h2>
+<div id="áreas-de-aplicación-en-economía" class="section level2">
+<h2>Áreas de aplicación en Economía</h2>
 <ol style="list-style-type: decimal">
 <li><strong>Econometría:</strong> Estimación de modelos de regresión
 lineal y no lineal, series temporales y paneles de datos.</li>
@@ -417,10 +347,8 @@ tres etapas lógicas: el taller (<strong>instalación</strong>), el
 lenguaje (<strong>sintaxis</strong>) y la publicación
 (<strong>RMarkdown</strong>).</p>
 </div>
-<div id="el-taller-instalación-y-configuración" class="section level2"
-number="1.3">
-<h2><span class="header-section-number">1.3</span> El “taller”:
-Instalación y configuración</h2>
+<div id="el-taller-instalación-y-configuración" class="section level2">
+<h2>El “taller”: Instalación y configuración</h2>
 <p>Para trabajar cómodamente, normalmente no usamos <strong>R</strong>
 “a secas”, sino que lo combinamos con <strong>RStudio</strong>, que es
 un entorno de desarrollo (IDE) que hace que <em>escribir código sea
@@ -486,8 +414,8 @@ automáticamente).</p></li>
 <li><p>Instálalo (en Mac arrastrándolo a Aplicaciones, en Windows con el
 instalador).</p></li>
 </ol>
-<div id="verificación" class="section level3" number="1.3.1">
-<h3><span class="header-section-number">1.3.1</span> Verificación</h3>
+<div id="verificación" class="section level3">
+<h3>Verificación</h3>
 <p>Cuando termines, <strong>no abras el icono de “R”</strong>. Busca y
 abre únicamente el programa <strong>RStudio</strong>.</p>
 <p>Deberías ver una ventana dividida en paneles (generalmente 3 o 4).
@@ -498,10 +426,8 @@ abre únicamente el programa <strong>RStudio</strong>.</p>
 </div>
 </div>
 </div>
-<div id="sintaxis-primeros-pasos-básicos" class="section level2"
-number="1.4">
-<h2><span class="header-section-number">1.4</span> Sintaxis: primeros
-pasos básicos</h2>
+<div id="sintaxis-primeros-pasos-básicos" class="section level2">
+<h2>Sintaxis: primeros pasos básicos</h2>
 <p>¡Excelente! Si ya tienes <strong>RStudio</strong> abierto, deberías
 ver una interfaz dividida en cuadrantes. Por ahora, lo más importante es
 que localices la <strong>Consola</strong> (Console), que suele ser el
@@ -511,9 +437,8 @@ símbolo de mayor que <code>&gt;</code>. Ahí es donde R espera tus
 <p>Vamos a empezar a “hablar” con R para entender cómo maneja la
 información. En R, casi todo se basa en <strong>Variables</strong> y
 <strong>Funciones</strong>.</p>
-<div id="variables-y-asignación" class="section level3" number="1.4.1">
-<h3><span class="header-section-number">1.4.1</span> Variables y
-Asignación 📥</h3>
+<div id="variables-y-asignación" class="section level3">
+<h3>Variables y Asignación 📥</h3>
 <p>Para <strong>guardar un dato y usarlo después</strong>, usamos el
 operador de asignación <code>&lt;-</code> (flecha hacia la izquierda u
 guión medio). Podemos asemejarlo a una caja de mudanzas con una etiqueta
@@ -526,10 +451,8 @@ nombre &lt;- &quot;Alex&quot;
 
 cantidad = 127</code></pre>
 </div>
-<div id="vectores-las-listas-de-r" class="section level3"
-number="1.4.2">
-<h3><span class="header-section-number">1.4.2</span> Vectores: Las
-listas de R 🧱</h3>
+<div id="vectores-las-listas-de-r" class="section level3">
+<h3>Vectores: Las listas de R 🧱</h3>
 <p>R no solo maneja números sueltos; su especialidad son las
 <strong>listas de datos</strong> del mismo tipo, llamadas
 <strong>Vectores</strong>. Se crean con la función <code>c()</code> (de
@@ -552,10 +475,8 @@ llamado <code>mis_notas</code> que contenga esos tres números?</strong>
 <p>Si lo hiciste bien, notarás que en el panel superior derecho (llamado
 <strong>Environment</strong>) ahora aparece <code>mis_notas</code>. R ya
 lo tiene en su memoria.</p>
-<div id="operaciones-vectorizadas" class="section level4"
-number="1.4.2.1">
-<h4><span class="header-section-number">1.4.2.1</span> Operaciones
-Vectorizadas ⚡</h4>
+<div id="operaciones-vectorizadas" class="section level4">
+<h4>Operaciones Vectorizadas ⚡</h4>
 <p>Lo mejor de R es que puedes hacer cálculos con toda la lista de datos
 a la vez. No necesitas sumar uno por uno. Por ejemplo, si el profesor
 decide regalar <strong>2 puntos</strong> a todos por buena conducta,
@@ -566,10 +487,8 @@ solo tienes que escribir:</p>
 <hr />
 </div>
 </div>
-<div id="tu-turno-el-desafío-del-promedio" class="section level3"
-number="1.4.3">
-<h3><span class="header-section-number">1.4.3</span> Tu turno: El
-Desafío del Promedio 📈</h3>
+<div id="tu-turno-el-desafío-del-promedio" class="section level3">
+<h3>Tu turno: El Desafío del Promedio 📈</h3>
 <p>R tiene funciones integradas para casi todo. La función para calcular
 el <strong>promedio</strong> (o <strong>media aritmética</strong>) se
 llama <code>mean()</code>.</p>
@@ -589,10 +508,8 @@ programa, el código desaparece.</p>
 Markdown</strong>.</p>
 </div>
 </div>
-<div id="la-publicación-qué-es-r-markdown" class="section level2"
-number="1.5">
-<h2><span class="header-section-number">1.5</span> La publicación: ¿Qué
-es R Markdown?</h2>
+<div id="la-publicación-qué-es-r-markdown" class="section level2">
+<h2>La publicación: ¿Qué es R Markdown?</h2>
 <p><strong>R Markdown</strong> es un formato de archivo que te permite
 mezclar <strong>tres elementos</strong> en un solo lugar:</p>
 <ol style="list-style-type: decimal">
@@ -609,10 +526,8 @@ Slidy, Beamer…</p>
 <p>Puedes encontrar más información en <a
 href="https://rmarkdown.rstudio.com/"
 class="uri">https://rmarkdown.rstudio.com/</a></p>
-<div id="cómo-crear-tu-primer-documento" class="section level3"
-number="1.5.1">
-<h3><span class="header-section-number">1.5.1</span> Cómo crear tu
-primer documento</h3>
+<div id="cómo-crear-tu-primer-documento" class="section level3">
+<h3>Cómo crear tu primer documento</h3>
 <ol style="list-style-type: decimal">
 <li><p>En RStudio, ve a <strong>File</strong> -&gt; <strong>New
 File</strong> -&gt; <strong>R Markdown…</strong></p></li>
@@ -622,10 +537,8 @@ File</strong> -&gt; <strong>R Markdown…</strong></p></li>
 grises que empiezan con <code>```{r}</code>. Esas cajas se llaman
 <strong>Chunks</strong> (trozos de código).</p></li>
 </ol>
-<div id="tu-primera-misión-en-r-markdown" class="section level4"
-number="1.5.1.1">
-<h4><span class="header-section-number">1.5.1.1</span> Tu primera misión
-en R Markdown</h4>
+<div id="tu-primera-misión-en-r-markdown" class="section level4">
+<h4>Tu primera misión en R Markdown</h4>
 <p>Busca un botón en la parte superior que tiene un icono de una pequeña
 madeja de lana y dice <strong>Knit</strong> (tejer) 🧶. Al presionarlo,
 RStudio “tejerá” todo tu código y texto para crear un archivo
@@ -645,10 +558,8 @@ documento terminado. Lo que acabas de hacer es “renderizar” el
 archivo.</p>
 </div>
 </div>
-<div id="la-estructura-de-un-r-markdown" class="section level3"
-number="1.5.2">
-<h3><span class="header-section-number">1.5.2</span> La estructura de un
-R Markdown 📝</h3>
+<div id="la-estructura-de-un-r-markdown" class="section level3">
+<h3>La estructura de un R Markdown 📝</h3>
 <p>Para que seas un experto en esto, debes distinguir las tres partes de
 un archivo <code>.Rmd</code>:</p>
 <ol style="list-style-type: decimal">
@@ -670,9 +581,8 @@ ejecutado por el motor de R.</li>
 </ol>
 <hr />
 </div>
-<div id="vamos-a-personalizarlo" class="section level3" number="1.5.3">
-<h3><span class="header-section-number">1.5.3</span> Vamos a
-personalizarlo 🛠️</h3>
+<div id="vamos-a-personalizarlo" class="section level3">
+<h3>Vamos a personalizarlo 🛠️</h3>
 <p>Busca en tu archivo de ejemplo una de esas cajas grises (chunks).
 Borra lo que tiene adentro y escribe el código que usamos antes:</p>
 <pre class="r"><code>mis_notas &lt;- c(85, 90, 78)
@@ -686,18 +596,15 @@ gráfica sencilla dentro de ese mismo documento para ver cómo se incluye
 automáticamente?</strong></p>
 </div>
 </div>
-<div id="visualización-de-los-datos" class="section level2"
-number="1.6">
-<h2><span class="header-section-number">1.6</span> Visualización de los
-datos</h2>
+<div id="visualización-de-los-datos" class="section level2">
+<h2>Visualización de los datos</h2>
 <p>¡Excelente! Ya tienes tu primer documento “vivo” donde el código y la
 explicación conviven. 📝✨</p>
 <p>Para que tu reporte pase de ser una lista de números a un análisis
 real, vamos a añadir una <strong>gráfica</strong>. R es famoso por su
 capacidad de visualización.</p>
-<div id="gráficas-instantáneas" class="section level3" number="1.6.1">
-<h3><span class="header-section-number">1.6.1</span> Gráficas
-instantáneas 📈</h3>
+<div id="gráficas-instantáneas" class="section level3">
+<h3>Gráficas instantáneas 📈</h3>
 <p>En R, existe una función básica llamada <code>plot()</code>. Si le
 pasas un vector de números, R entenderá que quieres ver cómo se
 distribuyen.</p>
@@ -709,10 +616,8 @@ caja gris de código) dentro de tu archivo R Markdown:</p>
      xlab = &quot;Número de Examen&quot;,
      ylab = &quot;Nota&quot;)</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-7-1.png" alt="" width="672" /></p>
-<div id="entendiendo-los-argumentos" class="section level4"
-number="1.6.1.1">
-<h4><span class="header-section-number">1.6.1.1</span> Entendiendo los
-argumentos</h4>
+<div id="entendiendo-los-argumentos" class="section level4">
+<h4>Entendiendo los argumentos</h4>
 <p>Fíjate que dentro de los paréntesis no solo pusimos los datos, sino
 también “instrucciones” extra:</p>
 <ul>
@@ -724,10 +629,8 @@ e Y.</p></li>
 </ul>
 </div>
 </div>
-<div id="el-toque-final-personalización" class="section level3"
-number="1.6.2">
-<h3><span class="header-section-number">1.6.2</span> El toque final:
-Personalización</h3>
+<div id="el-toque-final-personalización" class="section level3">
+<h3>El toque final: Personalización</h3>
 <p><strong>R Markdown</strong> te permite decidir <strong>cómo</strong>
 se ve ese código en el informe final usando opciones dentro de las
 llaves del chunk <code>{r}</code>.</p>
@@ -745,10 +648,8 @@ documento. 🎨</p>
 <code>col</code>. R reconoce nombres de colores básicos en inglés (como
 <code>"blue"</code>, <code>"red"</code>, <code>"darkgreen"</code>,
 etc.).</p>
-<div id="personalizando-la-gráfica" class="section level4"
-number="1.6.2.1">
-<h4><span class="header-section-number">1.6.2.1</span> Personalizando la
-gráfica 🖌️</h4>
+<div id="personalizando-la-gráfica" class="section level4">
+<h4>Personalizando la gráfica 🖌️</h4>
 <p>Modifica el código de tu chunk así:</p>
 <pre class="r"><code>plot(mis_notas, 
      type = &quot;b&quot;, 
@@ -760,10 +661,8 @@ gráfica 🖌️</h4>
 <p><img src="index_files/figure-html/unnamed-chunk-8-1.png" alt="" width="672" /></p>
 <hr />
 </div>
-<div id="estructurando-el-texto-con-markdown" class="section level4"
-number="1.6.2.2">
-<h4><span class="header-section-number">1.6.2.2</span> Estructurando el
-texto con Markdown 📝</h4>
+<div id="estructurando-el-texto-con-markdown" class="section level4">
+<h4>Estructurando el texto con Markdown 📝</h4>
 <p>Fuera de las cajas grises, puedes organizar tu explicación usando
 niveles de títulos. Esto es muy importante para que el documento final
 tenga un índice y sea fácil de leer. Pruébalo escribiendo esto en el
@@ -779,10 +678,8 @@ nuevo color.</p>
 <hr />
 </div>
 </div>
-<div id="qué-sigue-en-nuestro-aprendizaje" class="section level3"
-number="1.6.3">
-<h3><span class="header-section-number">1.6.3</span> ¿Qué sigue en
-nuestro aprendizaje? 🚀</h3>
+<div id="qué-sigue-en-nuestro-aprendizaje" class="section level3">
+<h3>¿Qué sigue en nuestro aprendizaje? 🚀</h3>
 <p>Ahora que ya sabes instalar, escribir código básico y generar un
 reporte, podemos profundizar en lo que más te interese:</p>
 <ol style="list-style-type: decimal">
@@ -799,20 +696,20 @@ código, cambiar el formato a PDF o añadir tablas automáticas.</li>
 </div>
 </div>
 </div>
-<div id="y-ahora-qué" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> ¿Y ahora qué?</h1>
+<div id="y-ahora-qué" class="section level1">
+<h1>¿Y ahora qué?</h1>
 <p>Hay muchos recursos en Internet para seguir avanzando en el estudio
 de R. pero entre ellas hay uno destacado que es seguir el curso <a
 href="https://swirlstats.com/">Swirl</a>. Este curso está diseñado para
 seguirlo dentro de <strong>RStudio</strong>.</p>
-<div id="curso-swirl" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Curso Swirl</h2>
+<div id="curso-swirl" class="section level2">
+<h2>Curso Swirl</h2>
 <p>Este curso inicialmente se diseñó en inglés, pero actualmente se
 encuentra traducido al español por José Rosa (<a
 href="https://github.com/josersosa/Programando_en_R">swirl_español</a>).
 Para seguirlo en RStudio necesitamos instalar en él un par de cosas.</p>
-<div id="crear-carpeta" class="section level3" number="2.1.1">
-<h3><span class="header-section-number">2.1.1</span> Crear carpeta</h3>
+<div id="crear-carpeta" class="section level3">
+<h3>Crear carpeta</h3>
 <ol style="list-style-type: decimal">
 <li><p>Instalación del curso Swirl en español.</p></li>
 <li><p>Abre el programa RStudio</p></li>
@@ -838,8 +735,8 @@ width="411" alt="getwd()" />
 </ul></li>
 </ol>
 </div>
-<div id="instalar-curso" class="section level3" number="2.1.2">
-<h3><span class="header-section-number">2.1.2</span> Instalar curso</h3>
+<div id="instalar-curso" class="section level3">
+<h3>Instalar curso</h3>
 <ol style="list-style-type: decimal">
 <li><p>Instala el paquete del curso dede la misma
 <strong>Consola</strong> de RStudio, escribiendo:
@@ -849,9 +746,8 @@ width="411" alt="getwd()" />
 <code>install_course_github('josersosa','Programando_en_R')</code></p></li>
 </ol>
 </div>
-<div id="inicializar-el-curso" class="section level3" number="2.1.3">
-<h3><span class="header-section-number">2.1.3</span> Inicializar el
-curso</h3>
+<div id="inicializar-el-curso" class="section level3">
+<h3>Inicializar el curso</h3>
 <p>Cada vez que quieras seguir el curso debes escribir esto:</p>
 <ol style="list-style-type: decimal">
 <li>Escribe: <code>swirl()</code></li>
@@ -884,8 +780,6 @@ alt="Los 15 capítulos del curso" />
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -918,35 +812,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

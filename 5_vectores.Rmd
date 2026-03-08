@@ -1,0 +1,133 @@
+---
+title: "R"
+output:
+  word_document: default
+  pdf_document: default
+---
+
+# 5. Vectores: La estructura fundamental
+
+Los **vectores** son \*\*secuencias o conjuntos de elementos del mismo tipo de datos\*\*. En R, la unidad básica de almacenamiento es el vector; incluso un número aislado se trata como un vector de longitud uno. Se crean utilizando la función `c()` (*combine*).
+
+```{r}
+# --- Creación y manipulación ---
+x <- c(4.1, 5, 6.35)
+x                          # Imprime el vector
+x <- c(7, x, 2)            # Añade elementos al inicio y final
+x                          # Resultado: 7, 4.1, 5, 6.35, 2
+```
+
+```{r}
+
+length(x) # Cantidad de elementos 
+mode(x) # Tipo de datos: "numeric"
+```
+
+## 5.1. Coerción de tipos
+
+Los vectores en R deben contener elementos del mismo tipo de datos. Si intentamos combinar tipos distintos en un mismo vector, R aplicará la **coerción**, convirtiendo automáticamente todos los elementos al tipo de datos más flexible (o "general").
+
+```{r coercion}
+# Definimos un vector de caracteres y uno numérico
+y <- c("Hola", "Adios")
+x <- c(4.1, 5, 6.35)
+
+# Intentamos mezclar textos, números y valores lógicos
+y_mezclado <- c(y, x, TRUE)
+
+# Verificamos el resultado
+y_mezclado          # Todo se ha convertido a texto ("character")
+mode(y_mezclado)    # El vector es ahora de tipo "character"
+length(y_mezclado)  # 7 elementos en total (2 textos + 3 números + 1 lógico)
+```
+
+## 5.2. Acceder a elementos de un vector (Indexación)
+
+En R, los vectores son indexados empezando por **1** (no por 0 como en otros lenguajes como Python). Utilizamos corchetes `[]` para extraer valores específicos.
+
+```{r acceso-vector}
+mi_vector <- c(8, 9, 3, 4, 5)
+
+# Acceder al segundo elemento
+elemento <- mi_vector[2]
+print(elemento)
+
+# Verificar el tipo de datos del vector
+mode(mi_vector)
+
+```
+
+## 5.3. Generación de secuencias
+
+Existen diversas formas de crear vectores numéricos ordenados sin escribir cada elemento manualmente:
+
+```{r secuencias}
+# El operador ':' genera una secuencia de enteros consecutivos
+# NOTA: Los paréntesis alrededor de la asignación guardan el valor y lo imprimen a la vez
+(x <- 1:5) 
+
+# Función seq(): Permite definir el incremento (by)
+seq(from = 1, to = 5, by = 0.5)
+
+# Función seq(): Permite definir el número total de elementos (length.out)
+seq(from = 1, to = 5, length.out = 6)
+
+# Función sample(): Genera secuencias aleatorias
+# 'replace = TRUE' permite que los números se repitan
+sample(1:6, size = 10, replace = TRUE) 
+
+```
+
+------------------------------------------------------------------------
+
+### Notas:
+
+-   **Paréntesis de impresión:** Cuando haces `(x <- 1:5)`, le ahorras a R una línea de código al realizar la asignación y la visualización en un solo paso. Es un truco muy común en sesiones interactivas.
+
+``` r
+Método tradicional:
+  x < - 1:5
+  print (x)
+
+Método con paréntesis:
+ (x < - 1:5)
+```
+
+------------------------------------------------------------------------
+## 5.4. Operaciones vectorizadas
+
+La gran ventaja de los vectores en R es que permiten aplicar funciones u operaciones matemáticas a **todos los elementos simultáneamente**, sin necesidad de escribir bucles.
+
+
+```{r operaciones-vectorizadas}
+x <- c(1, 2, 3, 4)
+
+# Multiplicar todos los elementos por 2 de golpe
+x * 2
+
+# Elevar cada elemento al cuadrado
+x ^ 2
+
+# Sumar dos vectores (se suman elemento a elemento)
+y <- c(10, 20, 30, 40)
+x + y
+```
+
+## 5.5. Filtrado lógico (Subsetting)
+
+Podemos extraer elementos de un vector basándonos en condiciones. Esto es extremadamente útil para limpiar datos.
+
+```{r filtrado}
+datos <- c(10, 25, 5, 40, 15)
+
+# ¿Qué elementos son mayores que 20?
+datos > 20
+
+# Extraer solo los elementos que cumplen la condición
+datos[datos > 20]
+
+# Extraer elementos que son iguales a 10 O mayores que 30
+datos[datos == 10 | datos > 30]
+
+```
+
