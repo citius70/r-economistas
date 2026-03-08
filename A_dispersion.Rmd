@@ -11,6 +11,10 @@ output:
 
 Los **gráficos de dispersión** son la herramienta fundamental para analizar si **existe correlación entre dos variables**.
 
+## Sintaxis:
+
+`plot`
+
 #### Ejemplo básico
 
 ```{r}
