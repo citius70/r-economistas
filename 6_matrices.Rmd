@@ -1,11 +1,13 @@
 ---
-title: "R"
+title: "6. Matrices: los datos en dorma de rectángulo"
 output:
+  html_document:
+    toc: false
+    theme: cosmo  # Puedes elegir: united, cosmo, lumen, flatly...
+    highlight: tango
   word_document: default
   pdf_document: default
 ---
-
-# 6. Matrices: los datos en forma de rectángulo
 
 Una matriz es una estructura de datos **bidimensional** que organiza elementos del mismo tipo (como números, caracteres o valores lógicos) en una cuadrícula de **filas** (nrows) y **columnas** (ncol).
 

@@ -1,6 +1,12 @@
 ---
 title: "11. Funciones"
-output: html_document
+output:
+  html_document:
+    toc: false
+    theme: cosmo  # Puedes elegir: united, cosmo, lumen, flatly...
+    highlight: tango
+  word_document: default
+  pdf_document: default
 ---
 
 Estás harto de ver expresiones matemáticas como esta:$f(x) = x^2 + 3$. Sabes perfectamente cómo funciona: le das un valor a la $x$ (por ejemplo, 2), la función hace su cálculo ($2^2 + 3$), y te devuelve un resultado (7).En R, una función es exactamente lo mismo, pero a lo bestia. Es una "máquina" a la que tú le das unos ingredientes (datos o parámetros), la máquina sigue unas instrucciones que tú has escrito dentro, y te escupe un resultado final. La ventaja es que en R no solo le puedes meter números; le puedes meter textos, vectores, o tablas enteras.
@@ -71,7 +77,7 @@ mifuncion(5,2)
 
 -   Ejecuta el código interno ($5+2$) y te devuelve un **7** en la consola.
 
-### **Ejemplo 2:** 
+### **Ejemplo 2:**
 
 Imagina que quieres reutilizar varias veces el código que eleva al cuadrado un número que va a cambiar.
 

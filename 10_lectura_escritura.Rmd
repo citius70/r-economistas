@@ -1,6 +1,12 @@
 ---
 title: "10. Lectura y escritura de datos"
-output: html_document
+output:
+  html_document:
+    toc: false
+    theme: cosmo  # Puedes elegir: united, cosmo, lumen, flatly...
+    highlight: tango
+  word_document: default
+  pdf_document: default
 ---
 
 ## 10.1. Lectura de archivos

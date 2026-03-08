@@ -1,6 +1,12 @@
 ---
 title: "7. Arrays: los datos en forma de cubos"
-output: html_output
+output:
+  html_document:
+    toc: false
+    theme: cosmo  # Puedes elegir: united, cosmo, lumen, flatly...
+    highlight: tango
+  word_document: default
+  pdf_document: default
 ---
 
 ## 

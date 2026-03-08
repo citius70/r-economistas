@@ -1,11 +1,13 @@
 ---
-title: "R"
+title: "5. Vectores. Los datos en fila"
 output:
+  html_document:
+    toc: false
+    theme: cosmo  # Puedes elegir: united, cosmo, lumen, flatly...
+    highlight: tango
   word_document: default
   pdf_document: default
 ---
-
-# 5. Vectores: La estructura fundamental
 
 Los **vectores** son \*\*secuencias o conjuntos de elementos del mismo tipo de datos\*\*. En R, la unidad básica de almacenamiento es el vector; incluso un número aislado se trata como un vector de longitud uno. Se crean utilizando la función `c()` (*combine*).
 

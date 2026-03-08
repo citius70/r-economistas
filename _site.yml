@@ -28,17 +28,17 @@ navbar:
       href: 10_lectura_escritura.html
     - text: "11 Funciones (function)"
       href: 11_funciones.html
-    - text: "12 Genaración de números alartorios"
+    - text: "12 Generación de números aleatorios"
       href: 12_aleatorios.html
-
+    - text: "1. Gráficos de dispersión"
+      href: graficos/1_dispersion.html
 output:
   html_document:
     highlight: textmate
-    theme: cerulean
-    toc: true
-    toc_float: true
+    # theme: cerulean
+    toc: false
   pdf_document:
-    toc: true            # Genera tabla de contenidos automática
+    toc: false            # Genera tabla de contenidos automática
     toc_depth: 2         # Profundidad de los títulos en la tabla (1-3)
     number_sections: true # Numeración automática de secciones (ej: 1.1, 1.2)
     fig_caption: true    # Muestra los pies de figura

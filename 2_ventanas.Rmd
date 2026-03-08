@@ -1,6 +1,10 @@
 ---
-title: "R"
+title: "2: Archivos y ventanas de RStudio"
 output:
+  html_document:
+      toc: false
+      theme: cosmo  # Puedes elegir: united, cosmo, lumen, flatly...
+      highlight: tango
   word_document: default
   pdf_document: default
 ---
@@ -8,8 +12,6 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
 ```
-
-# 2. Archivos y ventanas de RStudio
 
 R es un lenguaje de programación y un entorno de software utilizado principalmente para el **análisis estadístico** y la **visualización de datos**. Sin embargo, también se puede utilizar como una calculadora avanzada.
 

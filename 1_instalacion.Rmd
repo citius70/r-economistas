@@ -1,6 +1,11 @@
 ---
 title: "R"
 output:
+  output:
+  html_document:
+      toc: false
+      theme: cosmo  # Puedes elegir: united, cosmo, lumen, flatly...
+      highlight: tango
   word_document: default
   pdf_document: default
 ---

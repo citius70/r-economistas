@@ -1,19 +1,23 @@
 ---
-title: "R"
+title: "4. Gestión de paquetes"
 output:
+  output:
+  html_document:
+      toc: false
+      theme: cosmo  # Puedes elegir: united, cosmo, lumen, flatly...
+      highlight: tango
   word_document: default
   pdf_document: default
 ---
 
-# 4. Gestión de Paquetes y Ayuda
 
-## 4.1. ¿Cómo organiza R sus funcionalidades?
+
 
 Al iniciar R, se carga automáticamente el **paquete base**. Este conjunto incluye las funciones esenciales (como `sum` o `max`) y las estructuras de datos fundamentales como vectores, matrices y *data frames*.
 
 Sin embargo, el ecosistema de R es modular: para acceder a funciones especializadas, utilizamos **paquetes (*packages*)**. Un paquete es una colección de funciones, datos y documentación desarrollada por la comunidad para tareas específicas.
 
-## 4.2. Instalación vs. Carga de paquetes
+## 4.1. Instalación vs. Carga de paquetes
 
 Es vital distinguir entre estos dos procesos:
 
@@ -32,7 +36,7 @@ library()
 
 ```
 
-## 4.3. Ejemplo práctico: paquete `clustcurv`
+## 4.2. Ejemplo práctico: paquete `clustcurv`
 
 ```{r clustcurv, eval=FALSE}
 # Instalación (se hace una sola vez)
@@ -46,7 +50,7 @@ library(help = clustcurv)
 
 ```
 
-## 4.4. Ayuda en R
+## 4.3. Ayuda en R
 
 R tiene un sistema de documentación integrado muy eficiente. Si necesitas entender cómo funciona una función, usa el signo de interrogación o la función `help()`.
 

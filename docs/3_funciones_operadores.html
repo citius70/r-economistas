@@ -11,12 +11,12 @@
 
 
 
-<title>R</title>
+<title>3. Funciones y operadores</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -30,8 +30,6 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -42,18 +40,110 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
 </script>
-
-
 
 
 
@@ -243,7 +333,7 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Inicio</a>
+  <a href="index.html">Resumen</a>
 </li>
 <li>
   <a href="1_instalacion.html">1 Instalación</a>
@@ -261,7 +351,25 @@ $(document).ready(function () {
   <a href="5_vectores.html">5 Vectores</a>
 </li>
 <li>
-  <a href="graficos/graficos.html">Visualizaciones en R</a>
+  <a href="6_matrices.html">6 Matrices</a>
+</li>
+<li>
+  <a href="7_arrays.html">7 Arrays</a>
+</li>
+<li>
+  <a href="8_dataframes.html">8 Data Frames</a>
+</li>
+<li>
+  <a href="9_data.html">9 Datos de ejemplo (data)</a>
+</li>
+<li>
+  <a href="10_lectura_escritura.html">10 Lectura y escritura de archivos externos</a>
+</li>
+<li>
+  <a href="11_funciones.html">11 Funciones (function)</a>
+</li>
+<li>
+  <a href="12_aleatorios.html">12 Genaración de números alartorios</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -275,13 +383,11 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">R</h1>
+<h1 class="title toc-ignore">3. Funciones y operadores</h1>
 
 </div>
 
 
-<div id="funciones-y-operadores-en-r" class="section level1">
-<h1>3. Funciones y Operadores en R</h1>
 <p>Estas son las funciones y operadores que encluye R en su instalación
 básica.</p>
 <div id="funciones-principales" class="section level2">
@@ -361,15 +467,15 @@ básica.</p>
 </tbody>
 </table>
 <p>Ejemplos:</p>
-<pre class="r"><code>x = 16
-sqrt(x)</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">16</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">sqrt</span>(x)</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<pre class="r"><code>exp(x)</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">exp</span>(x)</span></code></pre></div>
 <pre><code>## [1] 8886111</code></pre>
-<pre class="r"><code>mivector = c(3,6,2,7)
-length(mivector)</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>mivector <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">2</span>,<span class="dv">7</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">length</span>(mivector)</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<pre class="r"><code>mean(mivector)</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">mean</span>(mivector)</span></code></pre></div>
 <pre><code>## [1] 4.5</code></pre>
 </div>
 <div id="operadores-en-r" class="section level2">
@@ -411,30 +517,30 @@ length(mivector)</code></pre>
 </tbody>
 </table>
 <p>Ejemplos:</p>
-<pre class="r"><code># Definición de variables
-a &lt;- 10
-b &lt;- 3
-
-# Resultados de las operaciones
-resultado_suma    &lt;- a + b
-resultado_resta   &lt;- a - b
-resultado_multi   &lt;- a * b
-resultado_div     &lt;- a / b
-resultado_pot     &lt;- a ^ b
-resultado_entera  &lt;- a %/% b
-
-# Imprimir solo los resultados
-print(resultado_suma)</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Definición de variables</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co"># Resultados de las operaciones</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>resultado_suma    <span class="ot">&lt;-</span> a <span class="sc">+</span> b</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>resultado_resta   <span class="ot">&lt;-</span> a <span class="sc">-</span> b</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>resultado_multi   <span class="ot">&lt;-</span> a <span class="sc">*</span> b</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>resultado_div     <span class="ot">&lt;-</span> a <span class="sc">/</span> b</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>resultado_pot     <span class="ot">&lt;-</span> a <span class="sc">^</span> b</span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>resultado_entera  <span class="ot">&lt;-</span> a <span class="sc">%/%</span> b</span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co"># Imprimir solo los resultados</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="fu">print</span>(resultado_suma)</span></code></pre></div>
 <pre><code>## [1] 13</code></pre>
-<pre class="r"><code>print(resultado_resta)</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">print</span>(resultado_resta)</span></code></pre></div>
 <pre><code>## [1] 7</code></pre>
-<pre class="r"><code>print(resultado_multi)</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">print</span>(resultado_multi)</span></code></pre></div>
 <pre><code>## [1] 30</code></pre>
-<pre class="r"><code>print(resultado_div)</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">print</span>(resultado_div)</span></code></pre></div>
 <pre><code>## [1] 3.333333</code></pre>
-<pre class="r"><code>print(resultado_pot)</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">print</span>(resultado_pot)</span></code></pre></div>
 <pre><code>## [1] 1000</code></pre>
-<pre class="r"><code>print(resultado_entera)</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">print</span>(resultado_entera)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 </div>
 <div id="comparativos" class="section level3">
@@ -474,27 +580,27 @@ print(resultado_suma)</code></pre>
 </tbody>
 </table>
 <p>Ejemplo:</p>
-<pre class="r"><code># Definimos valores para comparar
-x &lt;- 10
-y &lt;- 5
-
-# 1. Igualdad (==)
-print(x == y)      # ¿Es 10 igual a 5? (FALSE)</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># Definimos valores para comparar</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="co"># 1. Igualdad (==)</span></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="fu">print</span>(x <span class="sc">==</span> y)      <span class="co"># ¿Es 10 igual a 5? (FALSE)</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<pre class="r"><code># 2. Diferente de (!=)
-print(x != y)      # ¿Es 10 diferente de 5? (TRUE)</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co"># 2. Diferente de (!=)</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="fu">print</span>(x <span class="sc">!=</span> y)      <span class="co"># ¿Es 10 diferente de 5? (TRUE)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<pre class="r"><code># 3. Menor que (&lt;)
-print(x &lt; y)       # ¿Es 10 menor que 5? (FALSE)</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="co"># 3. Menor que (&lt;)</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="fu">print</span>(x <span class="sc">&lt;</span> y)       <span class="co"># ¿Es 10 menor que 5? (FALSE)</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<pre class="r"><code># 4. Mayor que (&gt;)
-print(x &gt; y)       # ¿Es 10 mayor que 5? (TRUE)</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="co"># 4. Mayor que (&gt;)</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="fu">print</span>(x <span class="sc">&gt;</span> y)       <span class="co"># ¿Es 10 mayor que 5? (TRUE)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<pre class="r"><code># 5. Menor o igual (&lt;=)
-print(x &lt;= 10)     # ¿Es 10 menor o igual a 10? (TRUE)</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="co"># 5. Menor o igual (&lt;=)</span></span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a><span class="fu">print</span>(x <span class="sc">&lt;=</span> <span class="dv">10</span>)     <span class="co"># ¿Es 10 menor o igual a 10? (TRUE)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<pre class="r"><code># 6. Mayor o igual (&gt;=)
-print(y &gt;= 15)     # ¿Es 5 mayor o igual a 15? (FALSE)</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="co"># 6. Mayor o igual (&gt;=)</span></span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a><span class="fu">print</span>(y <span class="sc">&gt;=</span> <span class="dv">15</span>)     <span class="co"># ¿Es 5 mayor o igual a 15? (FALSE)</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 </div>
 <div id="lógicos" class="section level3">
@@ -522,78 +628,78 @@ print(y &gt;= 15)     # ¿Es 5 mayor o igual a 15? (FALSE)</code></pre>
 </tbody>
 </table>
 <p>Ejemplos:</p>
-<pre class="r"><code>x &lt;- 10
-y &lt;- 5
-
-# 1. Y lógico (&amp;)
-# ¿Es x mayor que 5 Y es y menor que 10?
-print(x &gt; 5 &amp; y &lt; 10) # TRUE porque ambas se cumplen</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a><span class="co"># 1. Y lógico (&amp;)</span></span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a><span class="co"># ¿Es x mayor que 5 Y es y menor que 10?</span></span>
+<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a><span class="fu">print</span>(x <span class="sc">&gt;</span> <span class="dv">5</span> <span class="sc">&amp;</span> y <span class="sc">&lt;</span> <span class="dv">10</span>) <span class="co"># TRUE porque ambas se cumplen</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<pre class="r"><code># 2. O lógico (|)
-# ¿Es x igual a 100 O es y igual a 5?
-print(x == 100 | y == 5) # TRUE porque al menos una se cumple</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="co"># 2. O lógico (|)</span></span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a><span class="co"># ¿Es x igual a 100 O es y igual a 5?</span></span>
+<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a><span class="fu">print</span>(x <span class="sc">==</span> <span class="dv">100</span> <span class="sc">|</span> y <span class="sc">==</span> <span class="dv">5</span>) <span class="co"># TRUE porque al menos una se cumple</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<pre class="r"><code># 3. NO lógico (!)
-# ¿Es x diferente de 10? (No, es igual, así que dará FALSE)
-print(!(x == 10))</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="co"># 3. NO lógico (!)</span></span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a><span class="co"># ¿Es x diferente de 10? (No, es igual, así que dará FALSE)</span></span>
+<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a><span class="fu">print</span>(<span class="sc">!</span>(x <span class="sc">==</span> <span class="dv">10</span>))</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 </div>
 </div>
 <div id="ejemplos-con-operadores" class="section level2">
 <h2>Ejemplos con operadores</h2>
-<pre class="r"><code># Creamos la list/vector `datos`
-datos &lt;- c(4, 5, 10, 3)
-
-min(datos)</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="co"># Creamos la list/vector `datos`</span></span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">3</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a><span class="fu">min</span>(datos)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<pre class="r"><code>max(datos)</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="fu">max</span>(datos)</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<pre class="r"><code>which.min(datos)</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="fu">which.min</span>(datos)</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<pre class="r"><code>which.max(datos)</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="fu">which.max</span>(datos)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<pre class="r"><code>range(datos)</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="fu">range</span>(datos)</span></code></pre></div>
 <pre><code>## [1]  3 10</code></pre>
-<pre class="r"><code>mean(datos)</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="fu">mean</span>(datos)</span></code></pre></div>
 <pre><code>## [1] 5.5</code></pre>
-<pre class="r"><code>median(datos)</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="fu">median</span>(datos)</span></code></pre></div>
 <pre><code>## [1] 4.5</code></pre>
-<pre class="r"><code>sum(datos)</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="fu">sum</span>(datos)</span></code></pre></div>
 <pre><code>## [1] 22</code></pre>
-<pre class="r"><code>2 * datos</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> datos</span></code></pre></div>
 <pre><code>## [1]  8 10 20  6</code></pre>
-<pre class="r"><code>2 &lt; 3 &amp; 4 &lt; 1</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a><span class="dv">2</span> <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">&amp;</span> <span class="dv">4</span> <span class="sc">&lt;</span> <span class="dv">1</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<pre class="r"><code>2 &lt; 3 | 4 &lt; 1</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a><span class="dv">2</span> <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">|</span> <span class="dv">4</span> <span class="sc">&lt;</span> <span class="dv">1</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 <div id="asignación-de-variables" class="section level2">
 <h2>Asignación de variables</h2>
-<pre class="r"><code># Asignación de valores indivuduales a una variable
-a = 45
-b =5
-nombre = &quot;Nicolás&quot;
-
-print(a)</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" tabindex="-1"></a><span class="co"># Asignación de valores indivuduales a una variable</span></span>
+<span id="cb61-2"><a href="#cb61-2" tabindex="-1"></a>a <span class="ot">=</span> <span class="dv">45</span></span>
+<span id="cb61-3"><a href="#cb61-3" tabindex="-1"></a>b <span class="ot">=</span><span class="dv">5</span></span>
+<span id="cb61-4"><a href="#cb61-4" tabindex="-1"></a>nombre <span class="ot">=</span> <span class="st">&quot;Nicolás&quot;</span></span>
+<span id="cb61-5"><a href="#cb61-5" tabindex="-1"></a></span>
+<span id="cb61-6"><a href="#cb61-6" tabindex="-1"></a><span class="fu">print</span>(a)</span></code></pre></div>
 <pre><code>## [1] 45</code></pre>
-<pre class="r"><code>#Asignación de operaciones a una variable
-resultado_suma           &lt;- 5 + 3
-resultado_resta          &lt;- 10 - 2
-resultado_multiplicacion &lt;- 4 * 6
-resultado_division       &lt;- 20 / 5
-resultado_potenciacion   &lt;- 2^3
-
-print(resultado_suma)</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" tabindex="-1"></a><span class="co">#Asignación de operaciones a una variable</span></span>
+<span id="cb63-2"><a href="#cb63-2" tabindex="-1"></a>resultado_suma           <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">3</span></span>
+<span id="cb63-3"><a href="#cb63-3" tabindex="-1"></a>resultado_resta          <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="sc">-</span> <span class="dv">2</span></span>
+<span id="cb63-4"><a href="#cb63-4" tabindex="-1"></a>resultado_multiplicacion <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">*</span> <span class="dv">6</span></span>
+<span id="cb63-5"><a href="#cb63-5" tabindex="-1"></a>resultado_division       <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="sc">/</span> <span class="dv">5</span></span>
+<span id="cb63-6"><a href="#cb63-6" tabindex="-1"></a>resultado_potenciacion   <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">^</span><span class="dv">3</span></span>
+<span id="cb63-7"><a href="#cb63-7" tabindex="-1"></a></span>
+<span id="cb63-8"><a href="#cb63-8" tabindex="-1"></a><span class="fu">print</span>(resultado_suma)</span></code></pre></div>
 <pre><code>## [1] 8</code></pre>
 </div>
 <div id="tipos-de-datos-básicos" class="section level2">
 <h2>Tipos de datos básicos</h2>
-<pre class="r"><code>x1 &lt;- TRUE                                # logical
-x2 &lt;- 3L                                  # integer
-x3 &lt;- 3.4                                 # numeric
-x5 &lt;- &quot;Esto es una cadena de caracteres&quot;  # character
-
-ls.str()</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="cn">TRUE</span>                                <span class="co"># logical</span></span>
+<span id="cb65-2"><a href="#cb65-2" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="dv">3</span><span class="dt">L</span>                                  <span class="co"># integer</span></span>
+<span id="cb65-3"><a href="#cb65-3" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fl">3.4</span>                                 <span class="co"># numeric</span></span>
+<span id="cb65-4"><a href="#cb65-4" tabindex="-1"></a>x5 <span class="ot">&lt;-</span> <span class="st">&quot;Esto es una cadena de caracteres&quot;</span>  <span class="co"># character</span></span>
+<span id="cb65-5"><a href="#cb65-5" tabindex="-1"></a></span>
+<span id="cb65-6"><a href="#cb65-6" tabindex="-1"></a><span class="fu">ls.str</span>()</span></code></pre></div>
 <pre><code>## a :  num 45
 ## b :  num 5
 ## datos :  num [1:4] 4 5 10 3
@@ -614,19 +720,18 @@ ls.str()</code></pre>
 ## x3 :  num 3.4
 ## x5 :  chr &quot;Esto es una cadena de caracteres&quot;
 ## y :  num 5</code></pre>
-<pre class="r"><code># Conversiones
-as.integer(x1)</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" tabindex="-1"></a><span class="co"># Conversiones</span></span>
+<span id="cb67-2"><a href="#cb67-2" tabindex="-1"></a><span class="fu">as.integer</span>(x1)</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<pre class="r"><code>as.integer(x3)</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" tabindex="-1"></a><span class="fu">as.integer</span>(x3)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<pre class="r"><code># Comprobaciones
-is.integer(x1)</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" tabindex="-1"></a><span class="co"># Comprobaciones</span></span>
+<span id="cb71-2"><a href="#cb71-2" tabindex="-1"></a><span class="fu">is.integer</span>(x1)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<pre class="r"><code>is.logical(x1)</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" tabindex="-1"></a><span class="fu">is.logical</span>(x1)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<pre class="r"><code>is.integer(x2)</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" tabindex="-1"></a><span class="fu">is.integer</span>(x2)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-</div>
 </div>
 
 

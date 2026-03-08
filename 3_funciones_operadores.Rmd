@@ -1,6 +1,10 @@
 ---
-title: "R"
+title: "3. Funciones y operadores"
 output:
+  html_document:
+    toc: false
+    theme: cosmo  # Puedes elegir: united, cosmo, lumen, flatly...
+    highlight: tango
   word_document: default
   pdf_document: default
 ---
@@ -8,8 +12,6 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
 ```
-
-# 3. Funciones y Operadores en R
 
 Estas son las funciones y operadores que encluye R en su instalación básica.
 

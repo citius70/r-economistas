@@ -1,11 +1,13 @@
 ---
-title: "R"
+title: "8. Data Frames: Matrices especiales"
 output:
+  html_document:
+    toc: false
+    theme: cosmo  # Puedes elegir: united, cosmo, lumen, flatly...
+    highlight: tango
   word_document: default
   pdf_document: default
 ---
-
-# 8. Data Frames
 
 Los **data frames** son el **objeto más habitual para el almacenamiento de datos**.
 

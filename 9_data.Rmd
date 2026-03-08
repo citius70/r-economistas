@@ -1,12 +1,15 @@
 ---
 title: "9. Datos de ejemplo (data)"
-output: html_document
+output:
+  html_document:
+    toc: false
+    theme: cosmo  # Puedes elegir: united, cosmo, lumen, flatly...
+    highlight: tango
+  word_document: default
+  pdf_document: default
 ---
 
 
-
-
-## Datos de Ejemplo en R
 
 R y RStudio vienen equipados con una serie de conjuntos de datos (datasets) de ejemplo listos para usar. Estos son muy útiles para practicar funciones, crear gráficos o probar códigos sin necesidad de cargar archivos externos.
 

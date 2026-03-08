@@ -11,12 +11,12 @@
 
 
 
-<title>R</title>
+<title>6. Matrices: los datos en dorma de rectángulo</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -29,12 +29,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -45,18 +40,110 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
 </script>
-
-
 
 
 
@@ -222,69 +309,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -292,16 +316,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -342,6 +356,21 @@ div.tocify {
 <li>
   <a href="7_arrays.html">7 Arrays</a>
 </li>
+<li>
+  <a href="8_dataframes.html">8 Data Frames</a>
+</li>
+<li>
+  <a href="9_data.html">9 Datos de ejemplo (data)</a>
+</li>
+<li>
+  <a href="10_lectura_escritura.html">10 Lectura y escritura de archivos externos</a>
+</li>
+<li>
+  <a href="11_funciones.html">11 Funciones (function)</a>
+</li>
+<li>
+  <a href="12_aleatorios.html">12 Genaración de números alartorios</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -354,13 +383,12 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">R</h1>
+<h1 class="title toc-ignore">6. Matrices: los datos en dorma de
+rectángulo</h1>
 
 </div>
 
 
-<div id="matrices" class="section level1">
-<h1>6. Matrices</h1>
 <p>Una matriz es una estructura de datos <strong>bidimensional</strong>
 que organiza elementos del mismo tipo (como números, caracteres o
 valores lógicos) en una cuadrícula de <strong>filas</strong> (nrows) y
@@ -384,14 +412,14 @@ j], donde i es la fila y j es la columna.</p></li>
 datos, el número de filas (nrow) o columnas (ncol).</p>
 <p>Por defecto, las matrices se completan primero la columna 1, después
 la columna 2, columna 3, ….</p>
-<pre class="r"><code># Crear una matriz 3x3 con elementos del 1 al 9
-matrix(1:9, nrow = 3, ncol = 3)</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Crear una matriz 3x3 con elementos del 1 al 9</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    4    7
 ## [2,]    2    5    8
 ## [3,]    3    6    9</code></pre>
-<pre class="r"><code># Creamos una matriz de 4 filas y 34 columnas con datos selccionados por nosootros (van dentro de un vector)
-matrix(c(14, 22, 43, 4, 51, 26, 36, 12, 36, 76, 27, 56), nrow = 3, ncol = 4)</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Creamos una matriz de 4 filas y 34 columnas con datos selccionados por nosootros (van dentro de un vector)</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">14</span>, <span class="dv">22</span>, <span class="dv">43</span>, <span class="dv">4</span>, <span class="dv">51</span>, <span class="dv">26</span>, <span class="dv">36</span>, <span class="dv">12</span>, <span class="dv">36</span>, <span class="dv">76</span>, <span class="dv">27</span>, <span class="dv">56</span>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4]
 ## [1,]   14    4   36   76
 ## [2,]   22   51   12   27
@@ -399,17 +427,17 @@ matrix(c(14, 22, 43, 4, 51, 26, 36, 12, 36, 76, 27, 56), nrow = 3, ncol = 4)</co
 <p>Las matrices creadas suelen guardarse en una variable es fundamental
 porque sino se hace la matriz se mostrará en la consola y, a
 continuación, desaparecerá; no podrás volver a usarla.</p>
-<pre class="r"><code># Guardamos la matriz en la variable mimatriz
-
-mimatriz &lt;-matrix(20:25, nrow= 2, ncol=3)
-print(mimatriz)</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Guardamos la matriz en la variable mimatriz</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>mimatriz <span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="dv">20</span><span class="sc">:</span><span class="dv">25</span>, <span class="at">nrow=</span> <span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">3</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="fu">print</span>(mimatriz)</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]   20   22   24
 ## [2,]   21   23   25</code></pre>
-<pre class="r"><code>#Reutilizamos la variable mimatriz
-
-doble_mimatriz &lt;- 2*mimatriz
-print(doble_mimatriz)</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co">#Reutilizamos la variable mimatriz</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>doble_mimatriz <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>mimatriz</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="fu">print</span>(doble_mimatriz)</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]   40   44   48
 ## [2,]   42   46   50</code></pre>
@@ -424,88 +452,88 @@ indicando las coordenadas mediante la notación
 <div id="sintaxis-básica" class="section level3">
 <h3>Sintaxis básica</h3>
 <p><code>nombre_de_la_matriz[fila, columna]</code></p>
-<pre class="r"><code># Acceder al elemento en la segunda fila y tercera columna
-
-mi_matriz = matrix(1:9, nrow = 3,  ncol = 3)
-print(mi_matriz)</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Acceder al elemento en la segunda fila y tercera columna</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>mi_matriz <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">nrow =</span> <span class="dv">3</span>,  <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="fu">print</span>(mi_matriz)</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    4    7
 ## [2,]    2    5    8
 ## [3,]    3    6    9</code></pre>
-<pre class="r"><code>elemento &lt;- mi_matriz[2, 3]
-print(&quot;**---------------------**&quot;)</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>elemento <span class="ot">&lt;-</span> mi_matriz[<span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;**---------------------**&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;**---------------------**&quot;</code></pre>
-<pre class="r"><code>print(elemento) # Solución: 8</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">print</span>(elemento) <span class="co"># Solución: 8</span></span></code></pre></div>
 <pre><code>## [1] 8</code></pre>
 <p>Para accder a los datos de una fila completa:</p>
-<pre class="r"><code>x &lt;- matrix(1:6, 2, 3)
-x</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    3    5
 ## [2,]    2    4    6</code></pre>
-<pre class="r"><code>x[2, ]    # segunda fila</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>x[<span class="dv">2</span>, ]    <span class="co"># segunda fila</span></span></code></pre></div>
 <pre><code>## [1] 2 4 6</code></pre>
-<pre class="r"><code>x[, 2]    # segunda columna</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>x[, <span class="dv">2</span>]    <span class="co"># segunda columna</span></span></code></pre></div>
 <pre><code>## [1] 3 4</code></pre>
-<pre class="r"><code>x[1, 1:2] # primera fila, pero solo columnas 1ª y 2ª</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>x[<span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="co"># primera fila, pero solo columnas 1ª y 2ª</span></span></code></pre></div>
 <pre><code>## [1] 1 3</code></pre>
 </div>
 </div>
 <div id="otras-formas-de-crear-matrices" class="section level2">
 <h2>6.3. Otras formas de crear matrices</h2>
 <p><strong>Ejemplo: Crear una matriz 2x4</strong></p>
-<pre class="r"><code>matrix(1:8, nr = 2, nc = 4)</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4]
 ## [1,]    1    3    5    7
 ## [2,]    2    4    6    8</code></pre>
-<pre class="r"><code>matrix(1:8, 2, 4)               # por columnas (como Fortran)</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">4</span>)               <span class="co"># por columnas (como Fortran)</span></span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4]
 ## [1,]    1    3    5    7
 ## [2,]    2    4    6    8</code></pre>
 <p>En el siguiente caso la matriz rellena primero la fila 1, después la
 fila 2 …</p>
-<pre class="r"><code>matrix(1:8, 2, 4, byrow = TRUE) # por filas</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>) <span class="co"># por filas</span></span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4]
 ## [1,]    1    2    3    4
 ## [2,]    5    6    7    8</code></pre>
 </div>
 <div id="operaciones-con-matrices" class="section level2">
 <h2>6.4. Operaciones con matrices</h2>
-<pre class="r"><code># Crear dos matrices
-matriz_a &lt;- matrix(1:4, nrow = 2)
-matriz_b &lt;- matrix(5:8, nrow = 2)</code></pre>
-<pre class="r"><code>print(matriz_a)</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="co"># Crear dos matrices</span></span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>matriz_a <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>matriz_b <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">print</span>(matriz_a)</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    3
 ## [2,]    2    4</code></pre>
-<pre class="r"><code>print(matriz_b)</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">print</span>(matriz_b)</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    5    7
 ## [2,]    6    8</code></pre>
 <p><strong>Suma de matrices: +</strong></p>
-<pre class="r"><code># Sumar las matrices
-resultado_suma &lt;- matriz_a + matriz_b
-print(resultado_suma)</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="co"># Sumar las matrices</span></span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>resultado_suma <span class="ot">&lt;-</span> matriz_a <span class="sc">+</span> matriz_b</span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a><span class="fu">print</span>(resultado_suma)</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    6   10
 ## [2,]    8   12</code></pre>
 <p><strong>Producto matricial: %*%</strong></p>
-<pre class="r"><code># Multiplicar las matrices (producto matricial)
-resultado_multiplicacion &lt;- matriz_a %*% matriz_b
-
-print(resultado_multiplicacion)</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="co"># Multiplicar las matrices (producto matricial)</span></span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>resultado_multiplicacion <span class="ot">&lt;-</span> matriz_a <span class="sc">%*%</span> matriz_b</span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a><span class="fu">print</span>(resultado_multiplicacion)</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]   23   31
 ## [2,]   34   46</code></pre>
 <p><strong>Transpuesta: t</strong></p>
-<pre class="r"><code># Transpuesta
-mi_matriz &lt;- matrix(1:6, nrow = 2)
-print(mi_matriz)</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="co"># Transpuesta</span></span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a>mi_matriz <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a><span class="fu">print</span>(mi_matriz)</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    3    5
 ## [2,]    2    4    6</code></pre>
-<pre class="r"><code>matriz_transpuesta &lt;- t(mi_matriz)
-print(matriz_transpuesta)</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>matriz_transpuesta <span class="ot">&lt;-</span> <span class="fu">t</span>(mi_matriz)</span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a><span class="fu">print</span>(matriz_transpuesta)</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    2
 ## [2,]    3    4
@@ -599,20 +627,19 @@ a los datos.</p></li>
 como <code>dim()</code>, <code>nrow()</code> o <code>ncol()</code> para
 confirmar que la estructura final es la esperada (12x3).</p></li>
 </ol>
-<pre class="r"><code>temperatura &lt;- c(20.37, 18.56, 18.4, 21.96, 29.53, 28.16,
-                 36.38, 36.62, 40.03, 27.59, 22.15, 19.85)
-humedad     &lt;- c(88, 86, 81, 79, 80, 78, 71, 69, 78, 82, 85, 83)
-lluvia      &lt;- c(72, 33.9, 37.5, 36.6, 31, 16.6, 1.2, 6.8,
-                 36.8, 30.8, 38.5, 22.7)
-
-datos &lt;- cbind(temperatura, humedad, lluvia)
-
-rownames(datos) &lt;- c(&quot;enero&quot;, &quot;febrero&quot;, &quot;marzo&quot;, &quot;abril&quot;, &quot;mayo&quot;,
-                     &quot;junio&quot;, &quot;julio&quot;, &quot;agosto&quot;, &quot;septiembre&quot;,
-                     &quot;octubre&quot;, &quot;noviembre&quot;, &quot;diciembre&quot;)
-colnames(datos)</code></pre>
+<p><img src="img/matrices_vectores.png" /></p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>temperatura <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">20.37</span>, <span class="fl">18.56</span>, <span class="fl">18.4</span>, <span class="fl">21.96</span>, <span class="fl">29.53</span>, <span class="fl">28.16</span>, <span class="fl">36.38</span>, <span class="fl">36.62</span>, <span class="fl">40.03</span>, <span class="fl">27.59</span>, <span class="fl">22.15</span>, <span class="fl">19.85</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>humedad     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">88</span>, <span class="dv">86</span>, <span class="dv">81</span>, <span class="dv">79</span>, <span class="dv">80</span>, <span class="dv">78</span>, <span class="dv">71</span>, <span class="dv">69</span>, <span class="dv">78</span>, <span class="dv">82</span>, <span class="dv">85</span>, <span class="dv">83</span>)</span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a>lluvia      <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">72</span>, <span class="fl">33.9</span>, <span class="fl">37.5</span>, <span class="fl">36.6</span>, <span class="dv">31</span>, <span class="fl">16.6</span>, <span class="fl">1.2</span>, <span class="fl">6.8</span>,<span class="fl">36.8</span>, <span class="fl">30.8</span>, <span class="fl">38.5</span>, <span class="fl">22.7</span>)</span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">cbind</span>(temperatura, humedad, lluvia)</span>
+<span id="cb42-6"><a href="#cb42-6" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" tabindex="-1"></a><span class="fu">rownames</span>(datos) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;enero&quot;</span>, <span class="st">&quot;febrero&quot;</span>, <span class="st">&quot;marzo&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;mayo&quot;</span>,</span>
+<span id="cb42-8"><a href="#cb42-8" tabindex="-1"></a>                     <span class="st">&quot;junio&quot;</span>, <span class="st">&quot;julio&quot;</span>, <span class="st">&quot;agosto&quot;</span>, <span class="st">&quot;septiembre&quot;</span>,</span>
+<span id="cb42-9"><a href="#cb42-9" tabindex="-1"></a>                     <span class="st">&quot;octubre&quot;</span>, <span class="st">&quot;noviembre&quot;</span>, <span class="st">&quot;diciembre&quot;</span>)</span>
+<span id="cb42-10"><a href="#cb42-10" tabindex="-1"></a><span class="fu">colnames</span>(datos)</span></code></pre></div>
 <pre><code>## [1] &quot;temperatura&quot; &quot;humedad&quot;     &quot;lluvia&quot;</code></pre>
-<pre class="r"><code>datos</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a>datos</span></code></pre></div>
 <pre><code>##            temperatura humedad lluvia
 ## enero            20.37      88   72.0
 ## febrero          18.56      86   33.9
@@ -626,21 +653,17 @@ colnames(datos)</code></pre>
 ## octubre          27.59      82   30.8
 ## noviembre        22.15      85   38.5
 ## diciembre        19.85      83   22.7</code></pre>
-<pre class="r"><code># Dimensiones
-dim(datos)</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="co"># Dimensiones</span></span>
+<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a><span class="fu">dim</span>(datos)</span></code></pre></div>
 <pre><code>## [1] 12  3</code></pre>
-<pre class="r"><code>nrow(datos)</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="fu">nrow</span>(datos)</span></code></pre></div>
 <pre><code>## [1] 12</code></pre>
-<pre class="r"><code>ncol(datos)</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="fu">ncol</span>(datos)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<p><img src="img/matrices_vectores.png" /></p>
-</div>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -673,35 +696,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
