@@ -1,5 +1,5 @@
 ---
-title: "8. Data Frames: Matrices especiales"
+title: "8. Data Frames. Matrices especiales"
 output:
   html_document:
     toc: false

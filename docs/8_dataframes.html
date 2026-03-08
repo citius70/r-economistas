@@ -11,12 +11,12 @@
 
 
 
-<title>R</title>
+<title>8. Data Frames. Matrices especiales</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -29,12 +29,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -45,18 +40,110 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
 </script>
-
-
 
 
 
@@ -222,69 +309,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -292,16 +316,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -319,9 +333,6 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Resumen</a>
-</li>
-<li>
   <a href="1_instalacion.html">1 Instalación</a>
 </li>
 <li>
@@ -340,10 +351,25 @@ div.tocify {
   <a href="6_matrices.html">6 Matrices</a>
 </li>
 <li>
-  <a href="7_arrays.">7 Arrays</a>
+  <a href="7_arrays.html">7 Arrays</a>
 </li>
 <li>
   <a href="8_dataframes.html">8 Data Frames</a>
+</li>
+<li>
+  <a href="9_data.html">9 Datos de ejemplo (data)</a>
+</li>
+<li>
+  <a href="10_lectura_escritura.html">10 Lectura y escritura de archivos externos</a>
+</li>
+<li>
+  <a href="11_funciones.html">11 Funciones (function)</a>
+</li>
+<li>
+  <a href="12_aleatorios.html">12 Generación de números aleatorios</a>
+</li>
+<li>
+  <a href="graficos/1_dispersion.html">01. Gráficos de dispersión</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -357,13 +383,11 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">R</h1>
+<h1 class="title toc-ignore">8. Data Frames. Matrices especiales</h1>
 
 </div>
 
 
-<div id="data-frames" class="section level1">
-<h1>8. Data Frames</h1>
 <p>Los <strong>data frames</strong> son el <strong>objeto más habitual
 para el almacenamiento de datos</strong>.</p>
 <p>El proceso de crear un Data Frame es muy parecido al de la matriz con
@@ -398,18 +422,18 @@ donde cada columna conserva su tipo de dato original y los nombres de
 los vectores se convierten automáticamente en los encabezados de las
 columnas.</p></li>
 </ul>
-<pre class="r"><code>temperatura &lt;- c(20.37, 18.56, 18.4, 21.96, 29.53, 28.16,
-                 36.38, 36.62, 40.03, 27.59, 22.15, 19.85)
-humedad     &lt;- c(88, 86, 81, 79, 80, 78, 71, 69, 78, 82, 85, 83)
-lluvia      &lt;- c(72, 33.9, 37.5, 36.6, 31, 16.6, 1.2, 6.8,
-                 36.8, 30.8, 38.5, 22.7)
-mes         &lt;- c(&quot;enero&quot;, &quot;febrero&quot;, &quot;marzo&quot;, &quot;abril&quot;, &quot;mayo&quot;, &quot;junio&quot;,
-                 &quot;julio&quot;, &quot;agosto&quot;, &quot;septiembre&quot;, &quot;octubre&quot;,
-                 &quot;noviembre&quot;, &quot;diciembre&quot;)
-
-datos &lt;- data.frame(mes, temperatura, humedad, lluvia)
-
-print(datos)</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>temperatura <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">20.37</span>, <span class="fl">18.56</span>, <span class="fl">18.4</span>, <span class="fl">21.96</span>, <span class="fl">29.53</span>, <span class="fl">28.16</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>                 <span class="fl">36.38</span>, <span class="fl">36.62</span>, <span class="fl">40.03</span>, <span class="fl">27.59</span>, <span class="fl">22.15</span>, <span class="fl">19.85</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>humedad     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">88</span>, <span class="dv">86</span>, <span class="dv">81</span>, <span class="dv">79</span>, <span class="dv">80</span>, <span class="dv">78</span>, <span class="dv">71</span>, <span class="dv">69</span>, <span class="dv">78</span>, <span class="dv">82</span>, <span class="dv">85</span>, <span class="dv">83</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>lluvia      <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">72</span>, <span class="fl">33.9</span>, <span class="fl">37.5</span>, <span class="fl">36.6</span>, <span class="dv">31</span>, <span class="fl">16.6</span>, <span class="fl">1.2</span>, <span class="fl">6.8</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>                 <span class="fl">36.8</span>, <span class="fl">30.8</span>, <span class="fl">38.5</span>, <span class="fl">22.7</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>mes         <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;enero&quot;</span>, <span class="st">&quot;febrero&quot;</span>, <span class="st">&quot;marzo&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;mayo&quot;</span>, <span class="st">&quot;junio&quot;</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>                 <span class="st">&quot;julio&quot;</span>, <span class="st">&quot;agosto&quot;</span>, <span class="st">&quot;septiembre&quot;</span>, <span class="st">&quot;octubre&quot;</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>                 <span class="st">&quot;noviembre&quot;</span>, <span class="st">&quot;diciembre&quot;</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(mes, temperatura, humedad, lluvia)</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="fu">print</span>(datos)</span></code></pre></div>
 <pre><code>##           mes temperatura humedad lluvia
 ## 1       enero       20.37      88   72.0
 ## 2     febrero       18.56      86   33.9
@@ -428,14 +452,14 @@ print(datos)</code></pre>
 <h2>8.2. Acceder a datos del Data Frame</h2>
 <p>Para acceder a todos los datos de una columna específica: $</p>
 <p><code>nombre_dataframe$nombre_columna</code></p>
-<pre class="r"><code># Acceder a una columna (temperatura)
-datos$temperatura</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Acceder a una columna (temperatura)</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>datos<span class="sc">$</span>temperatura</span></code></pre></div>
 <pre><code>##  [1] 20.37 18.56 18.40 21.96 29.53 28.16 36.38 36.62 40.03 27.59 22.15 19.85</code></pre>
-<pre class="r"><code># Acceder a una columna (lluvia)
-datos$lluvia</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Acceder a una columna (lluvia)</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>datos<span class="sc">$</span>lluvia</span></code></pre></div>
 <pre><code>##  [1] 72.0 33.9 37.5 36.6 31.0 16.6  1.2  6.8 36.8 30.8 38.5 22.7</code></pre>
-<pre class="r"><code># Resumen estadístico
-summary(datos)</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Resumen estadístico</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">summary</span>(datos)</span></code></pre></div>
 <pre><code>##      mes             temperatura       humedad         lluvia     
 ##  Length:12          Min.   :18.40   Min.   :69.0   Min.   : 1.20  
 ##  Class :character   1st Qu.:20.24   1st Qu.:78.0   1st Qu.:21.18  
@@ -445,23 +469,20 @@ summary(datos)</code></pre>
 ##                     Max.   :40.03   Max.   :88.0   Max.   :72.00</code></pre>
 <p>Acceso a los datos de una fila: [ ]</p>
 <p><code>nombre_dataframe[número_fila, ]</code></p>
-<pre class="r"><code># Acceder a la fila 3 (marzo)
-datos[3, ]</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Acceder a la fila 3 (marzo)</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>datos[<span class="dv">3</span>, ]</span></code></pre></div>
 <pre><code>##     mes temperatura humedad lluvia
 ## 3 marzo        18.4      81   37.5</code></pre>
 </div>
 <div id="acceso-directo-con-attach" class="section level2">
 <h2>8.3 Acceso directo con <code>attach</code></h2>
 <p>(No lo entendí)</p>
-<pre class="r"><code>attach(datos)   # permite usar variables directamente por su nombre
-detach(datos)   # libera las variables</code></pre>
-</div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">attach</span>(datos)   <span class="co"># permite usar variables directamente por su nombre</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fu">detach</span>(datos)   <span class="co"># libera las variables</span></span></code></pre></div>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -494,35 +515,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

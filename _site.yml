@@ -4,8 +4,6 @@ exclude: ["intro_R.Rmd"]    # ← línea añadida
 navbar:
   title: "R para economistas"
   left:
-    - text: "Resumen"
-      href: index.html
     - text: "1 Instalación"
       href: 1_instalacion.html
     - text: "2 Introducción a R"
@@ -30,7 +28,7 @@ navbar:
       href: 11_funciones.html
     - text: "12 Generación de números aleatorios"
       href: 12_aleatorios.html
-    - text: "1. Gráficos de dispersión"
+    - text: "01. Gráficos de dispersión"
       href: graficos/1_dispersion.html
 output:
   html_document:
