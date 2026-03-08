@@ -17,6 +17,8 @@ Puedes visualizarla como una tabla matemática donde cada elemento es identifica
 
 -   Bidimensionalidad: A diferencia de un vector (que solo tiene una dimensión), la matriz requiere dos índices para acceder a un valor: [i, j], donde i es la fila y j es la columna.
 
+![](images/clipboard-620807775.png)
+
 ## 6.1. Crear  elementos de una matriz
 
 La función principal es `matrix()`. Debes especificar los datos, el número de filas (nrow) o columnas (ncol).
@@ -33,8 +35,6 @@ matrix(1:9, nrow = 3, ncol = 3)
 matrix(c(14, 22, 43, 4, 51, 26, 36, 12, 36, 76, 27, 56), nrow = 3, ncol = 4)
 
 ```
-
-![](img/matriz.png)
 
 Las matrices creadas suelen guardarse en una variable es fundamental porque sino se hace la matriz se mostrará en la consola y, a continuación, desaparecerá; no podrás volver a usarla.
 
