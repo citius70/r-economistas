@@ -339,6 +339,9 @@ div.tocify {
 <li>
   <a href="6_matrices.html">6 Matrices</a>
 </li>
+<li>
+  <a href="7_arrays.html">7 Arrays</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -374,6 +377,7 @@ matriz).</p></li>
 dimensión), la matriz requiere dos índices para acceder a un valor: [i,
 j], donde i es la fila y j es la columna.</p></li>
 </ul>
+<p><img src="images/clipboard-620807775.png" /></p>
 <div id="crear-elementos-de-una-matriz" class="section level2">
 <h2>6.1. Crear elementos de una matriz</h2>
 <p>La función principal es <code>matrix()</code>. Debes especificar los
@@ -392,7 +396,6 @@ matrix(c(14, 22, 43, 4, 51, 26, 36, 12, 36, 76, 27, 56), nrow = 3, ncol = 4)</co
 ## [1,]   14    4   36   76
 ## [2,]   22   51   12   27
 ## [3,]   43   26   36   56</code></pre>
-<p><img src="img/matriz.png" /></p>
 <p>Las matrices creadas suelen guardarse en una variable es fundamental
 porque sino se hace la matriz se mostrará en la consola y, a
 continuación, desaparecerá; no podrás volver a usarla.</p>
@@ -465,6 +468,172 @@ fila 2 …</p>
 <pre><code>##      [,1] [,2] [,3] [,4]
 ## [1,]    1    2    3    4
 ## [2,]    5    6    7    8</code></pre>
+</div>
+<div id="operaciones-con-matrices" class="section level2">
+<h2>6.4. Operaciones con matrices</h2>
+<pre class="r"><code># Crear dos matrices
+matriz_a &lt;- matrix(1:4, nrow = 2)
+matriz_b &lt;- matrix(5:8, nrow = 2)</code></pre>
+<pre class="r"><code>print(matriz_a)</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4</code></pre>
+<pre class="r"><code>print(matriz_b)</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    5    7
+## [2,]    6    8</code></pre>
+<p><strong>Suma de matrices: +</strong></p>
+<pre class="r"><code># Sumar las matrices
+resultado_suma &lt;- matriz_a + matriz_b
+print(resultado_suma)</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    6   10
+## [2,]    8   12</code></pre>
+<p><strong>Producto matricial: %*%</strong></p>
+<pre class="r"><code># Multiplicar las matrices (producto matricial)
+resultado_multiplicacion &lt;- matriz_a %*% matriz_b
+
+print(resultado_multiplicacion)</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]   23   31
+## [2,]   34   46</code></pre>
+<p><strong>Transpuesta: t</strong></p>
+<pre class="r"><code># Transpuesta
+mi_matriz &lt;- matrix(1:6, nrow = 2)
+print(mi_matriz)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6</code></pre>
+<pre class="r"><code>matriz_transpuesta &lt;- t(mi_matriz)
+print(matriz_transpuesta)</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    3    4
+## [3,]    5    6</code></pre>
+</div>
+<div id="funciones-para-matrices" class="section level2">
+<h2>6.5. Funciones para matrices</h2>
+<table>
+<colgroup>
+<col width="39%" />
+<col width="60%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Función</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>dim()</code>, <code>nrow()</code>, <code>ncol()</code></td>
+<td>Número de filas y/o columnas</td>
+</tr>
+<tr class="even">
+<td><code>diag()</code></td>
+<td>Diagonal de una matriz</td>
+</tr>
+<tr class="odd">
+<td><code>*</code></td>
+<td>Multiplicación elemento a elemento</td>
+</tr>
+<tr class="even">
+<td><code>%*%</code></td>
+<td>Multiplicación matricial</td>
+</tr>
+<tr class="odd">
+<td><code>cbind()</code>, <code>rbind()</code></td>
+<td>Encadenamiento de columnas o filas</td>
+</tr>
+<tr class="even">
+<td><code>t()</code></td>
+<td>Transpuesta de una matriz</td>
+</tr>
+<tr class="odd">
+<td><code>solve(A)</code></td>
+<td>Inversa de la matriz A</td>
+</tr>
+<tr class="even">
+<td><code>solve(A, b)</code></td>
+<td>Solución del sistema de ecuaciones</td>
+</tr>
+<tr class="odd">
+<td><code>qr()</code></td>
+<td>Descomposición QR</td>
+</tr>
+<tr class="even">
+<td><code>eigen()</code></td>
+<td>Autovalores y autovectores</td>
+</tr>
+<tr class="odd">
+<td><code>svd()</code></td>
+<td>Descomposición en valores singulares (SVD)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="crear-matrices-a-partir-de-varios-vectoreslistas"
+class="section level2">
+<h2>6.6. Crear matrices a partir de varios vectores/listas</h2>
+<p>Este código es un ejemplo excelente de cómo pasar de datos “sueltos”
+(vectores) a una estructura de datos organizada (una matriz) y, lo más
+importante, cómo añadirle etiquetas (nombres) para que sea mucho más
+fácil de leer y entender.</p>
+<p>En resumen:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Preparación de datos:</strong> Se crean tres vectores
+(<code>temperatura</code>, <code>humedad</code>, <code>lluvia</code>)
+con 12 valores cada uno. Es crucial que tengan la misma
+longitud.</p></li>
+<li><p><strong>Unión por columnas (<code>cbind()</code>):</strong> Se
+usa la función <code>cbind()</code> para pegar los vectores uno al lado
+del otro horizontalmente, creando una matriz de 12 filas y 3 columnas.
+Las columnas reciben automáticamente los nombres de los vectores
+originales.</p></li>
+<li><p><strong>Etiquetado de filas (<code>rownames()</code>):</strong>
+Se asigna un vector con los nombres de los 12 meses a las filas de la
+matriz usando <code>rownames()</code>. Esto transforma los índices
+numéricos en etiquetas legibles, facilitando la comprensión y el acceso
+a los datos.</p></li>
+<li><p><strong>Verificación de dimensiones:</strong> Se usan funciones
+como <code>dim()</code>, <code>nrow()</code> o <code>ncol()</code> para
+confirmar que la estructura final es la esperada (12x3).</p></li>
+</ol>
+<pre class="r"><code>temperatura &lt;- c(20.37, 18.56, 18.4, 21.96, 29.53, 28.16,
+                 36.38, 36.62, 40.03, 27.59, 22.15, 19.85)
+humedad     &lt;- c(88, 86, 81, 79, 80, 78, 71, 69, 78, 82, 85, 83)
+lluvia      &lt;- c(72, 33.9, 37.5, 36.6, 31, 16.6, 1.2, 6.8,
+                 36.8, 30.8, 38.5, 22.7)
+
+datos &lt;- cbind(temperatura, humedad, lluvia)
+
+rownames(datos) &lt;- c(&quot;enero&quot;, &quot;febrero&quot;, &quot;marzo&quot;, &quot;abril&quot;, &quot;mayo&quot;,
+                     &quot;junio&quot;, &quot;julio&quot;, &quot;agosto&quot;, &quot;septiembre&quot;,
+                     &quot;octubre&quot;, &quot;noviembre&quot;, &quot;diciembre&quot;)
+colnames(datos)</code></pre>
+<pre><code>## [1] &quot;temperatura&quot; &quot;humedad&quot;     &quot;lluvia&quot;</code></pre>
+<pre class="r"><code>datos</code></pre>
+<pre><code>##            temperatura humedad lluvia
+## enero            20.37      88   72.0
+## febrero          18.56      86   33.9
+## marzo            18.40      81   37.5
+## abril            21.96      79   36.6
+## mayo             29.53      80   31.0
+## junio            28.16      78   16.6
+## julio            36.38      71    1.2
+## agosto           36.62      69    6.8
+## septiembre       40.03      78   36.8
+## octubre          27.59      82   30.8
+## noviembre        22.15      85   38.5
+## diciembre        19.85      83   22.7</code></pre>
+<pre class="r"><code># Dimensiones
+dim(datos)</code></pre>
+<pre><code>## [1] 12  3</code></pre>
+<pre class="r"><code>nrow(datos)</code></pre>
+<pre><code>## [1] 12</code></pre>
+<pre class="r"><code>ncol(datos)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p><img src="img/matrices_vectores.png" /></p>
 </div>
 </div>
 

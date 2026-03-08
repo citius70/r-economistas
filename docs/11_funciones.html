@@ -11,7 +11,7 @@
 
 
 
-<title>R</title>
+<title>11. Funciones</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -340,10 +340,19 @@ div.tocify {
   <a href="6_matrices.html">6 Matrices</a>
 </li>
 <li>
-  <a href="7_arrays.">7 Arrays</a>
+  <a href="7_arrays.html">7 Arrays</a>
 </li>
 <li>
   <a href="8_dataframes.html">8 Data Frames</a>
+</li>
+<li>
+  <a href="9_data.html">9 Datos de ejemplo (data)</a>
+</li>
+<li>
+  <a href="10_lectura_escritura.html">10 Lectura y escritura de archivos externos</a>
+</li>
+<li>
+  <a href="11_funciones.html">11 Funciones (function)</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -357,136 +366,117 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">R</h1>
+<h1 class="title toc-ignore">11. Funciones</h1>
 
 </div>
 
 
-<div id="vectores-la-estructura-fundamental" class="section level1">
-<h1>5. Vectores: La estructura fundamental</h1>
-<p>Los <strong>vectores</strong> son **secuencias o conjuntos de
-elementos del mismo tipo de datos**. En R, la unidad básica de
-almacenamiento es el vector; incluso un número aislado se trata como un
-vector de longitud uno. Se crean utilizando la función <code>c()</code>
-(<em>combine</em>).</p>
-<p><img src="img/vector.png" /></p>
-<pre class="r"><code># --- Creación y manipulación ---
-x &lt;- c(4.1, 5, 6.35)
-x                          # Imprime el vector</code></pre>
-<pre><code>## [1] 4.10 5.00 6.35</code></pre>
-<pre class="r"><code>x &lt;- c(7, x, 2)            # Añade elementos al inicio y final
-x                          # Resultado: 7, 4.1, 5, 6.35, 2</code></pre>
-<pre><code>## [1] 7.00 4.10 5.00 6.35 2.00</code></pre>
-<pre class="r"><code>length(x) # Cantidad de elementos </code></pre>
-<pre><code>## [1] 5</code></pre>
-<pre class="r"><code>mode(x) # Tipo de datos: &quot;numeric&quot;</code></pre>
-<pre><code>## [1] &quot;numeric&quot;</code></pre>
-<div id="coerción-de-tipos" class="section level2">
-<h2>5.1. Coerción de tipos</h2>
-<p>Los vectores en R deben contener elementos del mismo tipo de datos.
-Si intentamos combinar tipos distintos en un mismo vector, R aplicará la
-<strong>coerción</strong>, convirtiendo automáticamente todos los
-elementos al tipo de datos más flexible (o “general”).</p>
-<pre class="r"><code># Definimos un vector de caracteres y uno numérico
-y &lt;- c(&quot;Hola&quot;, &quot;Adios&quot;)
-x &lt;- c(4.1, 5, 6.35)
-
-# Intentamos mezclar textos, números y valores lógicos
-y_mezclado &lt;- c(y, x, TRUE)
-
-# Verificamos el resultado
-y_mezclado          # Todo se ha convertido a texto (&quot;character&quot;)</code></pre>
-<pre><code>## [1] &quot;Hola&quot;  &quot;Adios&quot; &quot;4.1&quot;   &quot;5&quot;     &quot;6.35&quot;  &quot;TRUE&quot;</code></pre>
-<pre class="r"><code>mode(y_mezclado)    # El vector es ahora de tipo &quot;character&quot;</code></pre>
-<pre><code>## [1] &quot;character&quot;</code></pre>
-<pre class="r"><code>length(y_mezclado)  # 7 elementos en total (2 textos + 3 números + 1 lógico)</code></pre>
-<pre><code>## [1] 6</code></pre>
+<p>Estás harto de ver expresiones matemáticas como esta:<span
+class="math inline">\(f(x) = x^2 + 3\)</span>. Sabes perfectamente cómo
+funciona: le das un valor a la <span class="math inline">\(x\)</span>
+(por ejemplo, 2), la función hace su cálculo (<span
+class="math inline">\(2^2 + 3\)</span>), y te devuelve un resultado
+(7).En R, una función es exactamente lo mismo, pero a lo bestia. Es una
+“máquina” a la que tú le das unos ingredientes (datos o parámetros), la
+máquina sigue unas instrucciones que tú has escrito dentro, y te escupe
+un resultado final. La ventaja es que en R no solo le puedes meter
+números; le puedes meter textos, vectores, o tablas enteras.</p>
+<p><img src="img/funcion.png" width="511" /></p>
+<div id="sintaxis-general-function" class="section level2">
+<h2>11.1. Sintaxis general <code>function</code></h2>
+<p><code>nombre_funcion &lt;- function(argumentos)</code></p>
+<p><code>{</code></p>
+<p><code>operaciones;</code></p>
+<p><code>return(resultado)</code></p>
+<p><code>}</code></p>
 </div>
-<div id="acceder-a-elementos-de-un-vector-indexación"
-class="section level2">
-<h2>5.2. Acceder a elementos de un vector (Indexación)</h2>
-<p>En R, los vectores son indexados empezando por <strong>1</strong> (no
-por 0 como en otros lenguajes como Python). Utilizamos corchetes
-<code>[]</code> para extraer valores específicos.</p>
-<pre class="r"><code>mi_vector &lt;- c(8, 9, 3, 4, 5)
+<div id="crear-funciones-en-r" class="section level2">
+<h2>11.2. Crear funciones en R</h2>
+<p>Crear funciones propias en R es muy sencillo.</p>
+<div id="ejemplo-1" class="section level3">
+<h3><strong>Ejemplo 1:</strong></h3>
+<p>Imagina que quieres sumar repetidamente dos números (parámetros).</p>
+<pre class="r"><code># Definir una función: suma de dos 
 
-# Acceder al segundo elemento
-elemento &lt;- mi_vector[2]
-print(elemento)</code></pre>
-<pre><code>## [1] 9</code></pre>
-<pre class="r"><code># Verificar el tipo de datos del vector
-mode(mi_vector)</code></pre>
-<pre><code>## [1] &quot;numeric&quot;</code></pre>
-</div>
-<div id="generación-de-secuencias" class="section level2">
-<h2>5.3. Generación de secuencias</h2>
-<p>Existen diversas formas de crear vectores numéricos ordenados sin
-escribir cada elemento manualmente:</p>
-<pre class="r"><code># El operador &#39;:&#39; genera una secuencia de enteros consecutivos
-# NOTA: Los paréntesis alrededor de la asignación guardan el valor y lo imprimen a la vez
-(x &lt;- 1:5) </code></pre>
-<pre><code>## [1] 1 2 3 4 5</code></pre>
-<pre class="r"><code># Función seq(): Permite definir el incremento (by)
-seq(from = 1, to = 5, by = 0.5)</code></pre>
-<pre><code>## [1] 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0</code></pre>
-<pre class="r"><code># Función seq(): Permite definir el número total de elementos (length.out)
-seq(from = 1, to = 5, length.out = 6)</code></pre>
-<pre><code>## [1] 1.0 1.8 2.6 3.4 4.2 5.0</code></pre>
-<pre class="r"><code># Función sample(): Genera secuencias aleatorias
-# &#39;replace = TRUE&#39; permite que los números se repitan
-sample(1:6, size = 10, replace = TRUE) </code></pre>
-<pre><code>##  [1] 3 4 1 4 1 1 2 3 3 4</code></pre>
-<hr />
-<div id="notas" class="section level3">
-<h3>Notas:</h3>
+mifuncion &lt;- function(a,b) 
+{
+  resultado &lt;- a+b    # Las líneas entre corchetes van metidas con cuatro espacios hacia la derecha
+  return(resultado)
+}
+
+# Llamar a la función
+mifuncion(5,2)</code></pre>
+<pre><code>## [1] 7</code></pre>
+<p><strong>Explicación:</strong></p>
+<p><strong>Paso 1: La creación:
+<code>mifuncion &lt;- function(a,b)</code></strong></p>
 <ul>
-<li><strong>Paréntesis de impresión:</strong> Cuando haces
-<code>(x &lt;- 1:5)</code>, le ahorras a R una línea de código al
-realizar la asignación y la visualización en un solo paso. Es un truco
-muy común en sesiones interactivas.</li>
+<li><p>Aquí le estamos dando un nombre a nuestra máquina, que llamamos
+<code>mifuncion</code>. Puedes llamar a tu función como
+quieras.</p></li>
+<li><p>Al poner <code>function(a, b)</code>, le estamos diciendo a R:
+“Esta máquina/funció necesita obligatoriamente dos datos de entrada
+(ingredientes) para funcionar”. A estos datos los llamamos
+<strong>argumentos</strong>, y los hemos bautizado como <code>a</code> y
+<code>b</code>. Puedes llamarles como quieras, por ejemplo,
+<code>x</code> e <code>y</code>.</p></li>
 </ul>
-<pre class="r"><code>Método tradicional:
-  x &lt; - 1:5
-  print (x)
-
-Método con paréntesis:
- (x &lt; - 1:5)</code></pre>
-<hr />
+<p><strong>Paso 2: El motor:
+<code>{ resultado &lt;- a + b }</code></strong></p>
+<ul>
+<li><p>Las llaves <code>{}</code> delimitan el “motor” de la función, es
+decir, todas las <strong>instrucciones</strong> que la máquina ejecutará
+en orden.</p></li>
+<li><p><code>resultado &lt;- a + b</code> es la operación interna. R
+toma los valores que le pasaste, los suma y guarda el resultado en una
+variable temporal llamada <code>resultado</code>.</p></li>
+<li><p>Las instrucciones tienen que ser identadas hacia la derecha
+(cuatro espacios en blanco a su izquierda).</p></li>
+</ul>
+<p><strong>Paso 3. La entrega:
+<code>return(resultado)</code></strong></p>
+<ul>
+<li>Esta es la parte final. Sin el <code>return</code>, la función haría
+el cálculo pero lo guardaría internamente sin mostrártelo. El
+<code>return</code> es como la bandeja de salida que te entrega el valor
+calculado al terminar el proceso.</li>
+</ul>
+<p><strong>Paso 4. La ejecución:
+<code>mifuncion(5, 2)</code></strong></p>
+<ul>
+<li><p>Es el momento de la verdad. Aquí estás
+<strong>invocando/llamando</strong> a la función para que se ponga a
+funcionar.</p>
+<ul>
+<li><p>Toma el <strong>5</strong> y lo asigna a la
+<code>a</code>.</p></li>
+<li><p>Toma el <strong>2</strong> y lo asigna a la
+<code>b</code>.</p></li>
+</ul></li>
+<li><p>Ejecuta el código interno (<span
+class="math inline">\(5+2\)</span>) y te devuelve un <strong>7</strong>
+en la consola.</p></li>
+</ul>
 </div>
-</div>
-<div id="operaciones-vectorizadas" class="section level2">
-<h2>5.4. Operaciones vectorizadas</h2>
-<p>La gran ventaja de los vectores en R es que permiten aplicar
-funciones u operaciones matemáticas a <strong>todos los elementos
-simultáneamente</strong>, sin necesidad de escribir bucles.</p>
-<pre class="r"><code>x &lt;- c(1, 2, 3, 4)
+<div id="ejemplo-2" class="section level3">
+<h3><strong>Ejemplo 2:</strong></h3>
+<p>Imagina que quieres reutilizar varias veces el código que eleva al
+cuadrado un número que va a cambiar.</p>
+<pre class="r"><code># Creamos la función
+funcioncuadrado &lt;- function (a)
+{resultado &lt;- a^2
+return(resultado)
+}
 
-# Multiplicar todos los elementos por 2 de golpe
-x * 2</code></pre>
-<pre><code>## [1] 2 4 6 8</code></pre>
-<pre class="r"><code># Elevar cada elemento al cuadrado
-x ^ 2</code></pre>
-<pre><code>## [1]  1  4  9 16</code></pre>
-<pre class="r"><code># Sumar dos vectores (se suman elemento a elemento)
-y &lt;- c(10, 20, 30, 40)
-x + y</code></pre>
-<pre><code>## [1] 11 22 33 44</code></pre>
-</div>
-<div id="filtrado-lógico-subsetting" class="section level2">
-<h2>5.5. Filtrado lógico (Subsetting)</h2>
-<p>Podemos extraer elementos de un vector basándonos en condiciones.
-Esto es extremadamente útil para limpiar datos.</p>
-<pre class="r"><code>datos &lt;- c(10, 25, 5, 40, 15)
 
-# ¿Qué elementos son mayores que 20?
-datos &gt; 20</code></pre>
-<pre><code>## [1] FALSE  TRUE FALSE  TRUE FALSE</code></pre>
-<pre class="r"><code># Extraer solo los elementos que cumplen la condición
-datos[datos &gt; 20]</code></pre>
-<pre><code>## [1] 25 40</code></pre>
-<pre class="r"><code># Extraer elementos que son iguales a 10 O mayores que 30
-datos[datos == 10 | datos &gt; 30]</code></pre>
-<pre><code>## [1] 10 40</code></pre>
+# LLamamos a nuestra función
+funcioncuadrado(6)</code></pre>
+<pre><code>## [1] 36</code></pre>
+<pre class="r"><code>#Podemos llamarla las veces que queramos
+funcioncuadrado(4)</code></pre>
+<pre><code>## [1] 16</code></pre>
+<pre class="r"><code>funcioncuadrado(3)</code></pre>
+<pre><code>## [1] 9</code></pre>
 </div>
 </div>
 

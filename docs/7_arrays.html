@@ -11,7 +11,7 @@
 
 
 
-<title>R</title>
+<title>7. Arrays: los datos en forma de cubos</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -340,7 +340,16 @@ div.tocify {
   <a href="6_matrices.html">6 Matrices</a>
 </li>
 <li>
-  <a href="graficos/graficos.html">Visualizaciones en R</a>
+  <a href="7_arrays.html">7 Arrays</a>
+</li>
+<li>
+  <a href="8_dataframes.html">8 Data Frames</a>
+</li>
+<li>
+  <a href="9_data.html">9 Datos de ejemplo (data)</a>
+</li>
+<li>
+  <a href="10_lectura_escritura.html">10 Lectura y escritura de archivos externos</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -354,11 +363,32 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">R</h1>
+<h1 class="title toc-ignore">7. Arrays: los datos en forma de cubos</h1>
 
 </div>
 
 
+<div id="section" class="section level2">
+<h2></h2>
+<p>Los <strong>arrays</strong> (arreglos), que son la evolución natural
+de las matrices en R.</p>
+<p>Mientras que una matriz es una estructura de <strong>dos
+dimensiones</strong>, un array puede tener <strong>tres o más
+dimensiones</strong>. Puedes imaginar un array como un “bloque” o “cubo”
+de datos, donde tienes múltiples matrices apiladas. El cubo de Rubik
+puede considerarse un array,</p>
+</div>
+<div id="definición-del-array" class="section level2">
+<h2>7.1. Definición del Array</h2>
+<p>Sintaxis general:</p>
+<pre class="r"><code>array(datos, dim = c(filas, columnas, capas))</code></pre>
+<p>Ejemplo:</p>
+<p>Creamos un array de 24 elementos con <strong>filas =4, columnas =3,
+capas/profundidad = 2</strong>)</p>
+<p>El número de elementos serán 4 filas * 3 columnas * 2 capas=
+<strong>24 elementos</strong></p>
+<pre class="r"><code>x &lt;- array(1:24, dim = c(4, 3, 2))</code></pre>
+<p>Analicemos tu código paso a paso:</p>
 <pre class="r"><code>x &lt;- array(1:24, dim = c(4, 3, 2))
 x</code></pre>
 <pre><code>## , , 1
@@ -376,14 +406,60 @@ x</code></pre>
 ## [2,]   14   18   22
 ## [3,]   15   19   23
 ## [4,]   16   20   24</code></pre>
-<pre class="r"><code>x1 &lt;- x[, , 1]; x1</code></pre>
-<pre><code>##      [,1] [,2] [,3]
+<p>Conocer las <strong>dimensiones</strong> (filas, columnas, capas) del
+array x:</p>
+<pre class="r"><code>dim(x)</code></pre>
+<pre><code>## [1] 4 3 2</code></pre>
+<p>Aquí has creado un array 24 elementos con dimensiones <code>4</code>
+(filas), <code>3</code> (columnas) y <code>2</code> (capas o “slices”).
+Es decir, tienes dos matrices de 4x3.</p>
+<p><img src="img/array1.png" width="651" /></p>
+</div>
+<div id="acceso-a-los-elementos-de-un-array" class="section level2">
+<h2>7.2. Acceso a los elementos de un array</h2>
+<p>Sintaxis del elemento al que se quiere acceder:</p>
+<p><code>nombre_array[numeroFila, numeroColumna, numeroCapa]</code></p>
+<ul>
+<li>Selección de un <strong>elemento</strong> individual:</li>
+</ul>
+<pre class="r"><code>#Aquí estás seleccionando al elemento del la capa 1, columna 3 y fila 2
+
+x3 &lt;- x[2 , 3 , 1]
+x3</code></pre>
+<pre><code>## [1] 10</code></pre>
+<p>Selección de una columna:</p>
+<pre class="r"><code># Aquí estás seleccionando el elemento de la capa 1 y columna 2.
+
+x2 &lt;- x[ , 2, 1]
+x2</code></pre>
+<pre><code>## [1] 5 6 7 8</code></pre>
+<p>Selección de una <strong>capa</strong>/matriz:</p>
+<pre class="r"><code># Al poner 1 en la tercera posición del índice (numeroCapa), estás extrayendo la primera matriz completa del cubo.
+
+x1 &lt;- x[ , , 1]
+x</code></pre>
+<pre><code>## , , 1
+## 
+##      [,1] [,2] [,3]
 ## [1,]    1    5    9
 ## [2,]    2    6   10
 ## [3,]    3    7   11
-## [4,]    4    8   12</code></pre>
-<pre class="r"><code>x2 &lt;- x[, 2, 1]; x2</code></pre>
-<pre><code>## [1] 5 6 7 8</code></pre>
+## [4,]    4    8   12
+## 
+## , , 2
+## 
+##      [,1] [,2] [,3]
+## [1,]   13   17   21
+## [2,]   14   18   22
+## [3,]   15   19   23
+## [4,]   16   20   24</code></pre>
+</div>
+<div id="añadir-elementos-a-un-array-ya-creado-anteriormente"
+class="section level2">
+<h2>7.3 . Añadir elementos a un array ya creado anteriormente</h2>
+<p>Imaginemos que tenemos el array x creado anteriormente de dimensiones
+(4 filas, 3 columnas, 2 filas)</p>
+<p>(No entiendo bien)</p>
 <pre class="r"><code>cbind(x, c(50, 55))</code></pre>
 <pre><code>##        x   
 ##  [1,]  1 50
@@ -417,75 +493,6 @@ x</code></pre>
 ##   [,15] [,16] [,17] [,18] [,19] [,20] [,21] [,22] [,23] [,24]
 ## x    15    16    17    18    19    20    21    22    23    24
 ##      60    50    55    60    50    55    60    50    55    60</code></pre>
-<div id="arrays-los-datos-en-forma-de-cubos" class="section level1">
-<h1>7. Arrays: los datos en forma de cubos</h1>
-<p>Los <strong>arrays</strong> (arreglos), que son la evolución natural
-de las matrices en R.</p>
-<p>Mientras que una matriz es una estructura de <strong>dos
-dimensiones</strong>, un array puede tener <strong>tres o más
-dimensiones</strong>. Puedes imaginar un array como un “bloque” o “cubo”
-de datos, donde tienes múltiples matrices apiladas.</p>
-<p>Analicemos tu código paso a paso:</p>
-<div id="definición-del-array" class="section level3">
-<h3>7.1. Definición del Array</h3>
-<pre class="r"><code>x &lt;- array(1:24, dim = c(4, 3, 2))</code></pre>
-<p>Aquí has creado un array de 24 elementos con dimensiones
-<code>4</code> (filas), <code>3</code> (columnas) y <code>2</code>
-(capas o “slices”). Es decir, tienes dos matrices de 4x3.<img
-src="images/clipboard-812616648.png" /></p>
-</div>
-<div id="acceso-a-elementos" class="section level3">
-<h3>7. 2. Acceso a elementos</h3>
-<ul>
-<li><code>x1 &lt;- x[, , 1]</code>: Al poner <code>1</code> en la
-tercera posición del índice, estás extrayendo la <strong>primera matriz
-completa</strong> del cubo.</li>
-<li><code>x2 &lt;- x[, 2, 1]</code>: Aquí estás seleccionando la
-<strong>segunda columna</strong> de la <strong>primera
-matriz</strong>.</li>
-</ul>
-<hr />
-</div>
-<div id="observación-importante-sobre-cbind-y-rbind"
-class="section level3">
-<h3>Observación importante sobre <code>cbind</code> y
-<code>rbind</code></h3>
-<p>Aquí hay un detalle técnico muy importante que debes tener en cuenta
-al ejecutar tu código:</p>
-<ol style="list-style-type: decimal">
-<li><strong><code>cbind(x, c(50, 55))</code></strong>:</li>
-</ol>
-<ul>
-<li><strong>¿Qué hace?</strong> Intenta añadir una columna adicional a
-tu array.</li>
-<li><strong>El desafío:</strong> Como <code>x</code> es un array de 3
-dimensiones, <code>cbind</code> intentará convertirlo a una matriz de 2
-dimensiones para poder añadir la columna. R te dará una advertencia (o
-error, dependiendo de la versión) porque las dimensiones no coinciden
-perfectamente para una operación de este tipo.</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li><strong><code>rbind(x, c(50, 55, 60))</code></strong>:</li>
-</ol>
-<ul>
-<li><strong>¿Qué hace?</strong> Intenta añadir una fila.</li>
-<li><strong>El desafío:</strong> Al igual que con <code>cbind</code>,
-estás intentando mezclar una estructura de 3 dimensiones con un vector
-simple, lo que obliga a R a forzar la estructura, perdiendo a menudo la
-información de la tercera dimensión original.</li>
-</ul>
-</div>
-<div id="un-consejo-para-el-futuro" class="section level3">
-<h3>Un consejo para el futuro</h3>
-<p>Cuando trabajes con arrays (3D o superior), en lugar de
-<code>rbind</code> o <code>cbind</code>, suele ser más limpio y seguro
-usar la función <strong><code>abind</code></strong> (del paquete del
-mismo nombre) o simplemente asignar nuevos valores a una nueva “capa”
-del array, por ejemplo:</p>
-<pre class="r"><code># Ejemplo de cómo añadir una tercera capa (matriz) al array original
-nueva_capa &lt;- matrix(100:111, nrow = 4, ncol = 3)
-x_nuevo &lt;- abind(x, nueva_capa, along = 3)</code></pre>
-</div>
 </div>
 
 

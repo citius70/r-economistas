@@ -11,7 +11,7 @@
 
 
 
-<title>R</title>
+<title>10. Lectura y escritura de datos</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -340,10 +340,16 @@ div.tocify {
   <a href="6_matrices.html">6 Matrices</a>
 </li>
 <li>
-  <a href="7_arrays.">7 Arrays</a>
+  <a href="7_arrays.html">7 Arrays</a>
 </li>
 <li>
   <a href="8_dataframes.html">8 Data Frames</a>
+</li>
+<li>
+  <a href="9_data.html">9 Datos de ejemplo (data)</a>
+</li>
+<li>
+  <a href="10_lectura_escritura.html">10 Lectura y escritura de archivos externos</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -357,137 +363,147 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">R</h1>
+<h1 class="title toc-ignore">10. Lectura y escritura de datos</h1>
 
 </div>
 
 
-<div id="vectores-la-estructura-fundamental" class="section level1">
-<h1>5. Vectores: La estructura fundamental</h1>
-<p>Los <strong>vectores</strong> son **secuencias o conjuntos de
-elementos del mismo tipo de datos**. En R, la unidad básica de
-almacenamiento es el vector; incluso un número aislado se trata como un
-vector de longitud uno. Se crean utilizando la función <code>c()</code>
-(<em>combine</em>).</p>
-<p><img src="img/vector.png" /></p>
-<pre class="r"><code># --- Creación y manipulación ---
-x &lt;- c(4.1, 5, 6.35)
-x                          # Imprime el vector</code></pre>
-<pre><code>## [1] 4.10 5.00 6.35</code></pre>
-<pre class="r"><code>x &lt;- c(7, x, 2)            # Añade elementos al inicio y final
-x                          # Resultado: 7, 4.1, 5, 6.35, 2</code></pre>
-<pre><code>## [1] 7.00 4.10 5.00 6.35 2.00</code></pre>
-<pre class="r"><code>length(x) # Cantidad de elementos </code></pre>
-<pre><code>## [1] 5</code></pre>
-<pre class="r"><code>mode(x) # Tipo de datos: &quot;numeric&quot;</code></pre>
-<pre><code>## [1] &quot;numeric&quot;</code></pre>
-<div id="coerción-de-tipos" class="section level2">
-<h2>5.1. Coerción de tipos</h2>
-<p>Los vectores en R deben contener elementos del mismo tipo de datos.
-Si intentamos combinar tipos distintos en un mismo vector, R aplicará la
-<strong>coerción</strong>, convirtiendo automáticamente todos los
-elementos al tipo de datos más flexible (o “general”).</p>
-<pre class="r"><code># Definimos un vector de caracteres y uno numérico
-y &lt;- c(&quot;Hola&quot;, &quot;Adios&quot;)
-x &lt;- c(4.1, 5, 6.35)
-
-# Intentamos mezclar textos, números y valores lógicos
-y_mezclado &lt;- c(y, x, TRUE)
-
-# Verificamos el resultado
-y_mezclado          # Todo se ha convertido a texto (&quot;character&quot;)</code></pre>
-<pre><code>## [1] &quot;Hola&quot;  &quot;Adios&quot; &quot;4.1&quot;   &quot;5&quot;     &quot;6.35&quot;  &quot;TRUE&quot;</code></pre>
-<pre class="r"><code>mode(y_mezclado)    # El vector es ahora de tipo &quot;character&quot;</code></pre>
-<pre><code>## [1] &quot;character&quot;</code></pre>
-<pre class="r"><code>length(y_mezclado)  # 7 elementos en total (2 textos + 3 números + 1 lógico)</code></pre>
-<pre><code>## [1] 6</code></pre>
-</div>
-<div id="acceder-a-elementos-de-un-vector-indexación"
-class="section level2">
-<h2>5.2. Acceder a elementos de un vector (Indexación)</h2>
-<p>En R, los vectores son indexados empezando por <strong>1</strong> (no
-por 0 como en otros lenguajes como Python). Utilizamos corchetes
-<code>[]</code> para extraer valores específicos.</p>
-<pre class="r"><code>mi_vector &lt;- c(8, 9, 3, 4, 5)
-
-# Acceder al segundo elemento
-elemento &lt;- mi_vector[2]
-print(elemento)</code></pre>
-<pre><code>## [1] 9</code></pre>
-<pre class="r"><code># Verificar el tipo de datos del vector
-mode(mi_vector)</code></pre>
-<pre><code>## [1] &quot;numeric&quot;</code></pre>
-</div>
-<div id="generación-de-secuencias" class="section level2">
-<h2>5.3. Generación de secuencias</h2>
-<p>Existen diversas formas de crear vectores numéricos ordenados sin
-escribir cada elemento manualmente:</p>
-<pre class="r"><code># El operador &#39;:&#39; genera una secuencia de enteros consecutivos
-# NOTA: Los paréntesis alrededor de la asignación guardan el valor y lo imprimen a la vez
-(x &lt;- 1:5) </code></pre>
-<pre><code>## [1] 1 2 3 4 5</code></pre>
-<pre class="r"><code># Función seq(): Permite definir el incremento (by)
-seq(from = 1, to = 5, by = 0.5)</code></pre>
-<pre><code>## [1] 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0</code></pre>
-<pre class="r"><code># Función seq(): Permite definir el número total de elementos (length.out)
-seq(from = 1, to = 5, length.out = 6)</code></pre>
-<pre><code>## [1] 1.0 1.8 2.6 3.4 4.2 5.0</code></pre>
-<pre class="r"><code># Función sample(): Genera secuencias aleatorias
-# &#39;replace = TRUE&#39; permite que los números se repitan
-sample(1:6, size = 10, replace = TRUE) </code></pre>
-<pre><code>##  [1] 3 4 1 4 1 1 2 3 3 4</code></pre>
+<div id="lectura-de-archivos" class="section level2">
+<h2>10.1. Lectura de archivos</h2>
+<p>En la práctica, la mayoría de los datos que analizarás no serán
+creados directamente dentro de R, sino que <strong>estarán almacenados
+en archivos externos</strong> como <strong>archivos de texto</strong>
+(.txt), <strong>valores separados por comas</strong> (.csv) o
+<strong>hojas de cálculo de Excel</strong> (.xls, .xlsx). Para trabajar
+con ellos, el primer paso es acceder a esa información y cargarla en R
+para convertirla en un data frame.</p>
+<div id="resumen-de-funciones-para-leerimportar-datos"
+class="section level3">
+<h3>10.1.1. Resumen de Funciones para Leer/Importar Datos</h3>
+<table style="width:99%;">
+<colgroup>
+<col width="32%" />
+<col width="14%" />
+<col width="51%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Extensión (tipo de archivo)</th>
+<th align="left">Función en R</th>
+<th align="left">¿Por qué usarla?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><p><strong><code>.txt</code></strong></p>
+<p>Archivo de texto</p></td>
+<td align="left"><code>read.table()</code></td>
+<td align="left">Es muy flexible con espacios y tabuladores.</td>
+</tr>
+<tr class="even">
+<td align="left"><p><strong><code>.csv</code></strong></p>
+<p><strong>C</strong>omma <strong>S</strong>eparated
+<strong>V</strong>alues</p></td>
+<td align="left"><code>read.csv()</code></td>
+<td align="left">Configurada por defecto para separar por comas.</td>
+</tr>
+<tr class="odd">
+<td align="left"><p><strong><code>.xlsx</code></strong></p>
+<p>Archio de Excel</p></td>
+<td align="left"><code>read_excel()</code></td>
+<td align="left">Requiere el paquete <code>readxl</code> (maneja
+archivos binarios).</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<div id="notas" class="section level3">
-<h3>Notas:</h3>
+</div>
+<div id="guía-rápida-de-importación" class="section level3">
+<h3>10.1.2. Guía Rápida de Importación</h3>
+<p>Para importar datos correctamente, asegúrate de que el archivo esté
+en la misma carpeta que tu proyecto o indica la ruta completa.</p>
+</div>
+<div id="importar-archivos-de-texto-.txt-read.tablearchivo.txt"
+class="section level3">
+<h3><strong>Importar archivos de texto (.txt)</strong>
+<code>read.table("archivo.txt")</code></h3>
+<p>Un archivo “table” o de texto es un archivo plano que puedes abrir
+con el Bloc de Notas.</p>
+<p>Ejemplo de estructura de un archivo .txt:</p>
+<p><code>Nombre Edad Sueldo</code></p>
+<p><code>Juan 25 1500</code></p>
+<p><code>Ana 30 2200</code></p>
+<p>Nota: Normalmente los archivos .txt están separados por un
+<strong>espacio</strong>. Si usas <strong>tabulaciones</strong> en vez
+de espacios, añade: <code>sep = "\t"</code></p>
+<pre class="r"><code>misdatos_txt &lt;- read.table(&quot;empleados.txt&quot;, header = TRUE, sep = &quot;\t&quot;)</code></pre>
+<p>Los argumentos más utilizados de <code>read.table</code>:</p>
 <ul>
-<li><strong>Paréntesis de impresión:</strong> Cuando haces
-<code>(x &lt;- 1:5)</code>, le ahorras a R una línea de código al
-realizar la asignación y la visualización en un solo paso. Es un truco
-muy común en sesiones interactivas.</li>
+<li><strong><code>header</code></strong>: indica si el fichero tiene
+cabecera (<code>TRUE</code>/<code>FALSE</code>).</li>
+<li><strong><code>sep</code></strong>: carácter separador de columnas
+(por defecto espacio en blanco).</li>
+<li><strong><code>dec</code></strong>: carácter decimal (por defecto
+<code>"."</code>).</li>
 </ul>
-<pre class="r"><code>Método tradicional:
-  x &lt; - 1:5
-  print (x)
+</div>
+<div id="importar-archivos-.csv-read.csvarchivo.csv"
+class="section level3">
+<h3><strong>Importar archivos .csv</strong>
+<code>read.csv("archivo.csv")</code></h3>
+<p>Un archivo .csv es un archivo de tevto separado por comas o por punto
+y comas. Se recomienda exportar desde Excel a CSV antes de leer en R, ya
+que son archivos que pesan y ocupan menos.</p>
+<p>Ejemplo de estructura de un archivo .txt:</p>
+<p><strong>Nombre,Edad,Departamento</strong> Juan,25,Ventas
+Ana,30,Marketing Luis,45,Ingeniería</p>
+<p><code>read.csv</code> es más directo porque asume que el separador es
+una coma. Utilizar <code>read.csv2</code> si el archivo fue guardado
+desde un Excel en español</p>
+<pre class="r"><code>#misdatos_csv &lt;- read.csv(&quot;empleados.csv&quot;, header = TRUE)</code></pre>
+<p>Otras funciones disponibles:</p>
+<pre class="r"><code>read.delim(file,  header = TRUE, sep = &quot;\t&quot;, dec = &quot;.&quot;)
+read.delim2(file, header = TRUE, sep = &quot;\t&quot;, dec = &quot;,&quot;)</code></pre>
+</div>
+<div id="importar-archivos-de-excel-.xls-o-.xlxs-read.excelarchivo.xls"
+class="section level3">
+<h3><strong>Importar archivos de Excel (.xls o .xlxs)</strong>
+<code>read.excel("archivo.xls")</code></h3>
+<p>Un archivo .xls es un archivo creado con Excel.</p>
+<p><img src="img/excel.png" width="400" /></p>
+<p>Requiere instalar el paquete:
+<code>install.packages("readxl")</code></p>
+<pre class="r"><code># Requiere instalar el paquete: install.packages(&quot;readxl&quot;)
+library(readxl)
+datos_excel &lt;- read_excel(&quot;empleados.xlsx&quot;)</code></pre>
+<blockquote>
+<p><strong>Consejo Pro:</strong> Si vas a compartir tu código, coloca
+<code>install.packages("readxl")</code> como comentario al inicio. Esto
+ayudará a otros usuarios a saber qué dependencias necesitan instalar
+antes de ejecutar tu script.</p>
+</blockquote>
+<p>Otro ejemplo:</p>
+<pre class="r"><code># datos &lt;- read.table(&quot;Vigo2017.csv&quot;, header = TRUE, sep = &quot;;&quot;, dec = &quot;,&quot;)
+head(datos)
+summary(datos)</code></pre>
+</div>
+<div id="tratamiento-de-valores-perdidos" class="section level3">
+<h3>Tratamiento de valores perdidos</h3>
+<p>En algunos ficheros los valores ausentes están codificados (p. ej.,
+<code>-9999</code>). Se puede indicar con el argumento
+<code>na.strings</code>:</p>
+<pre class="r"><code># datos &lt;- read.csv2(&quot;Vigo2017.csv&quot;, na.strings = &quot;-9999&quot;)
+head(datos)</code></pre>
+</div>
+</div>
+<div id="exportar-datos" class="section level2">
+<h2>10.2. Exportar datos</h2>
+<pre class="r"><code>tipo     &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
+longitud &lt;- c(120.34, 99.45, 115.67)
+datos    &lt;- data.frame(tipo, longitud)
 
-Método con paréntesis:
- (x &lt; - 1:5)</code></pre>
-<hr />
-</div>
-</div>
-<div id="operaciones-vectorizadas" class="section level2">
-<h2>5.4. Operaciones vectorizadas</h2>
-<p>La gran ventaja de los vectores en R es que permiten aplicar
-funciones u operaciones matemáticas a <strong>todos los elementos
-simultáneamente</strong>, sin necesidad de escribir bucles.</p>
-<pre class="r"><code>x &lt;- c(1, 2, 3, 4)
-
-# Multiplicar todos los elementos por 2 de golpe
-x * 2</code></pre>
-<pre><code>## [1] 2 4 6 8</code></pre>
-<pre class="r"><code># Elevar cada elemento al cuadrado
-x ^ 2</code></pre>
-<pre><code>## [1]  1  4  9 16</code></pre>
-<pre class="r"><code># Sumar dos vectores (se suman elemento a elemento)
-y &lt;- c(10, 20, 30, 40)
-x + y</code></pre>
-<pre><code>## [1] 11 22 33 44</code></pre>
-</div>
-<div id="filtrado-lógico-subsetting" class="section level2">
-<h2>5.5. Filtrado lógico (Subsetting)</h2>
-<p>Podemos extraer elementos de un vector basándonos en condiciones.
-Esto es extremadamente útil para limpiar datos.</p>
-<pre class="r"><code>datos &lt;- c(10, 25, 5, 40, 15)
-
-# ¿Qué elementos son mayores que 20?
-datos &gt; 20</code></pre>
-<pre><code>## [1] FALSE  TRUE FALSE  TRUE FALSE</code></pre>
-<pre class="r"><code># Extraer solo los elementos que cumplen la condición
-datos[datos &gt; 20]</code></pre>
-<pre><code>## [1] 25 40</code></pre>
-<pre class="r"><code># Extraer elementos que son iguales a 10 O mayores que 30
-datos[datos == 10 | datos &gt; 30]</code></pre>
-<pre><code>## [1] 10 40</code></pre>
-</div>
+write.table(datos, file = &quot;datosPractica2.txt&quot;)
+write.csv2(datos,  file = &quot;datosPractica2.csv&quot;)</code></pre>
 </div>
 
 

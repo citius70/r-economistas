@@ -1,0 +1,46 @@
+---
+title: "9. Datos de ejemplo (data)"
+output: html_document
+---
+
+
+
+
+## Datos de Ejemplo en R
+
+R y RStudio vienen equipados con una serie de conjuntos de datos (datasets) de ejemplo listos para usar. Estos son muy útiles para practicar funciones, crear gráficos o probar códigos sin necesidad de cargar archivos externos.
+
+El siguiente bloque de código muestra cómo listar los datos disponibles, cargar un conjunto específico (`cars`) y visualizar rápidamente su estructura utilizando las funciones `head()` y `tail()`.
+
+```{r datos-ejemplo, eval=TRUE}
+# 1. Listado de conjuntos de datos disponibles
+# Ejecuta esta línea para abrir una ventana con todas las opciones.
+data()
+
+# 2. Cargar el conjunto de datos 'cars' en la memoria
+# 'cars' contiene datos de velocidad y distancia de frenado de los años 20.
+data(cars)
+
+# 3. Previsualizar las primeras filas del dataframe
+# Por defecto muestra las 6 primeras filas. Fundamental para revisar nombres de columnas.
+head(cars)
+
+# 4. Previsualizar las últimas filas del dataframe
+# Útil para verificar el final de los datos y asegurar que no hay errores al cierre.
+tail(cars)
+
+```
+
+### Resumen de Funciones Clave para Visualización Rapida
+
+Cuando trabajas con un nuevo conjunto de datos, es una buena práctica no imprimir todo el objeto en la consola (podría ser enorme). En su lugar, usa estas funciones esenciales:
+
+* **`head(df)`**: Muestra las primeras 6 filas del dataframe `df`.
+* **`tail(df)`**: Muestra las últimas 6 filas del dataframe `df`.
+* **`str(df)`**: (Extra) Muestra la estructura del dataframe, incluyendo tipos de datos (numérico, factor, carácter) y dimensiones.
+* **`summary(df)`**: (Extra) Proporciona un resumen estadístico básico de cada columna (media, mediana, min, max).
+
+```{r}
+summary(cars)
+```
+

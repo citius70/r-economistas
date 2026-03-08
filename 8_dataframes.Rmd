@@ -1,0 +1,81 @@
+---
+title: "R"
+output:
+  word_document: default
+  pdf_document: default
+---
+
+# 8. Data Frames
+
+Los **data frames** son el **objeto más habitual para el almacenamiento de datos**.
+
+El proceso de crear un Data Frame es muy parecido al de la matriz con vectores, pero con una diferencia fundamental: el **Data Frame permite mezclar vectores de diferentes tipos de datos** (en este caso, texto para los meses y números para el clima). Por eso, podemos añadir un vector de texto (mes) para utilizarlo como primera colummna, pasando los meses a ser títulos de las filas.
+
+Cada fila corresponde a un mes y cada columna a cada vector. Se crean con la función `data.frame()`, permitiendo que las columnas sean de distinto tipo.
+
+## 8.1. Creación de Data Framen a partir de vectores (de distinto tipo)
+
+Vamos a crear un dataframe con tres vectores numéricos (temperatura, humedad, lluvia) y otro vector de texto (mes). Aquí tienes un resumen del proceso:
+
+Este código crea un Data Frame en R, que es una estructura de tabla (como Excel) ideal para el análisis de datos porque permite mezclar diferentes tipos de información.
+
+-   **Vectores de entrada**: Se definen cuatro listas independientes de 12 elementos cada una. La clave es la variedad: **mes es un vector de texto**, mientras que temperatura, humedad y lluvia son numéricos.
+
+-   **Unión con data.frame()**: Esta función ensambla los cuatro vectores como columnas de una sola tabla llamada datos. Recuerda poner el vector mes en primera posición.
+
+-   **Resultado final**: Obtienes una tabla organizada donde cada columna conserva su tipo de dato original y los nombres de los vectores se convierten automáticamente en los encabezados de las columnas.
+
+```{r dataframes}
+temperatura <- c(20.37, 18.56, 18.4, 21.96, 29.53, 28.16,
+                 36.38, 36.62, 40.03, 27.59, 22.15, 19.85)
+humedad     <- c(88, 86, 81, 79, 80, 78, 71, 69, 78, 82, 85, 83)
+lluvia      <- c(72, 33.9, 37.5, 36.6, 31, 16.6, 1.2, 6.8,
+                 36.8, 30.8, 38.5, 22.7)
+mes         <- c("enero", "febrero", "marzo", "abril", "mayo", "junio",
+                 "julio", "agosto", "septiembre", "octubre",
+                 "noviembre", "diciembre")
+
+datos <- data.frame(mes, temperatura, humedad, lluvia)
+
+print(datos)
+
+
+```
+
+## 8.2. Acceder a datos del Data Frame
+
+Para acceder a todos los datos de una columna específica: \$
+
+`nombre_dataframe$nombre_columna`
+
+```{r}
+# Acceder a una columna (temperatura)
+datos$temperatura
+
+# Acceder a una columna (lluvia)
+datos$lluvia
+
+
+
+
+# Resumen estadístico
+summary(datos)
+```
+
+Acceso a los datos de una fila: [ ]
+
+`nombre_dataframe[número_fila, ]`
+
+```{r}
+# Acceder a la fila 3 (marzo)
+datos[3, ]
+```
+
+## 8.3 Acceso directo con `attach`
+
+(No lo entendí)
+
+```{r attach, eval=FALSE}
+attach(datos)   # permite usar variables directamente por su nombre
+detach(datos)   # libera las variables
+```

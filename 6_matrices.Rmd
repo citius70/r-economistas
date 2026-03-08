@@ -5,7 +5,7 @@ output:
   pdf_document: default
 ---
 
-# 6. Matrices
+# 6. Matrices: los datos en forma de rectángulo
 
 Una matriz es una estructura de datos **bidimensional** que organiza elementos del mismo tipo (como números, caracteres o valores lógicos) en una cuadrícula de **filas** (nrows) y **columnas** (ncol).
 
@@ -108,4 +108,106 @@ En el siguiente caso la matriz rellena primero la fila 1, después la fila 2 ...
 ```{r matrices4}
 
 matrix(1:8, 2, 4, byrow = TRUE) # por filas
+```
+
+## 6.4. Operaciones con matrices
+
+```{r operaciones-matrices, eval=TRUE}
+# Crear dos matrices
+matriz_a <- matrix(1:4, nrow = 2)
+matriz_b <- matrix(5:8, nrow = 2)
+
+
+
+
+```
+
+```{r}
+print(matriz_a)
+```
+
+```{r}
+print(matriz_b)
+```
+
+**Suma de matrices: +**
+
+```{r}
+# Sumar las matrices
+resultado_suma <- matriz_a + matriz_b
+print(resultado_suma)
+```
+
+**Producto matricial: %\*%**
+
+```{r}
+# Multiplicar las matrices (producto matricial)
+resultado_multiplicacion <- matriz_a %*% matriz_b
+
+print(resultado_multiplicacion)
+```
+
+**Transpuesta: t**
+
+```{r}
+# Transpuesta
+mi_matriz <- matrix(1:6, nrow = 2)
+print(mi_matriz)
+matriz_transpuesta <- t(mi_matriz)
+print(matriz_transpuesta)
+```
+
+## 6.5. Funciones para matrices
+
+| Función                     | Descripción                                |
+|-----------------------------|--------------------------------------------|
+| `dim()`, `nrow()`, `ncol()` | Número de filas y/o columnas               |
+| `diag()`                    | Diagonal de una matriz                     |
+| `*`                         | Multiplicación elemento a elemento         |
+| `%*%`                       | Multiplicación matricial                   |
+| `cbind()`, `rbind()`        | Encadenamiento de columnas o filas         |
+| `t()`                       | Transpuesta de una matriz                  |
+| `solve(A)`                  | Inversa de la matriz A                     |
+| `solve(A, b)`               | Solución del sistema de ecuaciones         |
+| `qr()`                      | Descomposición QR                          |
+| `eigen()`                   | Autovalores y autovectores                 |
+| `svd()`                     | Descomposición en valores singulares (SVD) |
+
+## 6.6. Crear matrices a partir de varios vectores/listas
+
+Este código es un ejemplo excelente de cómo pasar de datos "sueltos" (vectores) a una estructura de datos organizada (una matriz) y, lo más importante, cómo añadirle etiquetas (nombres) para que sea mucho más fácil de leer y entender.
+
+En resumen:
+
+1.  **Preparación de datos:** Se crean tres vectores (`temperatura`, `humedad`, `lluvia`) con 12 valores cada uno. Es crucial que tengan la misma longitud.
+
+2.  **Unión por columnas (`cbind()`):** Se usa la función `cbind()` para pegar los vectores uno al lado del otro horizontalmente, creando una matriz de 12 filas y 3 columnas. Las columnas reciben automáticamente los nombres de los vectores originales.
+
+3.  **Etiquetado de filas (`rownames()`):** Se asigna un vector con los nombres de los 12 meses a las filas de la matriz usando `rownames()`. Esto transforma los índices numéricos en etiquetas legibles, facilitando la comprensión y el acceso a los datos.
+
+4.  **Verificación de dimensiones:** Se usan funciones como `dim()`, `nrow()` o `ncol()` para confirmar que la estructura final es la esperada (12x3).
+
+![](img/matrices_vectores.png)
+
+```{r nombres-matrices}
+temperatura <- c(20.37, 18.56, 18.4, 21.96, 29.53, 28.16, 36.38, 36.62, 40.03, 27.59, 22.15, 19.85)
+humedad     <- c(88, 86, 81, 79, 80, 78, 71, 69, 78, 82, 85, 83)
+lluvia      <- c(72, 33.9, 37.5, 36.6, 31, 16.6, 1.2, 6.8,36.8, 30.8, 38.5, 22.7)
+
+datos <- cbind(temperatura, humedad, lluvia)
+
+rownames(datos) <- c("enero", "febrero", "marzo", "abril", "mayo",
+                     "junio", "julio", "agosto", "septiembre",
+                     "octubre", "noviembre", "diciembre")
+colnames(datos)
+datos
+
+```
+
+```{r}
+
+# Dimensiones
+dim(datos)
+nrow(datos)
+ncol(datos)
 ```
