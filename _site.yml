@@ -46,8 +46,8 @@ navbar:
       href: F_coeficiente_correlacion.html
     - text: "G Tabl Frec"
       href: G_tabla_frecuencias.html
-    - text: "I Med Pos, Disp, Form"
-      href: I_medidas_posicion_dispersion_forma.html
+    - text: "H Med Pos, Disp, Form"
+      href: H_medidas_posicion_dispersion_forma.html
 
 output:
   html_document:
