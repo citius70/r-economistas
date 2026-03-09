@@ -1,0 +1,93 @@
+---
+title: "F. Coeficiente de correlacion"
+output:
+  html_document:
+    toc: false
+    theme: united  # Puedes elegir: united, cosmo, lumen, flatly...
+    highlight: tango
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+```
+
+## Ejercicio 4: Análisis de variables continuas
+
+El objetivo de este ejercicio es explorar la relación entre edad, peso y talla en el dataset `children.csv`.
+
+### 1. Carga y preparación de datos
+
+```{r}
+# Cargar el archivo children.csv y hacemos de DataFrame pediatria
+pediatria <- read.csv2("children.csv")
+
+# Visualizamos los seis primeros datos
+head(pediatria)
+```
+
+```{r}
+# Eliminar la primera columna (asumiendo que no es numérica o es un ID)
+pediatria_clean <- pediatria[, -1]
+head(pediatria_clean)
+```
+
+```{r}
+```
+
+Primero, cargamos el archivo, miramos los seis primeros datos y eliminamos la primera columna sexo (asumiendo que es un identificador no relevante para el cálculo numérico).
+
+```{r carga-datos}
+
+# Eliminamos la primera columna sexo (asumiendo que no es numérica o es un ID)
+pediatria_clean <- pediatria[, -1]
+
+# Visualizamos el nuevo DataFrame limpio de la primera columna
+head(pediatria_clean)
+```
+
+### 2. Matriz de gráficos de dispersión (Pairs Plot)
+
+Para visualizar las relaciones, utilizaremos la función `pairs()`. Añadimos color para diferenciar por la variable `sexo`.
+
+```{r grafico-dispersion}
+# Definimos colores según el sexo (ajusta la columna según tu dataset)
+colores <- ifelse(pediatria$sexo == "M", "blue", "red") 
+
+# Representamos las variables de interés: edad, peso y talla
+# Nota: Asegúrate de que los nombres de las columnas coincidan con tu CSV
+pairs(pediatria_clean[, c("edad", "peso", "talla")], 
+      col = colores, 
+      main = "Matriz de dispersión: Edad, Peso y Talla")
+
+```
+
+### 3. Coeficiente de Correlación
+
+Calculamos la matriz de correlación para observar la fuerza de la relación lineal entre estas variables.
+
+Aquí tienes el resumen ejecutivo del código:
+
+1.  **`vars_interes <- ...`**: Filtra tu base de datos para quedarte **solo con las columnas** que vas a analizar (edad, peso, talla).
+
+2.  **`cor(..., use = "complete.obs")`**: Calcula la fuerza de la relación lineal entre ellas. El argumento `complete.obs` evita errores eliminando las filas que tengan datos vacíos (`NA`).
+
+3.  **`abs(...)`**: Convierte todos los resultados a **positivo**. Esto te permite ver la **intensidad** de la relación sin que el signo (positivo o negativo) te distraiga.
+
+4.  **`print(...)`**: Muestra la matriz final en la consola para que puedas leer los coeficientes.
+
+```{r correlacion}
+# Seleccionamos solo las columnas de interés
+vars_interes <- pediatria_clean[, c("edad", "peso", "talla")]
+
+# Calculamos la matriz de correlación
+matriz_corr <- cor(vars_interes, use = "complete.obs")
+
+# Si deseas ver el valor absoluto como en tu ejemplo original:
+corr_abs <- abs(matriz_corr)
+
+print(corr_abs)
+
+```

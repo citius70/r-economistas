@@ -1,12 +1,12 @@
 ---
 title: "12. Generación de números aleatorios"
 output:
+  pdf_document: default
+  word_document: default
   html_document:
     toc: false
     theme: cosmo  # Puedes elegir: united, cosmo, lumen, flatly...
     highlight: tango
-  word_document: default
-  pdf_document: default
 ---
 
 En R, podemos **simular fenómenos aleatorios** mediante funciones específicas. Cada una corresponde a una distribución estadística distinta.

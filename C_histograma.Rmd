@@ -1,5 +1,5 @@
 ---
-title: "C Histograma y Gráfico de densidad"
+title: "C. Histograma y Gráfico de densidad"
 output:
   html_document:
     toc: false

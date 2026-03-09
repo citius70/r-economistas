@@ -1,0 +1,93 @@
+---
+title: "H Medidas de Posición, dispersión y forma"
+output:
+  html_document:
+    toc: false
+    theme: united  # Puedes elegir: united, cosmo, lumen, flatly...
+    highlight: tango
+  word_document: default
+  pdf_document: default
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(moments)
+
+```
+
+## 1. Medidas de Posición
+
+Las medidas de posición resumen la localización central y los puntos de corte de la distribución.
+
+```{r measures-position, eval=FALSE}
+# Tendencia central
+mean(datos$salario)   # Media aritmética
+median(datos$salario) # Mediana (valor que divide a la muestra al 50%)
+
+# Cuartiles (0.25, 0.5, 0.75)
+quantile(datos$salario, c(0.25, 0.5, 0.75))
+
+# Deciles (divide en 10 partes iguales)
+quantile(datos$salario, prob = seq(0, 1, length = 11))
+
+# Percentiles (divide en 100 partes iguales)
+quantile(datos$salario, prob = seq(0, 1, length = 101))
+
+```
+
+## 2. Medidas de Dispersión
+
+Estas medidas cuantifican cuánto se alejan los datos de su centro.
+
+```{r measures-dispersion, eval=FALSE}
+# Rango: diferencia entre el valor máximo y mínimo
+rango <- max(datos$salario) - min(datos$salario)
+
+# Rango Intercuartílico: dispersión del 50% central de los datos
+IQR(datos$salario)
+
+# Varianza y Desviación estándar
+var(datos$salario)
+sd(datos$salario)  # Raíz cuadrada de la varianza
+
+# Coeficiente de Variación: medida relativa de dispersión (útil para comparar grupos)
+cv <- function(x) { sd(x) / abs(mean(x)) }
+cv(datos$salario)
+
+```
+
+## 3. Medidas de Forma
+
+Evalúan la distribución de los datos respecto a la normalidad.
+
+### Asimetría (Skewness)
+
+Mide la falta de simetría respecto a la media.
+
+* **Valor 0:** Simétrica.
+* **Valor > 0:** Asimetría positiva (cola hacia la derecha).
+* **Valor < 0:** Asimetría negativa (cola hacia la izquierda).
+
+### Curtosis (Apuntamiento)
+
+Indica la concentración de datos en la zona central y la "pesadez" de las colas. Para compararla con la Normal, usamos el **exceso de curtosis** (restando 3).
+
+* **Mesocúrtica (Exceso = 0):** Distribución normal.
+* **Leptocúrtica (Exceso > 0):** Más apuntada (pico alto, colas pesadas).
+* **Platicúrtica (Exceso < 0):** Más achatada.
+
+```{r measures-shape, eval=FALSE}
+# Asimetría
+hist(datos$salario, main = "Distribución de Salarios")
+asim_salario <- skewness(datos$salario)
+
+# Exceso de Curtosis
+hist(datos$tiempemp, main = "Distribución de Tiempo en Empleo")
+curt_tiempo <- kurtosis(datos$tiempemp) - 3
+
+# Resultados
+cat("Asimetría:", asim_salario, "\nExceso de Curtosis:", curt_tiempo)
+
+```
+

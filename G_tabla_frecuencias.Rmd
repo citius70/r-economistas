@@ -1,0 +1,109 @@
+---
+title: "G. Tabla de frecuencias"
+output:
+  html_document:
+    toc: false
+    theme: united  # Puedes elegir: united, cosmo, lumen, flatly...
+    highlight: tango
+  word_document: default
+  pdf_document: default
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+```
+
+## 1. Frecuencias Unidimensionales
+
+Utilizamos `table()` para obtener la frecuencia absoluta (conteo) y `prop.table()` para la frecuencia relativa (proporciones).
+
+```{r, eval=FALSE}
+datos <- read.table(file = "empleados.txt", header = TRUE)
+
+# Frecuencia absoluta
+tabla1d <- table(datos$sexo)
+
+# Frecuencia relativa (proporción)
+tabla1d.relativa <- prop.table(tabla1d)
+
+```
+
+## 2. Tablas Bidimensionales (Tablas de Contingencia)
+
+Ideales para analizar la relación entre dos variables categóricas.
+
+```{r, eval=FALSE}
+tab2d <- table(datos$sexo, datos$catlab)
+
+# Porcentajes sobre el total de la tabla
+prop.table(tab2d) * 100
+
+# Porcentajes por filas (margen 1)
+prop.table(tab2d, 1) * 100
+
+# Porcentajes por columnas (margen 2)
+prop.table(tab2d, 2) * 100
+
+```
+
+## 3. Construcción de una Tabla de Frecuencias Completa
+
+Para variables cualitativas, podemos ensamblar una tabla profesional que incluya frecuencias absolutas ($n_i$), acumuladas ($N_i$), relativas ($f_i$) y relativas acumuladas ($F_i$).
+
+```{r, eval=FALSE}
+fa   <- table(datos$edu)      # Frecuencia absoluta
+fac  <- cumsum(fa)            # Frecuencia absoluta acumulada
+fr   <- prop.table(fa)        # Frecuencia relativa
+facr <- cumsum(fr)            # Frecuencia relativa acumulada
+
+# Ensamblado en un Data Frame
+mitabla <- data.frame(fa, fac, fr, facr)[, -4]
+colnames(mitabla) <- c("Categoría", "ni", "Ni", "fi", "Fi")
+mitabla
+
+```
+
+## 4. Agrupación en Intervalos (Variables Numéricas)
+
+Para variables continuas, es necesario convertir valores numéricos en intervalos categóricos mediante `cut()`.
+
+### Ejemplo básico
+
+```{r}
+temp <- c(22.52, 18.70, 19.61, 22.79, 29.38, 30.19, 33.16, 36.97, 33.29, 28.98, 24.31, 22.43)
+
+# Agrupación en rangos definidos
+temp_intervalos <- cut(temp, breaks = c(0, 20, 30, 50))
+
+```
+
+### Aplicación práctica en Pediatría
+
+Podemos usar `aggregate()` para resumir datos numéricos según los intervalos de edad creados.
+
+```{r, eval=FALSE}
+pediatria <- read.csv2("children.csv")
+
+# Creamos intervalos de edad de 1 en 1 año (de 5 a 19)
+edad_intervalos <- cut(pediatria$edad, breaks = seq(5, 19))
+
+# Calculamos la media de todas las variables numéricas por cada grupo de edad
+resumen_edad <- aggregate(pediatria[, -1], by = list(edad = edad_intervalos), 
+                          FUN = mean, na.rm = TRUE)
+
+```
+
+```
+
+---
+
+### Cambios clave realizados:
+* **Claridad Terminológica:** He añadido la notación estándar ($n_i, N_i, f_i, F_i$) para que el código sea académicamente riguroso.
+* **Estructura:** Se ha separado el código en bloques lógicos, facilitando la ejecución paso a paso.
+* **Legibilidad:** He renombrado variables (como `temp2` a `temp_intervalos`) para que el código sea "autodocumentado".
+* **Buenas prácticas:** Se ha incluido `na.rm = TRUE` en el ejemplo de `aggregate`, que es esencial para que el código no falle si faltan datos en el dataset de pediatría.
+
+
+```

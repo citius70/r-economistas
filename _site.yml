@@ -4,44 +4,50 @@ exclude: ["intro_R.Rmd"]    # ← línea añadida
 navbar:
   title: "R para economistas"
   left:
-    - text: "1 Instalación"
+    - text: "1 Inst"
       href: 1_instalacion.html
-    - text: "2 Introducción a R"
+    - text: "2 Introd"
       href: 2_ventanas.html
-    - text: "3 Funciones y operadores básicos"
+    - text: "3 Func y oper básic"
       href: 3_funciones_operadores.html
-    - text: "4 Gestión de paquetes"
+    - text: "4 Paquet"
       href: 4_paquetes.html
-    - text: "5 Vectores"
+    - text: "5 Vect"
       href: 5_vectores.html
-    - text: "6 Matrices"
+    - text: "6 Matr"
       href: 6_matrices.html
-    - text: "7 Arrays"
+    - text: "7 Arra"
       href: 7_arrays.html
-    - text: "8 Data Frames"
+    - text: "8 Data Fr"
       href: 8_dataframes.html
-    - text: "9 Datos de ejemplo (data)"
+    - text: "9 Datos ejem (data)"
       href: 9_data.html
-    - text: "10 Lectura y escritura de archivos externos"
+    - text: "10 Lect y escr archi exter"
       href: 10_lectura_escritura.html
-    - text: "11 Funciones (function)"
+    - text: "11 Func (function)"
       href: 11_funciones.html
-    - text: "12 Generación de números aleatorios"
+    - text: "12 Núme aleat"
       href: 12_aleatorios.html
-    - text: "Ejercicio 1"
+    - text: "Eje 1"
       href: Ejercicio_1.html
-    - text: "Ejercicio 2"
+    - text: "Eje 2"
       href: Ejercicio_2.html
-    - text: "A Gráficos de dispersión"
+    - text: "A Gráf dispersión"
       href: A_dispersion.html
-    - text: "B Gráficos de barra o distribución"
+    - text: "B Gráf barra o distrib"
       href: B_barras.html
-    - text: "C Histograma"
+    - text: "C Histog"
       href: C_histograma.html
-    - text: "D Gráfico de Caja o Boxplot"
+    - text: "D Gráf caja o Boxplot"
       href: D_boxplot.html
-    - text: "E Matrices de Gráficos de Dispersión"
+    - text: "E Matr Gráf Dispers"
       href: E_matrices_dispersion.html
+    - text: "F Coef Correl"
+      href: F_coeficiente_correlacion.html
+    - text: "G Tabl Frec"
+      href: G_tabla_frecuencias.html
+    - text: "I Med Pos, Disp, Form"
+      href: I_medidas_posicion_dispersion_forma.html
 
 output:
   html_document:

@@ -1,19 +1,19 @@
 ---
 title: "E. Matrices de Gráficos de Dispersión"
 output:
-  pdf_document: default
-  word_document: default
   html_document:
     toc: false
     theme: united  # Puedes elegir: united, cosmo, lumen, flatly...
     highlight: tango
+  word_document: default
+  pdf_document: default
 ---
 
 ### Análisis Multivariante: La Matriz de Dispersión (`pairs`)
 
 El **análisis multivariante** consiste en trabajar con **varias variables numéricas** de un mismo conjunto de estudio, cono por ejemplo:
 
--    pesos, alturas, bmi, ... de un cojunto de personas
+-   pesos, alturas, bmi, ... de un cojunto de personas
 
 -   poetncia, peso, cilindros, de un conjunto de automóviles
 

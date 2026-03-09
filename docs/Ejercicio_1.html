@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -333,58 +333,61 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="1_instalacion.html">1 Instalación</a>
+  <a href="1_instalacion.html">1 Inst</a>
 </li>
 <li>
-  <a href="2_ventanas.html">2 Introducción a R</a>
+  <a href="2_ventanas.html">2 Introd</a>
 </li>
 <li>
-  <a href="3_funciones_operadores.html">3 Funciones y operadores básicos</a>
+  <a href="3_funciones_operadores.html">3 Func y operad básicos</a>
 </li>
 <li>
-  <a href="4_paquetes.html">4 Gestión de paquetes</a>
+  <a href="4_paquetes.html">4 Paquetes</a>
 </li>
 <li>
-  <a href="5_vectores.html">5 Vectores</a>
+  <a href="5_vectores.html">5 Vect</a>
 </li>
 <li>
-  <a href="6_matrices.html">6 Matrices</a>
+  <a href="6_matrices.html">6 Matr</a>
 </li>
 <li>
-  <a href="7_arrays.html">7 Arrays</a>
+  <a href="7_arrays.html">7 Arra</a>
 </li>
 <li>
-  <a href="8_dataframes.html">8 Data Frames</a>
+  <a href="8_dataframes.html">8 Data Fr</a>
 </li>
 <li>
-  <a href="9_data.html">9 Datos de ejemplo (data)</a>
+  <a href="9_data.html">9 Datos ejem (data)</a>
 </li>
 <li>
-  <a href="10_lectura_escritura.html">10 Lectura y escritura de archivos externos</a>
+  <a href="10_lectura_escritura.html">10 Lect y escr  archiv exter</a>
 </li>
 <li>
-  <a href="11_funciones.html">11 Funciones (function)</a>
+  <a href="11_funciones.html">11 Func (function)</a>
 </li>
 <li>
-  <a href="12_aleatorios.html">12 Generación de números aleatorios</a>
+  <a href="12_aleatorios.html">12 Núme aleatorios</a>
 </li>
 <li>
-  <a href="Ejercicio_1.html">Ejercicio 1</a>
+  <a href="Ejercicio_1.html">Eje 1</a>
 </li>
 <li>
-  <a href="A_dispersion.html">A Gráficos de dispersión</a>
+  <a href="Ejercicio_2.html">Eje 2</a>
 </li>
 <li>
-  <a href="B_barras.html">B Gráficos de barra o distribución</a>
+  <a href="A_dispersion.html">A Gráf dispersión</a>
 </li>
 <li>
-  <a href="C_histograma.html">C Histograma</a>
+  <a href="B_barras.html">B Gráf barra o distribución</a>
 </li>
 <li>
-  <a href="D_boxplot.html">D Gráfico de Caja o Boxplot</a>
+  <a href="C_histograma.html">C Histog</a>
 </li>
 <li>
-  <a href="E_matrices_dispersion.html">E Matrices de Gráficos de Dispersión</a>
+  <a href="D_boxplot.html">D Gráf caja o Boxplot</a>
+</li>
+<li>
+  <a href="E_matrices_dispersion.html">E Matr Gráf Dispersión</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -460,14 +463,14 @@ con la probabilidad teórica?</li>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">dado</span>(<span class="dv">30</span>)</span></code></pre></div>
 <p><img src="Ejercicio_1_files/figure-html/unnamed-chunk-1-1.png" alt="" width="672" /></p>
 <pre><code>## lanzamientos
-##   1   2   3   4   5   6 
-## 0.3 0.1 0.2 0.2 0.1 0.1</code></pre>
+##     1     2     3     4     5     6 
+## 0.233 0.167 0.200 0.167 0.100 0.133</code></pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Ejecución para 10000 lanzamientos</span></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">dado</span>(<span class="dv">10000</span>)</span></code></pre></div>
 <p><img src="Ejercicio_1_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" /></p>
 <pre><code>## lanzamientos
 ##     1     2     3     4     5     6 
-## 0.164 0.165 0.168 0.170 0.166 0.167</code></pre>
+## 0.168 0.165 0.169 0.169 0.165 0.163</code></pre>
 </div>
 <div id="explicación-del-código" class="section level2">
 <h2>Explicación del código:</h2>
@@ -553,9 +556,6 @@ verlo después de ejecutar la función.</p></li>
 visualmente cómo, a mayor número de intentos, la aleatoriedad se ajusta
 a la matemática.”</p>
 </blockquote>
-<p>¿Te gustaría que te ayudara a configurar un gráfico donde se
-comparen, lado a lado, los resultados de 30 y 10,000 lanzamientos para
-que vean la convergencia visualmente?</p>
 </div>
 </div>
 
