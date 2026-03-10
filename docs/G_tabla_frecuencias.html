@@ -704,38 +704,51 @@ límite superior</strong> <code>(a,b]</code>.</p>
 </ul>
 <p>3️⃣ <code>temp_intervalos</code> → factor con el <strong>intervalo
 asignado a cada temperatura</strong>.</p>
+<hr />
 </div>
-<div id="aplicación-práctica-en-pediatría" class="section level3">
-<h3>Aplicación práctica en Pediatría</h3>
-<p>Podemos usar <code>aggregate()</code> para resumir datos numéricos
-según los intervalos de edad creados.</p>
+</div>
+<div id="aplicación-práctica-en-pediatría" class="section level2">
+<h2>Aplicación práctica en Pediatría</h2>
+<p>Este código es un clásico de la <strong>bioestadística</strong>.
+Básicamente, estás pasando de tener datos de niños sueltos a tener un
+“perfil promedio” de cómo crecen año tras año.</p>
+<p><strong>Contexto:</strong> Dispones de un conjunto de datos clínico
+llamado <code>children.csv</code> que contiene mediciones físicas (peso,
+altura, etc.) de una muestra de pacientes en edad de crecimiento. El
+objetivo es analizar cómo evolucionan estos indicadores de salud a
+<strong>medida que los niños maduran (<code>edad</code>).</strong></p>
+<p><strong>Instrucciones:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Importación:</strong> Se carga el conjunto de datos
+<code>children.csv</code>, utilizando el formato europeo de CSV (punto y
+coma) que contiene la <strong>columna <code>edad</code></strong> y otras
+varias variables numéricas (peso, altura, talla, etc.).</p>
 <ul>
-<li><p><strong>Lectura de datos</strong><br />
-Se carga el conjunto de datos <code>children.csv</code>, que contiene la
-columna <code>edad</code> y varias variables numéricas (peso, altura,
-talla, etc.).</p></li>
-<li><p><strong>Agrupación por intervalos</strong><br />
-Se crean intervalos de edad de 1 año (por ejemplo, de 5 a 19 años)
-utilizando la función <code>cut()</code>. Cada niño queda asignado al
-intervalo correspondiente según su edad.</p></li>
-<li><p><strong>Cálculo de medias</strong><br />
-Se calcula la media de cada variable numérica para cada intervalo de
-edad con <code>aggregate()</code>, ignorando valores faltantes. Esto
-genera un resumen donde cada fila representa un intervalo y cada columna
-la media de una variable.</p></li>
-<li><p><strong>Frecuencia de intervalos (opcional)</strong><br />
-Se puede comprobar cuántos niños hay en cada intervalo para interpretar
-correctamente las medias.</p></li>
+<li>Hacemos un <code>head()</code></li>
+</ul></li>
+</ol>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="co"># Paso 1: Importación</span></span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>pediatria <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;children.csv&quot;</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a><span class="fu">head</span>(pediatria)</span></code></pre></div>
+<pre><code>##     sexo edad peso talla
+## 1 hembra 5.42 23.0 120.5
+## 2 hembra 5.50 24.5 122.0
+## 3 hembra 5.50 18.0 113.0
+## 4 hembra 5.58 20.5 110.0
+## 5 hembra 5.83 26.0 134.2
+## 6  varon 5.83 20.0 121.5</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Segmentación/agrupación:</strong> Queremos saber como
+evolucionan por tramos/segmentos/breaks de edad.</li>
+</ol>
+<ul>
+<li>Se crean <strong>intervalos</strong> de edad de 1 año (por ejemplo,
+desde 5 a 19 años) utilizando la función <code>cut()</code>. Cada niño
+queda asignado al intervalo correspondiente según su edad.</li>
 </ul>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>pediatria <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;children.csv&quot;</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a><span class="co"># Creamos intervalos de edad de 1 en 1 año (de 5 a 19)</span></span>
-<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>edad_intervalos <span class="ot">&lt;-</span> <span class="fu">cut</span>(pediatria<span class="sc">$</span>edad, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">19</span>))</span>
-<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a></span>
-<span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a><span class="co"># Calculamos la media de todas las variables numéricas por cada grupo de edad</span></span>
-<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a>resumen_edad <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(pediatria[, <span class="sc">-</span><span class="dv">1</span>], <span class="at">by =</span> <span class="fu">list</span>(<span class="at">edad =</span> edad_intervalos), </span>
-<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a>                          <span class="at">FUN =</span> mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>edad_intervalos</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="co"># Paso 2: Segmentación: Creamos intervalos de edad de 1 en 1 año (de 5 a 19)</span></span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>edad_intervalos <span class="ot">&lt;-</span> <span class="fu">cut</span>(pediatria<span class="sc">$</span>edad, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">19</span>))</span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>edad_intervalos</span></code></pre></div>
 <pre><code>##    [1] (5,6]   (5,6]   (5,6]   (5,6]   (5,6]   (5,6]   (5,6]   (5,6]   (6,7]  
 ##   [10] (6,7]   (6,7]   (6,7]   (6,7]   (6,7]   (6,7]   (6,7]   (6,7]   (6,7]  
 ##   [19] (6,7]   (6,7]   (6,7]   (6,7]   (6,7]   (6,7]   (6,7]   (6,7]   (6,7]  
@@ -998,7 +1011,27 @@ correctamente las medias.</p></li>
 ## [2332] (18,19] (18,19] (18,19] (18,19] (18,19] (18,19] (18,19] (18,19] (18,19]
 ## [2341] (18,19] (18,19] (18,19] (18,19] (18,19]
 ## 14 Levels: (5,6] (6,7] (7,8] (8,9] (9,10] (10,11] (11,12] (12,13] ... (18,19]</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>resumen_edad</span></code></pre></div>
+<p>Por ejemplo: el primer niño de 5,42 años se encuentra en el intervalo
+(5, 6]</p>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Cálculo de medias:</strong> Se calcula la
+<strong>media</strong> de <strong>cada variable numérica para cada
+intervalo de edad</strong> con <code>aggregate()</code>, ignorando
+valores faltantes. Esto genera un resumen donde cada fila representa un
+intervalo y cada columna la media de una variable.</li>
+</ol>
+<ul>
+<li>Se usa <code>aggregate()</code> para resumir datos numéricos según
+los intervalos de edad creados.</li>
+</ul>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="co"># Paso 3: Cálculo de medias: calculamos la media de todas las variables numéricas por cada grupo de edad</span></span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a>resumen_edad <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(pediatria[, <span class="sc">-</span><span class="dv">1</span>], <span class="at">by =</span> <span class="fu">list</span>(<span class="at">edad =</span> edad_intervalos), <span class="at">FUN =</span> mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>Frecuencia de intervalos (opcional)</strong><br />
+Se puede comprobar cuántos niños hay en cada intervalo para interpretar
+correctamente las medias.</li>
+</ol>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>resumen_edad</span></code></pre></div>
 <pre><code>##       edad      edad     peso    talla
 ## 1    (5,6]  5.707500 21.50000 118.9500
 ## 2    (6,7]  6.649310 23.40517 120.3414
@@ -1014,16 +1047,6 @@ correctamente las medias.</p></li>
 ## 12 (16,17] 16.511189 59.91294 167.2969
 ## 13 (17,18] 17.505679 61.77654 167.1420
 ## 14 (18,19] 18.438681 62.06264 167.5692</code></pre>
-<pre><code>
----
-
-### Cambios clave realizados:
-* **Claridad Terminológica:** He añadido la notación estándar ($n_i, N_i, f_i, F_i$) para que el código sea académicamente riguroso.
-* **Estructura:** Se ha separado el código en bloques lógicos, facilitando la ejecución paso a paso.
-* **Legibilidad:** He renombrado variables (como `temp2` a `temp_intervalos`) para que el código sea &quot;autodocumentado&quot;.
-* **Buenas prácticas:** Se ha incluido `na.rm = TRUE` en el ejemplo de `aggregate`, que es esencial para que el código no falle si faltan datos en el dataset de pediatría.
-</code></pre>
-</div>
 </div>
 
 

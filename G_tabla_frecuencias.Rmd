@@ -81,7 +81,7 @@ tabla1d.relativa <- prop.table(tabla1d)
 tabla1d.relativa
 ```
 
-----------------------------------
+------------------------------------------------------------------------
 
 ## 2. Tablas Bidimensionales (Tablas de Contingencia)
 
@@ -102,7 +102,7 @@ print(tabla_bidimen)
 
 **Interpretación**: Hay **3 coches** de **4 cilindros automáticos** **(0)**
 
-### Ejercicio 2: 
+### Ejercicio 2:
 
 Calcular la **tabla de contingencia o bidimensional** de las columnas `sexo` y `catlab` del archivo de texto `empleados.txt`
 
@@ -144,7 +144,7 @@ prop.table(tab2d, 2) * 100
 
 ```
 
-----------------------------------
+------------------------------------------------------------------------
 
 ## 3. Construcción de una Tabla de Frecuencias Completa
 
@@ -181,7 +181,7 @@ mitabla
 
 El comando **`[, -4]`** que usaste es muy inteligente. Cuando haces `data.frame(fa, fr...)`, R repite la columna de las categorías porque tanto `fa` como `fr` la llevan consigo. Al poner `-4`, borras esa columna repetida para que la tabla quede impecable.
 
-----------------------------------
+------------------------------------------------------------------------
 
 ## 4. Agrupación en Intervalos (Variables Numéricas) con `cut`
 
@@ -225,50 +225,51 @@ temp_intervalos
 
 3️⃣ `temp_intervalos` → factor con el **intervalo asignado a cada temperatura**.
 
-### Aplicación práctica en Pediatría
+------------------------------------------------------------------------
 
-Podemos usar `aggregate()` para resumir datos numéricos según los intervalos de edad creados.
+## Aplicación práctica en Pediatría
 
--   **Lectura de datos**\
-    Se carga el conjunto de datos `children.csv`, que contiene la columna `edad` y varias variables numéricas (peso, altura, talla, etc.).
+Este código es un clásico de la **bioestadística**. Básicamente, estás pasando de tener datos de niños sueltos a tener un "perfil promedio" de cómo crecen año tras año.
 
--   **Agrupación por intervalos**\
-    Se crean intervalos de edad de 1 año (por ejemplo, de 5 a 19 años) utilizando la función `cut()`. Cada niño queda asignado al intervalo correspondiente según su edad.
+**Contexto:** Dispones de un conjunto de datos clínico llamado `children.csv` que contiene mediciones físicas (peso, altura, etc.) de una muestra de pacientes en edad de crecimiento. El objetivo es analizar cómo evolucionan estos indicadores de salud a **medida que los niños maduran (`edad`).**
 
--   **Cálculo de medias**\
-    Se calcula la media de cada variable numérica para cada intervalo de edad con `aggregate()`, ignorando valores faltantes. Esto genera un resumen donde cada fila representa un intervalo y cada columna la media de una variable.
+**Instrucciones:**
 
--   **Frecuencia de intervalos (opcional)**\
-    Se puede comprobar cuántos niños hay en cada intervalo para interpretar correctamente las medias.
+1.  **Importación:** Se carga el conjunto de datos `children.csv`, utilizando el formato europeo de CSV (punto y coma) que contiene la **columna `edad`** y otras varias variables numéricas (peso, altura, talla, etc.).
+
+    -   Hacemos un `head()`
 
 ```{r}
+# Paso 1: Importación
 pediatria <- read.csv2("children.csv")
-
-# Creamos intervalos de edad de 1 en 1 año (de 5 a 19)
-edad_intervalos <- cut(pediatria$edad, breaks = seq(5, 19))
-
-# Calculamos la media de todas las variables numéricas por cada grupo de edad
-resumen_edad <- aggregate(pediatria[, -1], by = list(edad = edad_intervalos), 
-                          FUN = mean, na.rm = TRUE)
-
+head(pediatria)
 ```
 
+2.  **Segmentación/agrupación:** Queremos saber como evolucionan por tramos/segmentos/breaks de edad.
+
+-   Se crean **intervalos** de edad de 1 año (por ejemplo, desde 5 a 19 años) utilizando la función `cut()`. Cada niño queda asignado al intervalo correspondiente según su edad.
+
 ```{r}
+# Paso 2: Segmentación: Creamos intervalos de edad de 1 en 1 año (de 5 a 19)
+edad_intervalos <- cut(pediatria$edad, breaks = seq(5, 19))
 edad_intervalos
 ```
 
+Por ejemplo: el primer niño de 5,42 años se encuentra en el intervalo (5, 6]
+
+3.  **Cálculo de medias:** Se calcula la **media** de **cada variable numérica para cada intervalo de edad** con `aggregate()`, ignorando valores faltantes. Esto genera un resumen donde cada fila representa un intervalo y cada columna la media de una variable.
+
+-   Se usa `aggregate()` para resumir datos numéricos según los intervalos de edad creados.
+
 ```{r}
-resumen_edad
+# Paso 3: Cálculo de medias: calculamos la media de todas las variables numéricas por cada grupo de edad
+resumen_edad <- aggregate(pediatria[, -1], by = list(edad = edad_intervalos), FUN = mean, na.rm = TRUE)
+
 ```
 
-```         
+4.  **Frecuencia de intervalos (opcional)**\
+    Se puede comprobar cuántos niños hay en cada intervalo para interpretar correctamente las medias.
 
----
-
-### Cambios clave realizados:
-* **Claridad Terminológica:** He añadido la notación estándar ($n_i, N_i, f_i, F_i$) para que el código sea académicamente riguroso.
-* **Estructura:** Se ha separado el código en bloques lógicos, facilitando la ejecución paso a paso.
-* **Legibilidad:** He renombrado variables (como `temp2` a `temp_intervalos`) para que el código sea "autodocumentado".
-* **Buenas prácticas:** Se ha incluido `na.rm = TRUE` en el ejemplo de `aggregate`, que es esencial para que el código no falle si faltan datos en el dataset de pediatría.
-
+```{r}
+resumen_edad
 ```

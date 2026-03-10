@@ -463,17 +463,22 @@ relevante para el cálculo numérico).</p>
 <div id="matriz-de-gráficos-de-dispersión-pairs-plot"
 class="section level3">
 <h3>2. Matriz de gráficos de dispersión (Pairs Plot)</h3>
+<p>Con <code>pairs()</code> hacemos la matriz de gráficos de
+dispersión</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">pairs</span>(pediatria_clean)</span></code></pre></div>
+<p><img src="F_coeficiente_correlacion_files/figure-html/unnamed-chunk-4-1.png" alt="" width="672" /></p>
+<p><strong>Mejorar la visualización:</strong></p>
 <p>Para visualizar las relaciones, utilizaremos la función
 <code>pairs()</code>. Añadimos color para diferenciar por la variable
 <code>sexo</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Definimos colores según el sexo (ajusta la columna según tu dataset)</span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>colores <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(pediatria<span class="sc">$</span>sexo <span class="sc">==</span> <span class="st">&quot;M&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>) </span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co"># Representamos las variables de interés: edad, peso y talla</span></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co"># Nota: Asegúrate de que los nombres de las columnas coincidan con tu CSV</span></span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="fu">pairs</span>(pediatria_clean[, <span class="fu">c</span>(<span class="st">&quot;edad&quot;</span>, <span class="st">&quot;peso&quot;</span>, <span class="st">&quot;talla&quot;</span>)], </span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>      <span class="at">col =</span> colores, </span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">&quot;Matriz de dispersión: Edad, Peso y Talla&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># Definimos colores según el sexo (ajusta la columna según tu dataset)</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>colores <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(pediatria<span class="sc">$</span>sexo <span class="sc">==</span> <span class="st">&quot;varon&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>) </span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co"># Representamos las variables de interés: edad, peso y talla</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co"># Nota: Asegúrate de que los nombres de las columnas coincidan con tu CSV</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="fu">pairs</span>(pediatria_clean[, <span class="fu">c</span>(<span class="st">&quot;edad&quot;</span>, <span class="st">&quot;peso&quot;</span>, <span class="st">&quot;talla&quot;</span>)], </span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>      <span class="at">col =</span> colores, </span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">&quot;Matriz de dispersión: Edad, Peso y Talla&quot;</span>)</span></code></pre></div>
 <p><img src="F_coeficiente_correlacion_files/figure-html/grafico-dispersion-1.png" alt="" width="672" /></p>
 </div>
 <div id="coeficiente-de-correlación" class="section level3">
@@ -496,16 +501,21 @@ negativo) te distraiga.</p></li>
 <li><p><strong><code>print(...)</code></strong>: Muestra la matriz final
 en la consola para que puedas leer los coeficientes.</p></li>
 </ol>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># Seleccionamos solo las columnas de interés</span></span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>vars_interes <span class="ot">&lt;-</span> pediatria_clean[, <span class="fu">c</span>(<span class="st">&quot;edad&quot;</span>, <span class="st">&quot;peso&quot;</span>, <span class="st">&quot;talla&quot;</span>)]</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co"># Calculamos la matriz de correlación</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>matriz_corr <span class="ot">&lt;-</span> <span class="fu">cor</span>(vars_interes, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co"># Si deseas ver el valor absoluto como en tu ejemplo original:</span></span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>corr_abs <span class="ot">&lt;-</span> <span class="fu">abs</span>(matriz_corr)</span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="fu">print</span>(corr_abs)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Seleccionamos solo las columnas de interés</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>vars_interes <span class="ot">&lt;-</span> pediatria_clean[, <span class="fu">c</span>(<span class="st">&quot;edad&quot;</span>, <span class="st">&quot;peso&quot;</span>, <span class="st">&quot;talla&quot;</span>)]</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co"># Calculamos la matriz de correlación</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>matriz_corr <span class="ot">&lt;-</span> <span class="fu">cor</span>(vars_interes, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co"># Si deseas ver el valor absoluto como en tu ejemplo original:</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>corr_abs <span class="ot">&lt;-</span> <span class="fu">abs</span>(matriz_corr)</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="fu">print</span>(corr_abs)</span></code></pre></div>
+<pre><code>##            edad      peso     talla
+## edad  1.0000000 0.8194018 0.8667918
+## peso  0.8194018 1.0000000 0.9031220
+## talla 0.8667918 0.9031220 1.0000000</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">cor</span>(pediatria_clean)</span></code></pre></div>
 <pre><code>##            edad      peso     talla
 ## edad  1.0000000 0.8194018 0.8667918
 ## peso  0.8194018 1.0000000 0.9031220
