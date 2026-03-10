@@ -506,6 +506,7 @@ del archivo de texto <code>empleados.txt</code>.</p>
 <pre><code>## 
 ##    Hombre     Mujer 
 ## 0.5443038 0.4556962</code></pre>
+<hr />
 </div>
 </div>
 <div id="tablas-bidimensionales-tablas-de-contingencia"
@@ -584,6 +585,7 @@ texto <code>empleados.txt</code></p>
 ##          Administrativo Directivo Seguridad
 ##   Hombre       43.25069  88.09524 100.00000
 ##   Mujer        56.74931  11.90476   0.00000</code></pre>
+<hr />
 </div>
 </div>
 <div id="construcción-de-una-tabla-de-frecuencias-completa"
@@ -596,7 +598,8 @@ acumuladas (</strong><span class="math inline">\(N_i\)</span><strong>),
 relativas (</strong><span class="math inline">\(f_i\)</span><strong>) y
 relativas acumuladas (</strong><span
 class="math inline">\(F_i\)</span><strong>).</strong></p>
-<p>Ejercicio 3:</p>
+<div id="ejercicio-3" class="section level3">
+<h3>Ejercicio 3:</h3>
 <p>Crear la <strong>tabla de frecuencias completa</strong> de la columna
 <code>educ</code> del archivo de texto <code>empleados.txt.</code></p>
 <p>Aunque ya tenemos el archivo cargado de antes, vamos a cargarlo de
@@ -640,6 +643,7 @@ nuevo:</p>
 ## 19             19  27 471 0.056962025 0.9936709
 ## 20             20   2 473 0.004219409 0.9978903
 ## 21             21   1 474 0.002109705 1.0000000</code></pre>
+</div>
 <div id="un-pequeño-detalle-técnico" class="section level3">
 <h3>Un pequeño detalle técnico:</h3>
 <p>El comando <strong><code>[, -4]</code></strong> que usaste es muy
@@ -650,16 +654,40 @@ columna repetida para que la tabla quede impecable.</p>
 <hr />
 </div>
 </div>
-<div id="agrupación-en-intervalos-variables-numéricas"
+<div id="agrupación-en-intervalos-variables-numéricas-con-cut"
 class="section level2">
-<h2>4. Agrupación en Intervalos (Variables Numéricas)</h2>
-<p>Para variables continuas, es necesario convertir valores numéricos en
-intervalos categóricos mediante <code>cut()</code>.</p>
-<div id="ejemplo-básico" class="section level3">
-<h3>Ejemplo básico</h3>
-</div>
-<div id="qué-hace-cada-parte" class="section level3">
-<h3>Qué hace cada parte</h3>
+<h2>4. Agrupación en Intervalos (Variables Numéricas) con
+<code>cut</code></h2>
+<p>En análisis de datos, cuando una <strong>variable numérica
+continua</strong> (edad, ingresos, peso, etc.) tiene muchos valores
+distintos dentro de un intervalo, conviene <strong>agruparlos en
+intervalos</strong> para facilitar el análisis y la visualización. En R
+esto se gestiona con la función <strong><code>cut()</code></strong>, que
+transforma una variable numérica en una <strong>variable categórica por
+rangos</strong>.</p>
+<div id="ejercicio-4" class="section level3">
+<h3>Ejercicio 4:</h3>
+<p>Se ha registrado la <strong>temperatura media mensual (en
+°C)</strong> de una ciudad a lo largo de un año. Los valores observados
+se encuentran en el vector
+<code>temperatura &lt;- c(22.52, 18.70, 19.61, 22.79, 29.38, 30.19, 33.16, 36.97, 33.29, 28.98, 24.31, 22.43).</code>
+Agrupa las temperaturas en <strong>intervalos</strong> utilizando los
+siguientes rangos:</p>
+<ul>
+<li><p>0–20 °C</p></li>
+<li><p>20–30 °C</p></li>
+<li><p>30–50 °C</p></li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">22.52</span>, <span class="fl">18.70</span>, <span class="fl">19.61</span>, <span class="fl">22.79</span>, <span class="fl">29.38</span>, <span class="fl">30.19</span>, <span class="fl">33.16</span>, <span class="fl">36.97</span>, <span class="fl">33.29</span>, <span class="fl">28.98</span>, <span class="fl">24.31</span>, <span class="fl">22.43</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a><span class="co"># Agrupación del vector temp en los rangos (breaks) definidos utlizando cut</span></span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>temp_intervalos <span class="ot">&lt;-</span> <span class="fu">cut</span>(temp, <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">50</span>))</span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a><span class="co"># Mostramos los intervalos hechos</span></span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a>temp_intervalos</span></code></pre></div>
+<pre><code>##  [1] (20,30] (0,20]  (0,20]  (20,30] (20,30] (30,50] (30,50] (30,50] (30,50]
+## [10] (20,30] (20,30] (20,30]
+## Levels: (0,20] (20,30] (30,50]</code></pre>
 <p>1️⃣ <code>temp</code> → vector de temperaturas.<br />
 2️⃣ <code>cut(temp, breaks = c(0, 20, 30, 50))</code> → divide los
 valores en <strong>intervalos</strong>:</p>
@@ -676,16 +704,6 @@ límite superior</strong> <code>(a,b]</code>.</p>
 </ul>
 <p>3️⃣ <code>temp_intervalos</code> → factor con el <strong>intervalo
 asignado a cada temperatura</strong>.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">22.52</span>, <span class="fl">18.70</span>, <span class="fl">19.61</span>, <span class="fl">22.79</span>, <span class="fl">29.38</span>, <span class="fl">30.19</span>, <span class="fl">33.16</span>, <span class="fl">36.97</span>, <span class="fl">33.29</span>, <span class="fl">28.98</span>, <span class="fl">24.31</span>, <span class="fl">22.43</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a><span class="co"># Agrupación en rangos definidos</span></span>
-<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>temp_intervalos <span class="ot">&lt;-</span> <span class="fu">cut</span>(temp, <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">50</span>))</span>
-<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a></span>
-<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a><span class="co"># Mostramos los intervalos hechos</span></span>
-<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a>temp_intervalos</span></code></pre></div>
-<pre><code>##  [1] (20,30] (0,20]  (0,20]  (20,30] (20,30] (30,50] (30,50] (30,50] (30,50]
-## [10] (20,30] (20,30] (20,30]
-## Levels: (0,20] (20,30] (30,50]</code></pre>
 </div>
 <div id="aplicación-práctica-en-pediatría" class="section level3">
 <h3>Aplicación práctica en Pediatría</h3>

@@ -150,7 +150,7 @@ prop.table(tab2d, 2) * 100
 
 Para **variables cualitativas (numéricas)**, podemos ensamblar una tabla profesional que incluya **frecuencias absolutas (**$n_i$**), acumuladas (**$N_i$**), relativas (**$f_i$**) y relativas acumuladas (**$F_i$**).**
 
-Ejercicio 3:
+### Ejercicio 3:
 
 Crear la **tabla de frecuencias completa** de la columna `educ` del archivo de texto `empleados.txt.`
 
@@ -187,7 +187,7 @@ El comando **`[, -4]`** que usaste es muy inteligente. Cuando haces `data.frame(
 
 En análisis de datos, cuando una **variable numérica continua** (edad, ingresos, peso, etc.) tiene muchos valores distintos dentro de un intervalo, conviene **agruparlos en intervalos** para facilitar el análisis y la visualización. En R esto se gestiona con la función **`cut()`**, que transforma una variable numérica en una **variable categórica por rangos**.
 
-### Ejemplo:
+### Ejercicio 4:
 
 Se ha registrado la **temperatura media mensual (en °C)** de una ciudad a lo largo de un año. Los valores observados se encuentran en el vector `temperatura <- c(22.52, 18.70, 19.61, 22.79, 29.38, 30.19, 33.16, 36.97, 33.29, 28.98, 24.31, 22.43).` Agrupa las temperaturas en **intervalos** utilizando los siguientes rangos:
 
