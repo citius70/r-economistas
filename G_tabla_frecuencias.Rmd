@@ -9,30 +9,34 @@ output:
   pdf_document: default
 ---
 
-## 1. Frecuencias Unidimensionales
+## 1. Frecuencias Unidimensionales `table` y `prop.table`
 
 Utilizamos `table()` para obtener la frecuencia absoluta (conteo) y `prop.table()` para la frecuencia relativa (proporciones).
 
 ```{r}
 datos <- read.table(file = "empleados.txt", header = TRUE)
 
+head(datos)
+
+```
+
+```{r}
 # Frecuencia absoluta
 tabla1d <- table(datos$sexo)
 
-# Frecuencia relativa (proporción)
+#Mostramos la tabla1d relativa
+tabla1d
+
+```
+
+```{r}
+#  Frecuencia relativa (proporción)
+# Hay que hacerla tomando como base la tabla de frecuencia absoluta
+
 tabla1d.relativa <- prop.table(tabla1d)
 
-```
-
-```{r}
-#Mostramos la tabla1d
-tabla1d
-```
-
-```{r}
-#Mostramos la tabla1d relativa
+#Mostramos tabla1d.relativa
 tabla1d.relativa
-
 ```
 
 ## 2. Tablas Bidimensionales (Tablas de Contingencia)
@@ -40,6 +44,7 @@ tabla1d.relativa
 Ideales para analizar la relación entre dos variables categóricas.
 
 ```{r}
+
 tab2d <- table(datos$sexo, datos$catlab)
 
 # Porcentajes sobre el total de la tabla
@@ -58,7 +63,7 @@ prop.table(tab2d, 2) * 100
 Para variables cualitativas, podemos ensamblar una tabla profesional que incluya frecuencias absolutas ($n_i$), acumuladas ($N_i$), relativas ($f_i$) y relativas acumuladas ($F_i$).
 
 ```{r}
-fa   <- table(datos$edu)      # Frecuencia absoluta
+fa   <- table(datos$educ)      # Frecuencia absoluta
 fac  <- cumsum(fa)            # Frecuencia absoluta acumulada
 fr   <- prop.table(fa)        # Frecuencia relativa
 facr <- cumsum(fr)            # Frecuencia relativa acumulada
@@ -76,6 +81,27 @@ Para variables continuas, es necesario convertir valores numéricos en intervalo
 
 ### Ejemplo básico
 
+### Qué hace cada parte
+
+1️⃣ `temp` → vector de temperaturas.\
+2️⃣ `cut(temp, breaks = c(0, 20, 30, 50))` → divide los valores en **intervalos**:
+
+-   `(0,20]` → valores mayores que 0 hasta 20
+
+-   `(20,30]` → valores mayores que 20 hasta 30
+
+-   `(30,50]` → valores mayores que 30 hasta 50
+
+-   <div>
+
+    > 
+    >
+    > Nota: por defecto `cut()` **el intervalo incluye el límite superior** `(a,b]`.
+
+    </div>
+
+3️⃣ `temp_intervalos` → factor con el **intervalo asignado a cada temperatura**.
+
 ```{r}
 temp <- c(22.52, 18.70, 19.61, 22.79, 29.38, 30.19, 33.16, 36.97, 33.29, 28.98, 24.31, 22.43)
 
@@ -90,6 +116,18 @@ temp_intervalos
 ### Aplicación práctica en Pediatría
 
 Podemos usar `aggregate()` para resumir datos numéricos según los intervalos de edad creados.
+
+-   **Lectura de datos**\
+    Se carga el conjunto de datos `children.csv`, que contiene la columna `edad` y varias variables numéricas (peso, altura, talla, etc.).
+
+-   **Agrupación por intervalos**\
+    Se crean intervalos de edad de 1 año (por ejemplo, de 5 a 19 años) utilizando la función `cut()`. Cada niño queda asignado al intervalo correspondiente según su edad.
+
+-   **Cálculo de medias**\
+    Se calcula la media de cada variable numérica para cada intervalo de edad con `aggregate()`, ignorando valores faltantes. Esto genera un resumen donde cada fila representa un intervalo y cada columna la media de una variable.
+
+-   **Frecuencia de intervalos (opcional)**\
+    Se puede comprobar cuántos niños hay en cada intervalo para interpretar correctamente las medias.
 
 ```{r}
 pediatria <- read.csv2("children.csv")

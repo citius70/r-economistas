@@ -33,7 +33,7 @@ En pocas palabras: No te dice "cuánto hay", te dice "qué tipo es".
 
 ## Sintaxis: `barplot`
 
-`barplot``(datos_ejehorizontal, names.arg =`
+`barplot(datos_ejehorizontal, names.arg =`
 
 `propiedad1,`
 
@@ -41,7 +41,17 @@ En pocas palabras: No te dice "cuánto hay", te dice "qué tipo es".
 
 `...)`
 
-#### 
+**Ejemplo 1: con 1 vector**
+
+```{r}
+
+colores_ojos <- c("azul", "verde", "verde", "marrón", "azul", "negro", "negro", "azul")
+
+frecuencias<-table(colores_ojos)
+frecuencias
+barplot(frecuencias)
+
+```
 
 #### 1. Ejemplo básico: Barras verticales a partir de dos vectores (uno categórico y otro numérico)
 
@@ -49,12 +59,12 @@ Este ejemplo muestra cómo definir manualmente las categorías y sus frecuencias
 
 ```{r barplot-basic}
 # Crear datos de ejemplo
-categorias <- c("A", "B", "C", "D", "E")
-frecuencias <- c(10, 15, 8, 12, 20)
+colores_ojos <- c("Verde", "Azul", "Marrón", "Negro")
+frecuencias <- c(10, 15, 8, 12)
 
 # Crear el gráfico de barras
-barplot(frecuencias,
-        names.arg = categorias,
+barplot(frecuencias,         # altura de las baras
+        names.arg = colores_ojos,
         main = "Distribución de Categorías",
         xlab = "Categorías",
         ylab = "Frecuencia",

@@ -45,11 +45,19 @@ head(pediatria_clean)
 
 ### 2. Matriz de gráficos de dispersión (Pairs Plot)
 
+Con `pairs()` hacemos la matriz de gráficos de dispersión
+
+```{r}
+pairs(pediatria_clean)
+```
+
+**Mejorar la visualización:**
+
 Para visualizar las relaciones, utilizaremos la función `pairs()`. Añadimos color para diferenciar por la variable `sexo`.
 
 ```{r grafico-dispersion}
 # Definimos colores según el sexo (ajusta la columna según tu dataset)
-colores <- ifelse(pediatria$sexo == "M", "blue", "red") 
+colores <- ifelse(pediatria$sexo == "varon", "blue", "red") 
 
 # Representamos las variables de interés: edad, peso y talla
 # Nota: Asegúrate de que los nombres de las columnas coincidan con tu CSV
@@ -85,4 +93,8 @@ corr_abs <- abs(matriz_corr)
 
 print(corr_abs)
 
+```
+
+```{r}
+cor(pediatria_clean)
 ```
