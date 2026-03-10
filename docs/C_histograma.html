@@ -333,61 +333,70 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="1_instalacion.html">1 Instalación</a>
+  <a href="1_instalacion.html">1 Inst</a>
 </li>
 <li>
-  <a href="2_ventanas.html">2 Introducción a R</a>
+  <a href="2_ventanas.html">2 Introd</a>
 </li>
 <li>
-  <a href="3_funciones_operadores.html">3 Funciones y operadores básicos</a>
+  <a href="3_funciones_operadores.html">3 Func y oper básic</a>
 </li>
 <li>
-  <a href="4_paquetes.html">4 Gestión de paquetes</a>
+  <a href="4_paquetes.html">4 Paquet</a>
 </li>
 <li>
-  <a href="5_vectores.html">5 Vectores</a>
+  <a href="5_vectores.html">5 Vect</a>
 </li>
 <li>
-  <a href="6_matrices.html">6 Matrices</a>
+  <a href="6_matrices.html">6 Matr</a>
 </li>
 <li>
-  <a href="7_arrays.html">7 Arrays</a>
+  <a href="7_arrays.html">7 Arra</a>
 </li>
 <li>
-  <a href="8_dataframes.html">8 Data Frames</a>
+  <a href="8_dataframes.html">8 Data Fr</a>
 </li>
 <li>
-  <a href="9_data.html">9 Datos de ejemplo (data)</a>
+  <a href="9_data.html">9 Datos ejem (data)</a>
 </li>
 <li>
-  <a href="10_lectura_escritura.html">10 Lectura y escritura de archivos externos</a>
+  <a href="10_lectura_escritura.html">10 Lect y escr archi exter</a>
 </li>
 <li>
-  <a href="11_funciones.html">11 Funciones (function)</a>
+  <a href="11_funciones.html">11 Func (function)</a>
 </li>
 <li>
-  <a href="12_aleatorios.html">12 Generación de números aleatorios</a>
+  <a href="12_aleatorios.html">12 Núme aleat</a>
 </li>
 <li>
-  <a href="Ejercicio_1.html">Ejercicio 1</a>
+  <a href="Ejercicio_1.html">Eje 1</a>
 </li>
 <li>
-  <a href="Ejercicio_2.html">Ejercicio 2</a>
+  <a href="Ejercicio_2.html">Eje 2</a>
 </li>
 <li>
-  <a href="A_dispersion.html">A Gráficos de dispersión</a>
+  <a href="A_dispersion.html">A Gráf dispersión</a>
 </li>
 <li>
-  <a href="B_barras.html">B Gráficos de barra o distribución</a>
+  <a href="B_barras.html">B Gráf barra o distrib</a>
 </li>
 <li>
-  <a href="C_histograma.html">C Histograma</a>
+  <a href="C_histograma.html">C Histog</a>
 </li>
 <li>
-  <a href="D_boxplot.html">D Gráfico de Caja o Boxplot</a>
+  <a href="D_boxplot.html">D Gráf caja o Boxplot</a>
 </li>
 <li>
-  <a href="E_matrices_dispersion.html">E Matrices de Gráficos de Dispersión</a>
+  <a href="E_matrices_dispersion.html">E Matr Gráf Dispers</a>
+</li>
+<li>
+  <a href="F_coeficiente_correlacion.html">F Coef Correl</a>
+</li>
+<li>
+  <a href="G_tabla_frecuencias.html">G Tabl Frec</a>
+</li>
+<li>
+  <a href="H_medidas_posicion_dispersion_forma.html">H Med Pos, Disp, Form</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -408,11 +417,22 @@ $(document).ready(function () {
 
 <p>El <strong>histograma</strong> es la herramienta fundamental para
 analizar <strong>datos continuos</strong>. A diferencia del gráfico de
-barras (usado para categorías), aquí agrupamos los valores en
-“contenedores” o intervalos para visualizar cómo se distribuyen las
-mediciones.</p>
-<div id="qué-es-un-histograma-ejemplo-pesos" class="section level2">
-<h2>¿Qué es un Histograma? (Ejemplo: Pesos)</h2>
+barras (usado para categorías), aquí <strong>agrupamos los valores en
+“contenedores” o intervalos (bins)</strong> para visualizar cómo se
+distribuyen las mediciones. Es decir, pasamos del desorden gráfico al
+orden</p>
+<ul>
+<li><p>El <strong>eje x</strong> serán agrupaciones de todos los datos
+que tenemos. Por ejemplo si tenemos 100 datos de pesos de persons, se
+agruparán en intervalos de 5 kg (50-55 kg, 55-60 kg, 60-65 kg …..) o
+intervalos del valor que queramos.</p></li>
+<li><p>El <strong>eje y</strong> será el conteo de los valores
+correspondientes a cada intervalo. Por ejemplo: nº de personas que pesan
+entre 50-55 kg, entre 55-60kg, entre 60-65 kg…</p></li>
+</ul>
+<p><img src="img/histograma.png" width="585" /></p>
+<div id="qué-es-un-histograma-ejemplo-pesos" class="section level3">
+<h3>¿Qué es un Histograma? (Ejemplo: Pesos)</h3>
 <p>Imagina que tienes el peso de 30 alumnos y quieres ver cómo se
 distribuyen en la clase. Como hay demasiados números distintos, el
 histograma <strong>agrupa los pesos en intervalos</strong> (ej. de 5 en
@@ -464,18 +484,24 @@ esta tabla se muestran las diferencias:</p>
 tu clase tiene un peso “promedio” (la mayoría en el centro) o si hay
 mucha variedad (barras repartidas por todos lados).</p>
 </div>
+</div>
 <div id="sintaxis" class="section level3">
 <h3>Sintaxis:</h3>
 <p>Usamos la función <code>hist(x)</code>, donde:</p>
 <ul>
-<li><strong><code>x</code></strong>: Vector numérico de datos.</li>
+<li><strong><code>x</code></strong>: Vector numérico de datos (o columna
+de una matriz, o de un dataframe…=</li>
 <li><strong><code>prob = TRUE</code></strong>: Muestra la densidad
 (proporción) en lugar de la frecuencia absoluta.</li>
 <li><strong><code>breaks</code></strong>: Controla el número de
 intervalos.</li>
 </ul>
-<p>Ejemplo1: Imagina que tenemos un vector/lista con la distancia que
-una motocicleta hizo con un tanque de gasolina lleno.</p>
+</div>
+<div id="ejemplo1-histograma-a-partir-de-un-vector"
+class="section level2">
+<h2>Ejemplo1: Histograma a partir de un vector</h2>
+<p>Imagina que tenemos un vector/lista con la distancia que una
+motocicleta hizo con un tanque de gasolina lleno.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Datos de distancias</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>distancias <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="fl">291.5</span>, <span class="fl">274.4</span>, <span class="fl">290.2</span>, <span class="fl">276.4</span>, <span class="fl">272.0</span>, <span class="fl">268.7</span>, <span class="fl">281.6</span>, <span class="fl">281.6</span>, <span class="fl">276.3</span>, <span class="fl">285.9</span>,</span>
@@ -498,13 +524,14 @@ una motocicleta hizo con un tanque de gasolina lleno.</p>
 <span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
 <p><img src="C_histograma_files/figure-html/histogram-data-1.png" alt="" width="672" /></p>
 <hr />
-</div>
-</div>
+<p>Interpretación: Como se observa en el gráfico, R ha hecho
+agrupaciones (bins) de 5 kg, es decir, de 255 a 260 km, de 260 a 265 km,
+de 265 a 270 km….</p>
 <div id="ajuste-del-número-de-intervalos-o-breaks"
-class="section level2">
-<h2>Ajuste del número de intervalos o breaks</h2>
-<p>Podemos ajustar el número de intervalos de manera manual añadiendo la
-propiedad <code>breaks</code>.</p>
+class="section level3">
+<h3>Ajuste del número de intervalos o breaks</h3>
+<p>Podemos ajustar el número de intervalos (bins) de manera manual
+añadiendo la propiedad <code>breaks</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">hist</span>(distancias, </span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histograma con 5 intervalos&quot;</span>, </span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>, </span>
@@ -540,19 +567,86 @@ defecto en R, que busca un equilibrio razonable.</li>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)) <span class="co"># Restaurar diseño original</span></span></code></pre></div>
 <hr />
 </div>
+</div>
 <div id="notas-pedagógicas" class="section level3">
 <h3>Notas pedagógicas:</h3>
 <ul>
 <li><p><strong>Densidad vs Frecuencia:</strong> Al usar
 <code>prob = TRUE</code>, el área total de las barras suma 1, lo que
 permite comparar distribuciones aunque el número total de datos sea
-distinto.</p></li>
+distinto.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">hist</span>(distancias, </span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histograma de Frecuencias&quot;</span>, </span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>, </span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Distancia&quot;</span>, </span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Frecuencia&quot;</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>     <span class="at">prob =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="C_histograma_files/figure-html/unnamed-chunk-3-1.png" alt="" width="672" /></p></li>
 <li><p><strong><code>par(mfrow = ...)</code>:</strong> Es un comando muy
 útil para comparar gráficos lado a lado. Recuerda siempre devolverlo a
 <code>c(1,1)</code> al terminar, o tus siguientes gráficos saldrán todos
 en una misma fila.</p></li>
 </ul>
 </div>
+</div>
+<div id="ejemplo1-histograma-a-partir-de-un-data"
+class="section level2">
+<h2>Ejemplo1: Histograma a partir de un data()</h2>
+<p>Te dejo un <strong>ejemplo sencillo en formato
+<code>.Rmd</code></strong> pensado para material didáctico (como el que
+podrías usar en apuntes o un libro). Incluye explicación breve y el
+código.</p>
+<p>El dataset <strong>mtcars</strong> es un conjunto de datos incluido
+por defecto en R. Contiene información sobre distintos modelos de coches
+de los años 70 y varias características técnicas de cada uno. Entre sus
+variables encontramos: - <code>mpg</code>: consumo de combustible
+(millas por galón) - <code>hp</code>: potencia del motor -
+<code>wt</code>: peso del coche - <code>cyl</code>: número de cilindros
+En este ejemplo vamos a representar un <strong>histograma del consumo
+(<code>mpg</code>)</strong>. ## ## Cargar el dataset El dataset
+<code>mtcars</code> ya está incluido en R, por lo que solo necesitamos
+activarlo. ```{r} data(mtcars) # Mostrar las primeras filas
+head(mtcars)</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">data</span>(mtcars) <span class="do">## Cargar el dataset El dataset mtcars ya está incluido en R, por lo que solo necesitamos activarlo.</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">head</span>(mtcars)  <span class="co"># Mostrar las primeras filas head(mtcars)</span></span></code></pre></div>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<p>Ahora representamos un histograma de la variable
+<code>mpg</code>.</p>
+<pre><code></code></pre>
+</div>
+<div id="histograma-personalizado" class="section level2">
+<h2>Histograma personalizado</h2>
+<p>Podemos mejorar el gráfico añadiendo un título, etiquetas y
+definiendo el número de intervalos.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">hist</span>(mtcars<span class="sc">$</span>mpg,      </span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histograma del consumo de combustible&quot;</span>,      </span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Millas por galón (mpg)&quot;</span>,      </span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Frecuencia&quot;</span>,      </span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">8</span>) </span></code></pre></div>
+<p><img src="C_histograma_files/figure-html/unnamed-chunk-6-1.png" alt="" width="672" /></p>
+</div>
+<div id="interpretación-del-gráfico" class="section level2">
+<h2>Interpretación del gráfico</h2>
+<p>En el histograma podemos observar cómo se distribuyen los valores de
+consumo de los coches:</p>
+<ul>
+<li><p>Los coches con menor consumo tienen valores de <strong>mpg más
+altos</strong>.</p></li>
+<li><p>La mayor parte de los coches se concentra aproximadamente entre
+<strong>15 y 22 mpg</strong>.</p></li>
+<li><p>Existen algunos coches con consumos más eficientes que superan
+los <strong>30 mpg</strong>.</p></li>
+</ul>
+<p>Este tipo de gráfico es muy útil para <strong>analizar la
+distribución de una variable numérica</strong> antes de realizar
+análisis estadísticos más avanzados.</p>
 </div>
 
 

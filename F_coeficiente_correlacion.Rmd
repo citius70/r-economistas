@@ -9,11 +9,6 @@ output:
   pdf_document: default
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
-
-```
-
 ## Ejercicio 4: Análisis de variables continuas
 
 El objetivo de este ejercicio es explorar la relación entre edad, peso y talla en el dataset `children.csv`.

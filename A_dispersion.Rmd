@@ -9,13 +9,23 @@ output:
   pdf_document: default
 ---
 
-Los **gráficos de dispersión** son la herramienta fundamental para analizar si **existe correlación entre dos variables**.
+Los **gráficos de dispersión** son la herramienta fundamental para analizar si **existe correlación entre dos variables** **numéricas**.
 
-## Sintaxis:
+![](img/dispersion.png){width="517"}
 
-`plot`
+## Sintaxis: `plot`
+
+`plot(datos_ejehorizontal, datos_eje_verical,`
+
+`propiedad1,`
+
+`propiedad2,`
+
+`...)`
 
 #### Ejemplo básico
+
+Gráfico de dispersión **a partir de dos vectores**.
 
 ```{r}
 # Crear datos de ejemplo
@@ -33,7 +43,9 @@ plot(x, y,                      # Eje horizontal el vector x , Eje vertical vect
 
 ------------------------------------------------------------------------
 
-#### Ejercicio 1: Velocidad vs. Distancia de frenado
+#### Ejercicio 1: Gráfico de dispersión a partir de los datos de un data()
+
+#### Velocidad vs. Distancia de frenado
 
 Utilizando el conjunto de datos `cars` (velocidad en millas/hora y distancia de frenado en pies), realiza un gráfico que sea fácil de interpretar.
 

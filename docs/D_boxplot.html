@@ -333,52 +333,70 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="1_instalacion.html">1 Instalación</a>
+  <a href="1_instalacion.html">1 Inst</a>
 </li>
 <li>
-  <a href="2_ventanas.html">2 Introducción a R</a>
+  <a href="2_ventanas.html">2 Introd</a>
 </li>
 <li>
-  <a href="3_funciones_operadores.html">3 Funciones y operadores básicos</a>
+  <a href="3_funciones_operadores.html">3 Func y oper básic</a>
 </li>
 <li>
-  <a href="4_paquetes.html">4 Gestión de paquetes</a>
+  <a href="4_paquetes.html">4 Paquet</a>
 </li>
 <li>
-  <a href="5_vectores.html">5 Vectores</a>
+  <a href="5_vectores.html">5 Vect</a>
 </li>
 <li>
-  <a href="6_matrices.html">6 Matrices</a>
+  <a href="6_matrices.html">6 Matr</a>
 </li>
 <li>
-  <a href="7_arrays.html">7 Arrays</a>
+  <a href="7_arrays.html">7 Arra</a>
 </li>
 <li>
-  <a href="8_dataframes.html">8 Data Frames</a>
+  <a href="8_dataframes.html">8 Data Fr</a>
 </li>
 <li>
-  <a href="9_data.html">9 Datos de ejemplo (data)</a>
+  <a href="9_data.html">9 Datos ejem (data)</a>
 </li>
 <li>
-  <a href="10_lectura_escritura.html">10 Lectura y escritura de archivos externos</a>
+  <a href="10_lectura_escritura.html">10 Lect y escr archi exter</a>
 </li>
 <li>
-  <a href="11_funciones.html">11 Funciones (function)</a>
+  <a href="11_funciones.html">11 Func (function)</a>
 </li>
 <li>
-  <a href="12_aleatorios.html">12 Generación de números aleatorios</a>
+  <a href="12_aleatorios.html">12 Núme aleat</a>
 </li>
 <li>
-  <a href="A_dispersion.html">A Gráficos de dispersión</a>
+  <a href="Ejercicio_1.html">Eje 1</a>
 </li>
 <li>
-  <a href="B_barras.html">B Gráficos de barra o distribución</a>
+  <a href="Ejercicio_2.html">Eje 2</a>
 </li>
 <li>
-  <a href="C_histograma.html">C Histograma</a>
+  <a href="A_dispersion.html">A Gráf dispersión</a>
 </li>
 <li>
-  <a href="D_boxplot.html">D Gráfico de Caja o Boxplot</a>
+  <a href="B_barras.html">B Gráf barra o distrib</a>
+</li>
+<li>
+  <a href="C_histograma.html">C Histog</a>
+</li>
+<li>
+  <a href="D_boxplot.html">D Gráf caja o Boxplot</a>
+</li>
+<li>
+  <a href="E_matrices_dispersion.html">E Matr Gráf Dispers</a>
+</li>
+<li>
+  <a href="F_coeficiente_correlacion.html">F Coef Correl</a>
+</li>
+<li>
+  <a href="G_tabla_frecuencias.html">G Tabl Frec</a>
+</li>
+<li>
+  <a href="H_medidas_posicion_dispersion_forma.html">H Med Pos, Disp, Form</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -403,15 +421,19 @@ herramientas <strong>más potentes en estadística</strong> porque resume
 <ul>
 <li><p>el <strong>mínimo</strong>,</p></li>
 <li><p>el <strong>primer cuartil</strong> (<span
-class="math inline">\(Q_1\)</span>),</p></li>
+class="math inline">\(Q_1\)</span>), el 25% de los valores están por
+debajo de este valor</p></li>
 <li><p>la <strong>mediana</strong>, también llamado <strong>segundo
-cuartil</strong> (<span class="math inline">\(Q_2\)</span>),</p></li>
+cuartil</strong> (<span class="math inline">\(Q_2\)</span>), el 50% de
+los dfatos están por debajo (el 50% por encima)</p></li>
 <li><p>el <strong>tercer cuartil</strong> (<span
-class="math inline">\(Q_3\)</span>) y</p></li>
+class="math inline">\(Q_3\)</span>) , el 75% de los valores están por
+debajo de este valor (el 25% restante por encima)</p></li>
 <li><p>el <strong>máximo</strong>,</p></li>
 </ul>
 <p>además de identificar posibles <strong>valores atípicos</strong>
 (outliers).</p>
+<p><img src="img/boxplot.png" width="478" /></p>
 <div id="sintaxis" class="section level2">
 <h2>Sintaxis:</h2>
 <p>La función principal es <code>boxplot(formula, data = ...)</code>,
@@ -449,8 +471,69 @@ en gráficos anteriores:</p>
 <span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">&quot;skyblue&quot;</span>)</span></code></pre></div>
 <p><img src="D_boxplot_files/figure-html/boxplot-basic-1.png" alt="" width="672" /></p>
 <hr />
-<div id="ejercicio-3-comparación-con-boxplots" class="section level3">
-<h3>Ejercicio 3: Comparación con Boxplots</h3>
+<div id="ejercicio-boxplot-a-partir-de-una-columna-de-datamtcars"
+class="section level3">
+<h3>Ejercicio: Boxplot a partir de una columna de data(mtcars)</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Cargar dataset data(mtcars)  </span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co"># Ver las primeras filas head(mtcars)</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">head</span>(mtcars)</span></code></pre></div>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<div id="boxplot-de-la-variable-mpg" class="section level5">
+<h5>Boxplot de la variable <code>mpg</code></h5>
+<p>Queremos representar la distribución del <strong>consumo de
+combustible</strong> (<code>mpg</code>).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Boxplot de mpg</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">boxplot</span>(mtcars<span class="sc">$</span>mpg,         </span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Boxplot del consumo de combustible (mpg)&quot;</span>,         </span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Millas por galón (mpg)&quot;</span>,         </span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">&quot;lightblue&quot;</span>) </span></code></pre></div>
+<p><img src="D_boxplot_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="interpretación-del-gráfico" class="section level2">
+<h2>Interpretación del gráfico</h2>
+<ol style="list-style-type: decimal">
+<li><p><strong>Mediana</strong>:<br />
+La línea dentro de la caja indica la mediana, aproximadamente
+<strong>19.2 mpg</strong>.</p></li>
+<li><p><strong>Rango intercuartílico (Q1-Q3)</strong>:<br />
+La caja abarca aproximadamente de <strong>15.4 mpg (Q1) a 22.8 mpg
+(Q3)</strong>.<br />
+Esto significa que <strong>el 50% central de los coches</strong> consume
+entre estos valores.</p></li>
+<li><p><strong>Bigotes y valores extremos</strong>:<br />
+Los bigotes muestran los valores mínimo y máximo dentro de 1.5 veces el
+rango intercuartílico.<br />
+En este dataset, hay coches con <strong>mpg muy bajos</strong> que
+podrían considerarse <strong>valores atípicos</strong>.</p></li>
+<li><p><strong>Conclusión</strong>:<br />
+La mayoría de los coches tiene un consumo entre 15 y 23 mpg, pero
+existen algunos <strong>coches muy eficientes (&gt;30 mpg)</strong> y
+algunos <strong>muy gastones (&lt;12 mpg)</strong>.</p></li>
+</ol>
+</div>
+<div id="extra" class="section level2">
+<h2>Extra</h2>
+<p>Podemos cambiar colores o comparar varias variables:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Boxplot comparando mpg y hp (potencia) </span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">boxplot</span>(mtcars<span class="sc">$</span>mpg, mtcars<span class="sc">$</span>hp,</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;mpg&quot;</span>, <span class="st">&quot;hp&quot;</span>),         </span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">&quot;Boxplot de consumo y potencia&quot;</span>,         </span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;salmon&quot;</span>),         </span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Valores&quot;</span>) </span></code></pre></div>
+<p><img src="D_boxplot_files/figure-html/unnamed-chunk-3-1.png" alt="" width="672" /></p>
+<p>Este tipo de gráficos permite ver <strong>dispersión y diferencias
+entre variables</strong> de forma muy visual</p>
+<div id="ejercicio-comparación-con-boxplots" class="section level3">
+<h3>Ejercicio : Comparación con Boxplots</h3>
 <p>Representa en gráfico de cajas la variable “mpg” y “cyl” de la base
 de datos <strong>mtcars</strong></p>
 <p>En estadística, los boxplots son ideales para <strong>comparar
@@ -462,9 +545,9 @@ conjunto de datos <code>mtcars</code>.</p>
 grupos y no como un número, a veces es útil convertirlo a factor usando
 <code>as.factor()</code>.</p>
 </blockquote>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Cargamos los datos</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">head</span>(mtcars)   <span class="co"># Veamos los primeros datos</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Cargamos los datos</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">head</span>(mtcars)   <span class="co"># Veamos los primeros datos</span></span></code></pre></div>
 <pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
 ## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
@@ -472,14 +555,14 @@ grupos y no como un número, a veces es útil convertirlo a factor usando
 ## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
 ## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 ## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Representación: ¿Cómo cambia el consumo (mpg) según el número de cilindros?</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">boxplot</span>(mpg <span class="sc">~</span> <span class="fu">as.factor</span>(cyl),     <span class="co"># Le estamos diciendo: Dibuja el consumo de gasolina (mpg) en función de los cilindros (cyl)&quot;</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>        <span class="at">data =</span> mtcars,</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Consumo (mpg) según número de cilindros&quot;</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Número de cilindros&quot;</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Millas por galón (mpg)&quot;</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;slategray&quot;</span>, <span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;firebrick&quot;</span>),</span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>        <span class="at">varwidth =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># Representación: ¿Cómo cambia el consumo (mpg) según el número de cilindros?</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">boxplot</span>(mpg <span class="sc">~</span> <span class="fu">as.factor</span>(cyl),     <span class="co"># Le estamos diciendo: Dibuja el consumo de gasolina (mpg) en función de los cilindros (cyl)&quot;</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>        <span class="at">data =</span> mtcars,</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Consumo (mpg) según número de cilindros&quot;</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Número de cilindros&quot;</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Millas por galón (mpg)&quot;</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;slategray&quot;</span>, <span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;firebrick&quot;</span>),</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>        <span class="at">varwidth =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="D_boxplot_files/figure-html/ejercicio3-1.png" alt="" width="672" /></p>
 <hr />
 </div>

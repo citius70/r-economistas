@@ -10,7 +10,7 @@ output:
 ---
 
 
-```{r setup, include=FALSE}
+```{r setup}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 library(moments)
 
@@ -20,7 +20,10 @@ library(moments)
 
 Las medidas de posición resumen la localización central y los puntos de corte de la distribución.
 
-```{r measures-position, eval=FALSE}
+```{r measures-position}
+
+datos <- read.csv("salarios.csv")
+
 # Tendencia central
 mean(datos$salario)   # Media aritmética
 median(datos$salario) # Mediana (valor que divide a la muestra al 50%)
@@ -40,7 +43,7 @@ quantile(datos$salario, prob = seq(0, 1, length = 101))
 
 Estas medidas cuantifican cuánto se alejan los datos de su centro.
 
-```{r measures-dispersion, eval=FALSE}
+```{r measures-dispersion}
 # Rango: diferencia entre el valor máximo y mínimo
 rango <- max(datos$salario) - min(datos$salario)
 
@@ -77,7 +80,7 @@ Indica la concentración de datos en la zona central y la "pesadez" de las colas
 * **Leptocúrtica (Exceso > 0):** Más apuntada (pico alto, colas pesadas).
 * **Platicúrtica (Exceso < 0):** Más achatada.
 
-```{r measures-shape, eval=FALSE}
+```{r measures-shape}
 # Asimetría
 hist(datos$salario, main = "Distribución de Salarios")
 asim_salario <- skewness(datos$salario)

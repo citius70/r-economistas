@@ -9,17 +9,11 @@ output:
   pdf_document: default
 ---
 
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
-
-```
-
 ## 1. Frecuencias Unidimensionales
 
 Utilizamos `table()` para obtener la frecuencia absoluta (conteo) y `prop.table()` para la frecuencia relativa (proporciones).
 
-```{r, eval=FALSE}
+```{r}
 datos <- read.table(file = "empleados.txt", header = TRUE)
 
 # Frecuencia absoluta
@@ -30,11 +24,22 @@ tabla1d.relativa <- prop.table(tabla1d)
 
 ```
 
+```{r}
+#Mostramos la tabla1d
+tabla1d
+```
+
+```{r}
+#Mostramos la tabla1d relativa
+tabla1d.relativa
+
+```
+
 ## 2. Tablas Bidimensionales (Tablas de Contingencia)
 
 Ideales para analizar la relación entre dos variables categóricas.
 
-```{r, eval=FALSE}
+```{r}
 tab2d <- table(datos$sexo, datos$catlab)
 
 # Porcentajes sobre el total de la tabla
@@ -52,7 +57,7 @@ prop.table(tab2d, 2) * 100
 
 Para variables cualitativas, podemos ensamblar una tabla profesional que incluya frecuencias absolutas ($n_i$), acumuladas ($N_i$), relativas ($f_i$) y relativas acumuladas ($F_i$).
 
-```{r, eval=FALSE}
+```{r}
 fa   <- table(datos$edu)      # Frecuencia absoluta
 fac  <- cumsum(fa)            # Frecuencia absoluta acumulada
 fr   <- prop.table(fa)        # Frecuencia relativa
@@ -77,13 +82,16 @@ temp <- c(22.52, 18.70, 19.61, 22.79, 29.38, 30.19, 33.16, 36.97, 33.29, 28.98, 
 # Agrupación en rangos definidos
 temp_intervalos <- cut(temp, breaks = c(0, 20, 30, 50))
 
+# Mostramos los intervalos hechos
+temp_intervalos
+
 ```
 
 ### Aplicación práctica en Pediatría
 
 Podemos usar `aggregate()` para resumir datos numéricos según los intervalos de edad creados.
 
-```{r, eval=FALSE}
+```{r}
 pediatria <- read.csv2("children.csv")
 
 # Creamos intervalos de edad de 1 en 1 año (de 5 a 19)
@@ -95,7 +103,15 @@ resumen_edad <- aggregate(pediatria[, -1], by = list(edad = edad_intervalos),
 
 ```
 
+```{r}
+edad_intervalos
 ```
+
+```{r}
+resumen_edad
+```
+
+```         
 
 ---
 
@@ -104,6 +120,7 @@ resumen_edad <- aggregate(pediatria[, -1], by = list(edad = edad_intervalos),
 * **Estructura:** Se ha separado el código en bloques lógicos, facilitando la ejecución paso a paso.
 * **Legibilidad:** He renombrado variables (como `temp2` a `temp_intervalos`) para que el código sea "autodocumentado".
 * **Buenas prácticas:** Se ha incluido `na.rm = TRUE` en el ejemplo de `aggregate`, que es esencial para que el código no falle si faltan datos en el dataset de pediatría.
+
 
 
 ```

@@ -9,20 +9,21 @@ output:
   pdf_document: default
 ---
 
-
 El **diagrama de caja (boxplot)** es una de las herramientas **más potentes en estadística** porque resume **cinco números clave** en un solo vistazo:
 
 -   el **mínimo**,
 
--   el **primer cuartil** ($Q_1$),
+-   el **primer cuartil** ($Q_1$), el 25% de los valores están por debajo de este valor
 
--   la **mediana**, también llamado **segundo cuartil** ($Q_2$),
+-   la **mediana**, también llamado **segundo cuartil** ($Q_2$), el 50% de los dfatos están por debajo (el 50% por encima)
 
--   el **tercer cuartil** ($Q_3$) y
+-   el **tercer cuartil** ($Q_3$) , el 75% de los valores están por debajo de este valor (el 25% restante por encima)
 
 -   el **máximo**,
 
 además de identificar posibles **valores atípicos** (outliers).
+
+![](img/boxplot.png){width="478"}
 
 ## Sintaxis:
 
@@ -59,10 +60,61 @@ boxplot(distancias,
 
 ------------------------------------------------------------------------
 
-### Ejercicio 3: Comparación con Boxplots
+### Ejercicio: Boxplot a partir de una columna de data(mtcars)
+
+```{r}
+# Cargar dataset data(mtcars)  
+data(mtcars)
+# Ver las primeras filas head(mtcars)
+head(mtcars)
+```
+
+##### Boxplot de la variable `mpg`
+
+Queremos representar la distribución del **consumo de combustible** (`mpg`).
+
+```{r}
+# Boxplot de mpg
+boxplot(mtcars$mpg,         
+        main = "Boxplot del consumo de combustible (mpg)",         
+        ylab = "Millas por galón (mpg)",         
+        col = "lightblue") 
+```
+
+## Interpretación del gráfico
+
+1.  **Mediana**:\
+    La línea dentro de la caja indica la mediana, aproximadamente **19.2 mpg**.
+
+2.  **Rango intercuartílico (Q1-Q3)**:\
+    La caja abarca aproximadamente de **15.4 mpg (Q1) a 22.8 mpg (Q3)**.\
+    Esto significa que **el 50% central de los coches** consume entre estos valores.
+
+3.  **Bigotes y valores extremos**:\
+    Los bigotes muestran los valores mínimo y máximo dentro de 1.5 veces el rango intercuartílico.\
+    En este dataset, hay coches con **mpg muy bajos** que podrían considerarse **valores atípicos**.
+
+4.  **Conclusión**:\
+    La mayoría de los coches tiene un consumo entre 15 y 23 mpg, pero existen algunos **coches muy eficientes (\>30 mpg)** y algunos **muy gastones (\<12 mpg)**.
+
+## Extra
+
+Podemos cambiar colores o comparar varias variables:
+
+```{r}
+# Boxplot comparando mpg y hp (potencia) 
+boxplot(mtcars$mpg, mtcars$hp,
+  names = c("mpg", "hp"),         
+  main = "Boxplot de consumo y potencia",         
+  col = c("lightblue", "salmon"),         
+  ylab = "Valores") 
+```
+
+Este tipo de gráficos permite ver **dispersión y diferencias entre variables** de forma muy visual
+
+### Ejercicio : Comparación con Boxplots
 
 Representa en gráfico de cajas la variable "mpg" y "cyl" de la base de datos **mtcars**
-
 
 En estadística, los boxplots son ideales para **comparar grupos**. Vamos a analizar cómo varía el consumo de combustible (`mpg`) según el número de cilindros (`cyl`) en el conjunto de datos `mtcars`.
 
