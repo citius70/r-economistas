@@ -261,6 +261,24 @@ Por ejemplo: el primer niño de 5,42 años se encuentra en el intervalo (5, 6]
 
 -   Se usa `aggregate()` para resumir datos numéricos según los intervalos de edad creados.
 
+**Esta línea de código es el "corazón" de tu análisis.** Básicamente, le estás pidiendo a R que actúe como un organizador: **que separe a los niños por grupos de edad** y luego **calcule el promedio de sus medidas físicas** (peso y talla).
+
+En pocas palabras, esta línea es tu **"trituradora de datos"** para convertir una lista de cientos de niños en una tabla limpia de promedios.
+
+Aquí tienes el resumen clave:
+
+-   **`pediatria[, -1]`**: Selecciona los datos (peso, altura...) pero **salta la columna 1** (nombres o IDs), porque no se puede sacar el promedio de un nombre.
+
+-   **`by = list(edad = ...)`**: Le dice a R: "Agrupa a los niños según los **tramos de edad** que creamos antes". **Esto es importante.**
+
+-   **`FUN = mean`**: La orden mágica. Calcula la **media** (promedio) para cada grupo. **Esto es importante.**
+
+-   **`na.rm = TRUE`**: Un seguro de vida. Si a un niño le falta un dato (un `NA`), R lo ignora y calcula el promedio con los demás en lugar de dar error.
+
+**El resultado:**
+
+Pasas de tener un caos de datos individuales a una **"tabla de crecimiento estándar"** donde ves, por ejemplo, cuánto pesa y mide un niño promedio de 5, 6 o 7 años.
+
 ```{r}
 # Paso 3: Cálculo de medias: calculamos la media de todas las variables numéricas por cada grupo de edad
 resumen_edad <- aggregate(pediatria[, -1], by = list(edad = edad_intervalos), FUN = mean, na.rm = TRUE)
