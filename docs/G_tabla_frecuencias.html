@@ -1024,28 +1024,28 @@ intervalo y cada columna la media de una variable.</li>
 <li>Se usa <code>aggregate()</code> para resumir datos numéricos según
 los intervalos de edad creados.</li>
 </ul>
-<p><strong>Esta línea de código es el “corazón” de tu análisis.</strong>
-Básicamente, le estás pidiendo a R que actúe como un organizador:
-<strong>que separe a los niños por grupos de edad</strong> y luego
-<strong>calcule el promedio de sus medidas físicas</strong> (peso y
-talla).</p>
-<p>En pocas palabras, esta línea es tu <strong>“trituradora de
+<p><em><strong>Esta línea de código es el “corazón” de tu
+análisis.</strong> Básicamente, le estás pidiendo a R que actúe como un
+organizador: <strong>que separe a los niños por grupos de edad</strong>
+y luego <strong>calcule el promedio de sus medidas físicas</strong>
+(peso y talla).</em></p>
+<p><em>En pocas palabras, esta línea es tu <strong>“trituradora de
 datos”</strong> para convertir una lista de cientos de niños en una
-tabla limpia de promedios.</p>
-<p>Aquí tienes el resumen clave:</p>
+tabla limpia de promedios.</em></p>
+<p><em>Aquí tienes el resumen clave:</em></p>
 <ul>
-<li><p><strong><code>pediatria[, -1]</code></strong>: Selecciona los
+<li><p><em><strong><code>pediatria[, -1]</code></strong>: Selecciona los
 datos (peso, altura…) pero <strong>salta la columna 1</strong> (nombres
-o IDs), porque no se puede sacar el promedio de un nombre.</p></li>
-<li><p><strong><code>by = list(edad = ...)</code></strong>: Le dice a R:
-“Agrupa a los niños según los <strong>tramos de edad</strong> que
-creamos antes”. <strong>Esto es importante.</strong></p></li>
-<li><p><strong><code>FUN = mean</code></strong>: La orden mágica.
+o IDs), porque no se puede sacar el promedio de un nombre.</em></p></li>
+<li><p><em><strong><code>by = list(edad = ...)</code></strong>: Le dice
+a R: “Agrupa a los niños según los <strong>tramos de edad</strong> que
+creamos antes”. <strong>Esto es importante.</strong></em></p></li>
+<li><p><em><strong><code>FUN = mean</code></strong>: La orden mágica.
 Calcula la <strong>media</strong> (promedio) para cada grupo.
-<strong>Esto es importante.</strong></p></li>
-<li><p><strong><code>na.rm = TRUE</code></strong>: Un seguro de vida. Si
-a un niño le falta un dato (un <code>NA</code>), R lo ignora y calcula
-el promedio con los demás en lugar de dar error.</p></li>
+<strong>Esto es importante.</strong></em></p></li>
+<li><p><em><strong><code>na.rm = TRUE</code></strong>: Un seguro de
+vida. Si a un niño le falta un dato (un <code>NA</code>), R lo ignora y
+calcula el promedio con los demás en lugar de dar error.</em></p></li>
 </ul>
 <p><strong>El resultado:</strong></p>
 <p>Pasas de tener un caos de datos individuales a una <strong>“tabla de
