@@ -11,17 +11,59 @@ output:
 
 ## 1. Frecuencias Unidimensionales `table` y `prop.table`
 
-Utilizamos `table()` para obtener la frecuencia absoluta (conteo) y `prop.table()` para la frecuencia relativa (proporciones).
+### 1.1. Frecuencias absoluta con `table()`
+
+La función `table()` simplemente **cuenta** cuántas veces aparece cada valor en tu conjunto (por ejemplo, una columna de una data) de datos. Es el **conteo directo**.
+
+Si usamos la columna `cyl` (cilindros) de los coches en `mtcars`:
 
 ```{r}
+# Creamos la tabla de conteo 
+fa <- table(mtcars$cyl)  
+
+# Ver el resultado 
+print(fa)
+```
+
+**¿Qué verás?** R te dirá algo como:
+
+-   **4**: 11 (Hay 11 coches de 4 cilindros)
+
+-   **6**: 7 (Hay 7 coches de 6 cilindros)
+
+-   **8**: 14 (Hay 14 coches de 8 cilindros)
+
+#### 1.2. Frecuencia Relativa con `prop.table()`
+
+A veces no quieres saber cuántos hay, sino **qué porcentaje del total** representan. Para eso usamos `prop.table()`.
+
+> **Ojo aquí: Muy importante:** `prop.table()` no se aplica directamente a los datos iniciales, sino a una tabla que ya hayas creado con `table()`, en ente caso sobre la tabla `fa`.
+
+```{r}
+# Convertimos la tabla anterior en proporciones (del 0 al 1)
+proporciones <- prop.table(fa)
+
+print(proporciones)
+```
+
+Se interpreta: el 34.38% de los coches tienen 4 cilindros, el 21.88% tiene 6 cilindros y el 43.75% tienen 8 cilindros.
+
+### Ejercicio 1:
+
+Calcula las **Frecuencias Absolutas** y las **Frecuencias Relativas** de la columna `sexo` del archivo de texto `empleados.txt`.
+
+```{r}
+# Cargamos el archivo de texto con read.table
+# Lo guardamos como datos
 datos <- read.table(file = "empleados.txt", header = TRUE)
 
+# Visualizamos los primeros filas
 head(datos)
 
 ```
 
 ```{r}
-# Frecuencia absoluta
+# Frecuencia absoluta de la columna sexo del archivo empleados.txt
 tabla1d <- table(datos$sexo)
 
 #Mostramos la tabla1d relativa
@@ -30,8 +72,8 @@ tabla1d
 ```
 
 ```{r}
-#  Frecuencia relativa (proporción)
-# Hay que hacerla tomando como base la tabla de frecuencia absoluta
+# Frecuencia relativa (proporción)
+# IMPORTANTE: Hay que hacerla tomando como base la tabla de frecuencia absoluta t1d, no desde los datos originales
 
 tabla1d.relativa <- prop.table(tabla1d)
 
@@ -41,18 +83,66 @@ tabla1d.relativa
 
 ## 2. Tablas Bidimensionales (Tablas de Contingencia)
 
-Ideales para analizar la relación entre dos variables categóricas.
+Ideales para analizar la relación entre dos variables categóricas. Las **tablas de contingencia** nos permiten ver si existe una "amistad" entre dos variables.
+
+Por ejemplo: ¿Los coches con más cilindros suelen ser automáticos o manuales?
+
+### 2.1. La tabla básica `table(var1, var2)`
+
+Para cruzar datos en R, simplemente pasas dos columnas a la función `table()`. Usemos `cyl` (cilindros) y `am` (transmisión: 0 = automático, 1 = manual):
 
 ```{r}
+# Creamos la tabla bidimensional con dos columnas cyl y am
+tabla_bidimen <- table(mtcars$cyl, mtcars$am)
+
+print(tabla_bidimen)
+```
+
+**Interpretación**: Hay **3 coches** de **4 cilindros automáticos** **(0)**
+
+### Ejercicio 2: 
+
+Calcular la **tabla de contingencia o bidimensional** de las columnas `sexo` y `catlab` del archivo de texto `empleados.txt`
+
+```{r}
+# Cargamos el archivo
+datos <- read.table(file = "empleados.txt", header = TRUE)
+
+# Visualizamos los primeros filas
+head(datos)
+
 
 tab2d <- table(datos$sexo, datos$catlab)
 
+
+
+
+
+
+```
+
+```{r}
+# Creamos la tabla bidimensional con table(  ,  )
+tab2d <- table(datos$sexo, datos$catlab)
+
+```
+
+```{r}
+# Proporciones sobre el total de la tabla (todo suma 1)
+prop.table(tab2d)
+```
+
+```{r}
 # Porcentajes sobre el total de la tabla
 prop.table(tab2d) * 100
+```
 
+```{r}
 # Porcentajes por filas (margen 1)
 prop.table(tab2d, 1) * 100
+```
 
+```{r}
 # Porcentajes por columnas (margen 2)
 prop.table(tab2d, 2) * 100
 
@@ -94,8 +184,6 @@ Para variables continuas, es necesario convertir valores numéricos en intervalo
 
 -   <div>
 
-    > 
-    >
     > Nota: por defecto `cut()` **el intervalo incluye el límite superior** `(a,b]`.
 
     </div>
@@ -158,7 +246,5 @@ resumen_edad
 * **Estructura:** Se ha separado el código en bloques lógicos, facilitando la ejecución paso a paso.
 * **Legibilidad:** He renombrado variables (como `temp2` a `temp_intervalos`) para que el código sea "autodocumentado".
 * **Buenas prácticas:** Se ha incluido `na.rm = TRUE` en el ejemplo de `aggregate`, que es esencial para que el código no falle si faltan datos en el dataset de pediatría.
-
-
 
 ```
