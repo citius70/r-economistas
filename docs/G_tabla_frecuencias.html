@@ -419,12 +419,61 @@ $(document).ready(function () {
 class="section level2">
 <h2>1. Frecuencias Unidimensionales <code>table</code> y
 <code>prop.table</code></h2>
-<p>Utilizamos <code>table()</code> para obtener la frecuencia absoluta
-(conteo) y <code>prop.table()</code> para la frecuencia relativa
-(proporciones).</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">&quot;empleados.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code></pre></div>
+<div id="frecuencias-absoluta-con-table" class="section level3">
+<h3>1.1. Frecuencias absoluta con <code>table()</code></h3>
+<p>La función <code>table()</code> simplemente <strong>cuenta</strong>
+cuántas veces aparece cada valor en tu conjunto (por ejemplo, una
+columna de una data) de datos. Es el <strong>conteo
+directo</strong>.</p>
+<p>Si usamos la columna <code>cyl</code> (cilindros) de los coches en
+<code>mtcars</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Creamos la tabla de conteo </span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>fa <span class="ot">&lt;-</span> <span class="fu">table</span>(mtcars<span class="sc">$</span>cyl)  </span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co"># Ver el resultado </span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">print</span>(fa)</span></code></pre></div>
+<pre><code>## 
+##  4  6  8 
+## 11  7 14</code></pre>
+<p><strong>¿Qué verás?</strong> R te dirá algo como:</p>
+<ul>
+<li><p><strong>4</strong>: 11 (Hay 11 coches de 4 cilindros)</p></li>
+<li><p><strong>6</strong>: 7 (Hay 7 coches de 6 cilindros)</p></li>
+<li><p><strong>8</strong>: 14 (Hay 14 coches de 8 cilindros)</p></li>
+</ul>
+<div id="frecuencia-relativa-con-prop.table" class="section level4">
+<h4>1.2. Frecuencia Relativa con <code>prop.table()</code></h4>
+<p>A veces no quieres saber cuántos hay, sino <strong>qué porcentaje del
+total</strong> representan. Para eso usamos
+<code>prop.table()</code>.</p>
+<blockquote>
+<p><strong>Ojo aquí: Muy importante:</strong> <code>prop.table()</code>
+no se aplica directamente a los datos iniciales, sino a una tabla que ya
+hayas creado con <code>table()</code>, en ente caso sobre la tabla
+<code>fa</code>.</p>
+</blockquote>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Convertimos la tabla anterior en proporciones (del 0 al 1)</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>proporciones <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(fa)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="fu">print</span>(proporciones)</span></code></pre></div>
+<pre><code>## 
+##       4       6       8 
+## 0.34375 0.21875 0.43750</code></pre>
+<p>Se interpreta: el 34.38% de los coches tienen 4 cilindros, el 21.88%
+tiene 6 cilindros y el 43.75% tienen 8 cilindros.</p>
+</div>
+</div>
+<div id="ejercicio-1" class="section level3">
+<h3>Ejercicio 1:</h3>
+<p>Calcula las <strong>Frecuencias Absolutas</strong> y las
+<strong>Frecuencias Relativas</strong> de la columna <code>sexo</code>
+del archivo de texto <code>empleados.txt</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Cargamos el archivo de texto con read.table</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co"># Lo guardamos como datos</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">&quot;empleados.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co"># Visualizamos los primeros filas</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code></pre></div>
 <pre><code>##   id   sexo   fechnac educ         catlab salario salini tiempemp expprev
 ## 1  1 Hombre  2/3/1952   15      Directivo   57000  27000       98     144
 ## 2  2 Hombre 5/23/1958   16 Administrativo   40200  18750       98      36
@@ -439,80 +488,167 @@ class="section level2">
 ## 4      No
 ## 5      No
 ## 6      No</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Frecuencia absoluta</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>tabla1d <span class="ot">&lt;-</span> <span class="fu">table</span>(datos<span class="sc">$</span>sexo)</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#Mostramos la tabla1d relativa</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>tabla1d</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Frecuencia absoluta de la columna sexo del archivo empleados.txt</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>tabla1d <span class="ot">&lt;-</span> <span class="fu">table</span>(datos<span class="sc">$</span>sexo)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#Mostramos la tabla1d relativa</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>tabla1d</span></code></pre></div>
 <pre><code>## 
 ## Hombre  Mujer 
 ##    258    216</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co">#  Frecuencia relativa (proporción)</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co"># Hay que hacerla tomando como base la tabla de frecuencia absoluta</span></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>tabla1d.relativa <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(tabla1d)</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#Mostramos tabla1d.relativa</span></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>tabla1d.relativa</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Frecuencia relativa (proporción)</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co"># IMPORTANTE: Hay que hacerla tomando como base la tabla de frecuencia absoluta t1d, no desde los datos originales</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>tabla1d.relativa <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(tabla1d)</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#Mostramos tabla1d.relativa</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>tabla1d.relativa</span></code></pre></div>
 <pre><code>## 
 ##    Hombre     Mujer 
 ## 0.5443038 0.4556962</code></pre>
 </div>
+</div>
 <div id="tablas-bidimensionales-tablas-de-contingencia"
 class="section level2">
 <h2>2. Tablas Bidimensionales (Tablas de Contingencia)</h2>
-<p>Ideales para analizar la relación entre dos variables
-categóricas.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>tab2d <span class="ot">&lt;-</span> <span class="fu">table</span>(datos<span class="sc">$</span>sexo, datos<span class="sc">$</span>catlab)</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co"># Porcentajes sobre el total de la tabla</span></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="fu">prop.table</span>(tab2d) <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
+<p>Ideales para analizar la relación entre dos variables categóricas.
+Las <strong>tablas de contingencia</strong> nos permiten ver si existe
+una “amistad” entre dos variables.</p>
+<p>Por ejemplo: ¿Los coches con más cilindros suelen ser automáticos o
+manuales?</p>
+<div id="la-tabla-básica-tablevar1-var2" class="section level3">
+<h3>2.1. La tabla básica <code>table(var1, var2)</code></h3>
+<p>Para cruzar datos en R, simplemente pasas dos columnas a la función
+<code>table()</code>. Usemos <code>cyl</code> (cilindros) y
+<code>am</code> (transmisión: 0 = automático, 1 = manual):</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Creamos la tabla bidimensional con dos columnas cyl y am</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>tabla_bidimen <span class="ot">&lt;-</span> <span class="fu">table</span>(mtcars<span class="sc">$</span>cyl, mtcars<span class="sc">$</span>am)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="fu">print</span>(tabla_bidimen)</span></code></pre></div>
+<pre><code>##    
+##      0  1
+##   4  3  8
+##   6  4  3
+##   8 12  2</code></pre>
+<p><strong>Interpretación</strong>: Hay <strong>3 coches</strong> de
+<strong>4 cilindros automáticos</strong> <strong>(0)</strong></p>
+</div>
+<div id="ejercicio-2" class="section level3">
+<h3>Ejercicio 2:</h3>
+<p>Calcular la <strong>tabla de contingencia o bidimensional</strong> de
+las columnas <code>sexo</code> y <code>catlab</code> del archivo de
+texto <code>empleados.txt</code></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Cargamos el archivo</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">&quot;empleados.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co"># Visualizamos los primeros filas</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code></pre></div>
+<pre><code>##   id   sexo   fechnac educ         catlab salario salini tiempemp expprev
+## 1  1 Hombre  2/3/1952   15      Directivo   57000  27000       98     144
+## 2  2 Hombre 5/23/1958   16 Administrativo   40200  18750       98      36
+## 3  3  Mujer 7/26/1929   12 Administrativo   21450  12000       98     381
+## 4  4  Mujer 4/15/1947    8 Administrativo   21900  13200       98     190
+## 5  5 Hombre  2/9/1955   15 Administrativo   45000  21000       98     138
+## 6  6 Hombre 8/22/1958   15 Administrativo   32100  13500       98      67
+##   minoria
+## 1      No
+## 2      No
+## 3      No
+## 4      No
+## 5      No
+## 6      No</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>tab2d <span class="ot">&lt;-</span> <span class="fu">table</span>(datos<span class="sc">$</span>sexo, datos<span class="sc">$</span>catlab)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># Creamos la tabla bidimensional con table(  ,  )</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>tab2d <span class="ot">&lt;-</span> <span class="fu">table</span>(datos<span class="sc">$</span>sexo, datos<span class="sc">$</span>catlab)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Proporciones sobre el total de la tabla (todo suma 1)</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="fu">prop.table</span>(tab2d)</span></code></pre></div>
+<pre><code>##         
+##          Administrativo  Directivo  Seguridad
+##   Hombre     0.33122363 0.15611814 0.05696203
+##   Mujer      0.43459916 0.02109705 0.00000000</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co"># Porcentajes sobre el total de la tabla</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="fu">prop.table</span>(tab2d) <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
 <pre><code>##         
 ##          Administrativo Directivo Seguridad
 ##   Hombre      33.122363 15.611814  5.696203
 ##   Mujer       43.459916  2.109705  0.000000</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Porcentajes por filas (margen 1)</span></span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">prop.table</span>(tab2d, <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># Porcentajes por filas (margen 1)</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="fu">prop.table</span>(tab2d, <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
 <pre><code>##         
 ##          Administrativo Directivo Seguridad
 ##   Hombre       60.85271  28.68217  10.46512
 ##   Mujer        95.37037   4.62963   0.00000</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Porcentajes por columnas (margen 2)</span></span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fu">prop.table</span>(tab2d, <span class="dv">2</span>) <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co"># Porcentajes por columnas (margen 2)</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="fu">prop.table</span>(tab2d, <span class="dv">2</span>) <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
 <pre><code>##         
 ##          Administrativo Directivo Seguridad
 ##   Hombre       43.25069  88.09524 100.00000
 ##   Mujer        56.74931  11.90476   0.00000</code></pre>
 </div>
+</div>
 <div id="construcción-de-una-tabla-de-frecuencias-completa"
 class="section level2">
 <h2>3. Construcción de una Tabla de Frecuencias Completa</h2>
-<p>Para variables cualitativas, podemos ensamblar una tabla profesional
-que incluya frecuencias absolutas (<span
-class="math inline">\(n_i\)</span>), acumuladas (<span
-class="math inline">\(N_i\)</span>), relativas (<span
-class="math inline">\(f_i\)</span>) y relativas acumuladas (<span
-class="math inline">\(F_i\)</span>).</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>fa   <span class="ot">&lt;-</span> <span class="fu">table</span>(datos<span class="sc">$</span>educ)      <span class="co"># Frecuencia absoluta</span></span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>fac  <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(fa)            <span class="co"># Frecuencia absoluta acumulada</span></span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>fr   <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(fa)        <span class="co"># Frecuencia relativa</span></span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>facr <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(fr)            <span class="co"># Frecuencia relativa acumulada</span></span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co"># Ensamblado en un Data Frame</span></span>
-<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>mitabla <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(fa, fac, fr, facr)[, <span class="sc">-</span><span class="dv">4</span>]</span>
-<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="fu">colnames</span>(mitabla) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Categoría&quot;</span>, <span class="st">&quot;ni&quot;</span>, <span class="st">&quot;Ni&quot;</span>, <span class="st">&quot;fi&quot;</span>, <span class="st">&quot;Fi&quot;</span>)</span>
-<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>mitabla</span></code></pre></div>
-<pre><code>##    Categoría  ni  Ni          fi        Fi
-## 8          8  53  53 0.111814346 0.1118143
-## 12        12 190 243 0.400843882 0.5126582
-## 14        14   6 249 0.012658228 0.5253165
-## 15        15 116 365 0.244725738 0.7700422
-## 16        16  59 424 0.124472574 0.8945148
-## 17        17  11 435 0.023206751 0.9177215
-## 18        18   9 444 0.018987342 0.9367089
-## 19        19  27 471 0.056962025 0.9936709
-## 20        20   2 473 0.004219409 0.9978903
-## 21        21   1 474 0.002109705 1.0000000</code></pre>
+<p>Para <strong>variables cualitativas (numéricas)</strong>, podemos
+ensamblar una tabla profesional que incluya <strong>frecuencias
+absolutas (</strong><span class="math inline">\(n_i\)</span><strong>),
+acumuladas (</strong><span class="math inline">\(N_i\)</span><strong>),
+relativas (</strong><span class="math inline">\(f_i\)</span><strong>) y
+relativas acumuladas (</strong><span
+class="math inline">\(F_i\)</span><strong>).</strong></p>
+<p>Ejercicio 3:</p>
+<p>Crear la <strong>tabla de frecuencias completa</strong> de la columna
+<code>educ</code> del archivo de texto <code>empleados.txt.</code></p>
+<p>Aunque ya tenemos el archivo cargado de antes, vamos a cargarlo de
+nuevo:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="co"># Cargamos el archivo</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">&quot;empleados.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a><span class="co"># Visualizamos los primeros filas</span></span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code></pre></div>
+<pre><code>##   id   sexo   fechnac educ         catlab salario salini tiempemp expprev
+## 1  1 Hombre  2/3/1952   15      Directivo   57000  27000       98     144
+## 2  2 Hombre 5/23/1958   16 Administrativo   40200  18750       98      36
+## 3  3  Mujer 7/26/1929   12 Administrativo   21450  12000       98     381
+## 4  4  Mujer 4/15/1947    8 Administrativo   21900  13200       98     190
+## 5  5 Hombre  2/9/1955   15 Administrativo   45000  21000       98     138
+## 6  6 Hombre 8/22/1958   15 Administrativo   32100  13500       98      67
+##   minoria
+## 1      No
+## 2      No
+## 3      No
+## 4      No
+## 5      No
+## 6      No</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>fa   <span class="ot">&lt;-</span> <span class="fu">table</span>(datos<span class="sc">$</span>educ)     <span class="co"># Frecuencia absoluta, con table</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>fac  <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(fa)            <span class="co"># Frecuencia absoluta acumulada, con cumsum sobre fa</span></span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>fr   <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(fa)        <span class="co"># Frecuencia relativa, con prop.table</span></span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a>facr <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(fr)            <span class="co"># Frecuencia relativa acumulada, con cunsum sobre fr</span></span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a><span class="co"># Ensamblado en un Data Frame los vectore</span></span>
+<span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a>mitabla <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(fa, fac, fr, facr)[, <span class="sc">-</span><span class="dv">4</span>]</span>
+<span id="cb27-8"><a href="#cb27-8" tabindex="-1"></a><span class="fu">colnames</span>(mitabla) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Categoría educ&quot;</span>, <span class="st">&quot;ni&quot;</span>, <span class="st">&quot;Ni&quot;</span>, <span class="st">&quot;fi&quot;</span>, <span class="st">&quot;Fi&quot;</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" tabindex="-1"></a>mitabla</span></code></pre></div>
+<pre><code>##    Categoría educ  ni  Ni          fi        Fi
+## 8               8  53  53 0.111814346 0.1118143
+## 12             12 190 243 0.400843882 0.5126582
+## 14             14   6 249 0.012658228 0.5253165
+## 15             15 116 365 0.244725738 0.7700422
+## 16             16  59 424 0.124472574 0.8945148
+## 17             17  11 435 0.023206751 0.9177215
+## 18             18   9 444 0.018987342 0.9367089
+## 19             19  27 471 0.056962025 0.9936709
+## 20             20   2 473 0.004219409 0.9978903
+## 21             21   1 474 0.002109705 1.0000000</code></pre>
+<div id="un-pequeño-detalle-técnico" class="section level3">
+<h3>Un pequeño detalle técnico:</h3>
+<p>El comando <strong><code>[, -4]</code></strong> que usaste es muy
+inteligente. Cuando haces <code>data.frame(fa, fr...)</code>, R repite
+la columna de las categorías porque tanto <code>fa</code> como
+<code>fr</code> la llevan consigo. Al poner <code>-4</code>, borras esa
+columna repetida para que la tabla quede impecable.</p>
+<hr />
+</div>
 </div>
 <div id="agrupación-en-intervalos-variables-numéricas"
 class="section level2">
@@ -540,13 +676,13 @@ límite superior</strong> <code>(a,b]</code>.</p>
 </ul>
 <p>3️⃣ <code>temp_intervalos</code> → factor con el <strong>intervalo
 asignado a cada temperatura</strong>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">22.52</span>, <span class="fl">18.70</span>, <span class="fl">19.61</span>, <span class="fl">22.79</span>, <span class="fl">29.38</span>, <span class="fl">30.19</span>, <span class="fl">33.16</span>, <span class="fl">36.97</span>, <span class="fl">33.29</span>, <span class="fl">28.98</span>, <span class="fl">24.31</span>, <span class="fl">22.43</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co"># Agrupación en rangos definidos</span></span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>temp_intervalos <span class="ot">&lt;-</span> <span class="fu">cut</span>(temp, <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">50</span>))</span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co"># Mostramos los intervalos hechos</span></span>
-<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>temp_intervalos</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">22.52</span>, <span class="fl">18.70</span>, <span class="fl">19.61</span>, <span class="fl">22.79</span>, <span class="fl">29.38</span>, <span class="fl">30.19</span>, <span class="fl">33.16</span>, <span class="fl">36.97</span>, <span class="fl">33.29</span>, <span class="fl">28.98</span>, <span class="fl">24.31</span>, <span class="fl">22.43</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a><span class="co"># Agrupación en rangos definidos</span></span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>temp_intervalos <span class="ot">&lt;-</span> <span class="fu">cut</span>(temp, <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">50</span>))</span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a><span class="co"># Mostramos los intervalos hechos</span></span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a>temp_intervalos</span></code></pre></div>
 <pre><code>##  [1] (20,30] (0,20]  (0,20]  (20,30] (20,30] (30,50] (30,50] (30,50] (30,50]
 ## [10] (20,30] (20,30] (20,30]
 ## Levels: (0,20] (20,30] (30,50]</code></pre>
@@ -573,15 +709,15 @@ la media de una variable.</p></li>
 Se puede comprobar cuántos niños hay en cada intervalo para interpretar
 correctamente las medias.</p></li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>pediatria <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;children.csv&quot;</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="co"># Creamos intervalos de edad de 1 en 1 año (de 5 a 19)</span></span>
-<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>edad_intervalos <span class="ot">&lt;-</span> <span class="fu">cut</span>(pediatria<span class="sc">$</span>edad, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">19</span>))</span>
-<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a></span>
-<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a><span class="co"># Calculamos la media de todas las variables numéricas por cada grupo de edad</span></span>
-<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>resumen_edad <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(pediatria[, <span class="sc">-</span><span class="dv">1</span>], <span class="at">by =</span> <span class="fu">list</span>(<span class="at">edad =</span> edad_intervalos), </span>
-<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a>                          <span class="at">FUN =</span> mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>edad_intervalos</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>pediatria <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;children.csv&quot;</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a><span class="co"># Creamos intervalos de edad de 1 en 1 año (de 5 a 19)</span></span>
+<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>edad_intervalos <span class="ot">&lt;-</span> <span class="fu">cut</span>(pediatria<span class="sc">$</span>edad, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">19</span>))</span>
+<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a><span class="co"># Calculamos la media de todas las variables numéricas por cada grupo de edad</span></span>
+<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a>resumen_edad <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(pediatria[, <span class="sc">-</span><span class="dv">1</span>], <span class="at">by =</span> <span class="fu">list</span>(<span class="at">edad =</span> edad_intervalos), </span>
+<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a>                          <span class="at">FUN =</span> mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>edad_intervalos</span></code></pre></div>
 <pre><code>##    [1] (5,6]   (5,6]   (5,6]   (5,6]   (5,6]   (5,6]   (5,6]   (5,6]   (6,7]  
 ##   [10] (6,7]   (6,7]   (6,7]   (6,7]   (6,7]   (6,7]   (6,7]   (6,7]   (6,7]  
 ##   [19] (6,7]   (6,7]   (6,7]   (6,7]   (6,7]   (6,7]   (6,7]   (6,7]   (6,7]  
@@ -844,7 +980,7 @@ correctamente las medias.</p></li>
 ## [2332] (18,19] (18,19] (18,19] (18,19] (18,19] (18,19] (18,19] (18,19] (18,19]
 ## [2341] (18,19] (18,19] (18,19] (18,19] (18,19]
 ## 14 Levels: (5,6] (6,7] (7,8] (8,9] (9,10] (10,11] (11,12] (12,13] ... (18,19]</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>resumen_edad</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>resumen_edad</span></code></pre></div>
 <pre><code>##       edad      edad     peso    talla
 ## 1    (5,6]  5.707500 21.50000 118.9500
 ## 2    (6,7]  6.649310 23.40517 120.3414
@@ -868,8 +1004,6 @@ correctamente las medias.</p></li>
 * **Estructura:** Se ha separado el código en bloques lógicos, facilitando la ejecución paso a paso.
 * **Legibilidad:** He renombrado variables (como `temp2` a `temp_intervalos`) para que el código sea &quot;autodocumentado&quot;.
 * **Buenas prácticas:** Se ha incluido `na.rm = TRUE` en el ejemplo de `aggregate`, que es esencial para que el código no falle si faltan datos en el dataset de pediatría.
-
-
 </code></pre>
 </div>
 </div>

@@ -81,6 +81,8 @@ tabla1d.relativa <- prop.table(tabla1d)
 tabla1d.relativa
 ```
 
+----------------------------------
+
 ## 2. Tablas Bidimensionales (Tablas de Contingencia)
 
 Ideales para analizar la relación entre dos variables categóricas. Las **tablas de contingencia** nos permiten ver si existe una "amistad" entre dos variables.
@@ -113,12 +115,6 @@ head(datos)
 
 
 tab2d <- table(datos$sexo, datos$catlab)
-
-
-
-
-
-
 ```
 
 ```{r}
@@ -148,30 +144,69 @@ prop.table(tab2d, 2) * 100
 
 ```
 
+----------------------------------
+
 ## 3. Construcción de una Tabla de Frecuencias Completa
 
-Para variables cualitativas, podemos ensamblar una tabla profesional que incluya frecuencias absolutas ($n_i$), acumuladas ($N_i$), relativas ($f_i$) y relativas acumuladas ($F_i$).
+Para **variables cualitativas (numéricas)**, podemos ensamblar una tabla profesional que incluya **frecuencias absolutas (**$n_i$**), acumuladas (**$N_i$**), relativas (**$f_i$**) y relativas acumuladas (**$F_i$**).**
+
+Ejercicio 3:
+
+Crear la **tabla de frecuencias completa** de la columna `educ` del archivo de texto `empleados.txt.`
+
+Aunque ya tenemos el archivo cargado de antes, vamos a cargarlo de nuevo:
 
 ```{r}
-fa   <- table(datos$educ)      # Frecuencia absoluta
-fac  <- cumsum(fa)            # Frecuencia absoluta acumulada
-fr   <- prop.table(fa)        # Frecuencia relativa
-facr <- cumsum(fr)            # Frecuencia relativa acumulada
+# Cargamos el archivo
+datos <- read.table(file = "empleados.txt", header = TRUE)
 
-# Ensamblado en un Data Frame
+# Visualizamos los primeros filas
+head(datos)
+```
+
+```{r}
+fa   <- table(datos$educ)     # Frecuencia absoluta, con table
+fac  <- cumsum(fa)            # Frecuencia absoluta acumulada, con cumsum sobre fa
+fr   <- prop.table(fa)        # Frecuencia relativa, con prop.table
+facr <- cumsum(fr)            # Frecuencia relativa acumulada, con cunsum sobre fr
+
+# Ensamblado en un Data Frame los vectore
 mitabla <- data.frame(fa, fac, fr, facr)[, -4]
-colnames(mitabla) <- c("Categoría", "ni", "Ni", "fi", "Fi")
+colnames(mitabla) <- c("Categoría educ", "ni", "Ni", "fi", "Fi")
 mitabla
 
 ```
 
-## 4. Agrupación en Intervalos (Variables Numéricas)
+### Un pequeño detalle técnico:
 
-Para variables continuas, es necesario convertir valores numéricos en intervalos categóricos mediante `cut()`.
+El comando **`[, -4]`** que usaste es muy inteligente. Cuando haces `data.frame(fa, fr...)`, R repite la columna de las categorías porque tanto `fa` como `fr` la llevan consigo. Al poner `-4`, borras esa columna repetida para que la tabla quede impecable.
 
-### Ejemplo básico
+----------------------------------
 
-### Qué hace cada parte
+## 4. Agrupación en Intervalos (Variables Numéricas) con `cut`
+
+En análisis de datos, cuando una **variable numérica continua** (edad, ingresos, peso, etc.) tiene muchos valores distintos dentro de un intervalo, conviene **agruparlos en intervalos** para facilitar el análisis y la visualización. En R esto se gestiona con la función **`cut()`**, que transforma una variable numérica en una **variable categórica por rangos**.
+
+### Ejemplo:
+
+Se ha registrado la **temperatura media mensual (en °C)** de una ciudad a lo largo de un año. Los valores observados se encuentran en el vector `temperatura <- c(22.52, 18.70, 19.61, 22.79, 29.38, 30.19, 33.16, 36.97, 33.29, 28.98, 24.31, 22.43).` Agrupa las temperaturas en **intervalos** utilizando los siguientes rangos:
+
+-   0–20 °C
+
+-   20–30 °C
+
+-   30–50 °C
+
+```{r}
+temp <- c(22.52, 18.70, 19.61, 22.79, 29.38, 30.19, 33.16, 36.97, 33.29, 28.98, 24.31, 22.43)
+
+# Agrupación del vector temp en los rangos (breaks) definidos utlizando cut
+temp_intervalos <- cut(temp, breaks = c(0, 20, 30, 50))
+
+# Mostramos los intervalos hechos
+temp_intervalos
+
+```
 
 1️⃣ `temp` → vector de temperaturas.\
 2️⃣ `cut(temp, breaks = c(0, 20, 30, 50))` → divide los valores en **intervalos**:
@@ -189,17 +224,6 @@ Para variables continuas, es necesario convertir valores numéricos en intervalo
     </div>
 
 3️⃣ `temp_intervalos` → factor con el **intervalo asignado a cada temperatura**.
-
-```{r}
-temp <- c(22.52, 18.70, 19.61, 22.79, 29.38, 30.19, 33.16, 36.97, 33.29, 28.98, 24.31, 22.43)
-
-# Agrupación en rangos definidos
-temp_intervalos <- cut(temp, breaks = c(0, 20, 30, 50))
-
-# Mostramos los intervalos hechos
-temp_intervalos
-
-```
 
 ### Aplicación práctica en Pediatría
 
