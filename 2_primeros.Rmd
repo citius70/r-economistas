@@ -1,17 +1,12 @@
 ---
-title: "2: Archivos y ventanas de RStudio"
-output:
-  html_document:
-      toc: false
-      theme: cosmo  # Puedes elegir: united, cosmo, lumen, flatly...
-      highlight: tango
-  word_document: default
-  pdf_document: default
+title: "Primeros pasos"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
 ```
+
+# 2. Introducción a R
 
 R es un lenguaje de programación y un entorno de software utilizado principalmente para el **análisis estadístico** y la **visualización de datos**. Sin embargo, también se puede utilizar como una calculadora avanzada.
 
@@ -35,7 +30,7 @@ Es un archivo de **documento dinámico**.
 
 ------------------------------------------------------------------------
 
-### 2.1.3. Cómo los diferencia RStudio?
+## 2.2. Cómo los diferencia RStudio?
 
 | Característica | Archivo `.R` | Archivo `.Rmd` |
 |----|----|----|
@@ -56,7 +51,7 @@ Si estás empezando, te recomiendo usar **`.Rmd`** la mayor parte del tiempo. **
 
 Abre R o RStudio. Deberías ver una consola donde puedes ingresar comandos de R.
 
-## 2.3 La ventana de consola y la ventana de script
+## 2.3 Primeros pasos: la ventana de consola y la ventana de script
 
 ### 2.3.1. La ventana Consola
 
@@ -64,9 +59,7 @@ La **consola** es el motor operativo de RStudio, diseñado exclusivamente para l
 
 La consola funciona bajo una lógica de "pizarra blanca": **está hecha para probar ideas, verificar funciones rápidamente, detectar errores de forma inmediata, o incluso, para instalar paquetes**. Sin embargo, carece de una función de guardado automático para el usuario. **Al cerrar RStudio, todo el contenido de la consola se pierde de manera definitiva**.
 
-![](img/ventana_consola.png)
-
-En definitival podemos considerar la consola como una **calculadora rápida** de R que ejecuta línea a línea al pulsar **CTRL + ENTER**.
+En definitival podemos considerar la consola como una calculadora rápida de R que ejecuta línea a línea al pulsar CTRL + ENTER.
 
 ```{r consola, echo=TRUE}
 
@@ -92,8 +85,6 @@ La ventana de Script es la ventana/editor más versátil de RStudio. Es el "tall
 -   la \*Consola\*\* es donde pruebas cosas rápidas y ves los resultados,
 
 -   el \*Script\*\* es donde escribes tus programas, guardas tu código y lo haces reproducible.
-
--   ![](img/ventana_script.png)
 
 Si estás trabajando en RMarkdown (.Rmd), tu ventana de script es la que tiene el fondo blanco donde escribes el texto y los bloques de código \`\`\`{r}.
 
@@ -145,20 +136,6 @@ setwd("c:/")
 | Máximo y Mínimo               | `range(x)`       |
 | Ordenación                    | `sort(x)`        |
 | Resumen estadístico           | `summary(x)`     |
-
-Ejemplos:
-
-```{r}
-x = 16
-sqrt(x)
-exp(x)
-
-```
-
-```{mivector = c(3,6,2,7)}
-length(mivector)
-mean(mivector)
-```
 
 ## Operadores en R
 

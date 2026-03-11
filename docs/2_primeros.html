@@ -11,12 +11,12 @@
 
 
 
-<title>2_primeros.knit</title>
+<title>Primeros pasos</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -243,16 +243,70 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Inicio</a>
+  <a href="1_instalacion.html">1 Inst</a>
 </li>
 <li>
-  <a href="1_instalacion.html">Instalación</a>
+  <a href="2_ventanas.html">2 Introd</a>
 </li>
 <li>
-  <a href="2_primeros.html">Introducción a R</a>
+  <a href="3_funciones_operadores.html">3 Func y oper básic</a>
 </li>
 <li>
-  <a href="graficos/graficos.html">Visualizaciones en R</a>
+  <a href="4_paquetes.html">4 Paquet</a>
+</li>
+<li>
+  <a href="5_vectores.html">5 Vect</a>
+</li>
+<li>
+  <a href="6_matrices.html">6 Matr</a>
+</li>
+<li>
+  <a href="7_arrays.html">7 Arra</a>
+</li>
+<li>
+  <a href="8_dataframes.html">8 Data Fr</a>
+</li>
+<li>
+  <a href="9_data.html">9 Datos ejem (data)</a>
+</li>
+<li>
+  <a href="10_lectura_escritura.html">10 Lect y escr archi exter</a>
+</li>
+<li>
+  <a href="11_funciones.html">11 Func (function)</a>
+</li>
+<li>
+  <a href="12_aleatorios.html">12 Núme aleat</a>
+</li>
+<li>
+  <a href="Ejercicio_1.html">Eje 1</a>
+</li>
+<li>
+  <a href="Ejercicio_2.html">Eje 2</a>
+</li>
+<li>
+  <a href="A_dispersion.html">A Gráf dispersión</a>
+</li>
+<li>
+  <a href="B_barras.html">B Gráf barra o distrib</a>
+</li>
+<li>
+  <a href="C_histograma.html">C Histog</a>
+</li>
+<li>
+  <a href="D_boxplot.html">D Gráf caja o Boxplot</a>
+</li>
+<li>
+  <a href="E_matrices_dispersion.html">E Matr Gráf Dispers</a>
+</li>
+<li>
+  <a href="F_coeficiente_correlacion.html">F Coef Correl</a>
+</li>
+<li>
+  <a href="G_tabla_frecuencias.html">G Tabl Frec</a>
+</li>
+<li>
+  <a href="H_medidas_posicion_dispersion_forma.html">H Med Pos, Disp, Form</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -266,13 +320,13 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore">Primeros pasos</h1>
 
 </div>
 
 
-<ol start="2" style="list-style-type: decimal">
-<li>Archivos y ventanas de RStudio</li>
-</ol>
+<div id="introducción-a-r" class="section level1">
+<h1>2. Introducción a R</h1>
 <p>R es un lenguaje de programación y un entorno de software utilizado
 principalmente para el <strong>análisis estadístico</strong> y la
 <strong>visualización de datos</strong>. Sin embargo, también se puede
@@ -387,10 +441,8 @@ errores de forma inmediata, o incluso, para instalar paquetes</strong>.
 Sin embargo, carece de una función de guardado automático para el
 usuario. <strong>Al cerrar RStudio, todo el contenido de la consola se
 pierde de manera definitiva</strong>.</p>
-<p><img src="img/ventana_consola.png" /></p>
-<p>En definitival podemos considerar la consola como una
-<strong>calculadora rápida</strong> de R que ejecuta línea a línea al
-pulsar <strong>CTRL + ENTER</strong>.</p>
+<p>En definitival podemos considerar la consola como una calculadora
+rápida de R que ejecuta línea a línea al pulsar CTRL + ENTER.</p>
 <pre class="r"><code># La consola puede funcionar como una pequeña calculadora
 
 2 + 3</code></pre>
@@ -416,7 +468,6 @@ el “taller” de RStudio. Mientras que :</p>
 resultados,</p></li>
 <li><p>el *Script** es donde escribes tus programas, guardas tu código y
 lo haces reproducible.</p></li>
-<li><p><img src="img/ventana_script.png" /></p></li>
 </ul>
 <p>Si estás trabajando en RMarkdown (.Rmd), tu ventana de script es la
 que tiene el fondo blanco donde escribes el texto y los bloques de
@@ -449,6 +500,7 @@ setwd(&quot;/ruta/a/tu/carpeta&quot;)
 # Ejemplo en Windows
 setwd(&quot;c:/&quot;)</code></pre>
 <hr />
+</div>
 </div>
 </div>
 <div id="funciones-y-operadores-en-r" class="section level1">
@@ -529,14 +581,6 @@ setwd(&quot;c:/&quot;)</code></pre>
 </tr>
 </tbody>
 </table>
-<p>Ejemplos:</p>
-<pre class="r"><code>x = 16
-sqrt(x)</code></pre>
-<pre><code>## [1] 4</code></pre>
-<pre class="r"><code>exp(x)</code></pre>
-<pre><code>## [1] 8886111</code></pre>
-<pre class="mivector"><code>length(mivector)
-mean(mivector)</code></pre>
 </div>
 <div id="operadores-en-r" class="section level2">
 <h2>Operadores en R</h2>
@@ -700,7 +744,6 @@ ls.str()</code></pre>
 ## resultado_potenciacion :  num 8
 ## resultado_resta :  num 8
 ## resultado_suma :  num 8
-## x :  num 16
 ## x1 :  logi TRUE
 ## x2 :  int 3
 ## x3 :  num 3.4

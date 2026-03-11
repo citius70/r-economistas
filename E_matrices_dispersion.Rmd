@@ -1,12 +1,12 @@
 ---
 title: "E. Matrices de Gráficos de Dispersión"
 output:
+  pdf_document: default
+  word_document: default
   html_document:
     toc: false
     theme: united  # Puedes elegir: united, cosmo, lumen, flatly...
     highlight: tango
-  word_document: default
-  pdf_document: default
 ---
 
 ### Análisis Multivariante: La Matriz de Dispersión (`pairs`)

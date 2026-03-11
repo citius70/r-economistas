@@ -137,7 +137,7 @@ Los diagramas de caja (boxplot) son representaciones gráficas que permiten: res
 boxplot(distancias, horizontal = TRUE, main = "Boxplot de Distancias")
 ```
 
-### Ejercicio 3
+## Ejercicio 3
 
 Representa en gráfico de cajas la variable "mpg" y "cyl" de la base de datos **mtcars**
 

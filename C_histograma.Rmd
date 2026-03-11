@@ -1,5 +1,5 @@
 ---
-title: "C. Histograma y Gráfico de densidad"
+title: "C Histograma y Gráfico de densidad"
 output:
   html_document:
     toc: false
@@ -9,15 +9,9 @@ output:
   pdf_document: default
 ---
 
-El **histograma** es la herramienta fundamental para analizar **datos continuos**. A diferencia del gráfico de barras (usado para categorías), aquí **agrupamos los valores en "contenedores" o intervalos (bins)** para visualizar cómo se distribuyen las mediciones. Es decir, pasamos del desorden gráfico al orden
+El **histograma** es la herramienta fundamental para analizar **datos continuos**. A diferencia del gráfico de barras (usado para categorías), aquí agrupamos los valores en "contenedores" o intervalos para visualizar cómo se distribuyen las mediciones.
 
--   El **eje x** serán agrupaciones de todos los datos que tenemos. Por ejemplo si tenemos 100 datos de pesos de persons, se agruparán en intervalos de 5 kg (50-55 kg, 55-60 kg, 60-65 kg .....) o intervalos del valor que queramos.
-
--   El **eje y** será el conteo de los valores correspondientes a cada intervalo. Por ejemplo: nº de personas que pesan entre 50-55 kg, entre 55-60kg, entre 60-65 kg...
-
-![](img/histograma.png){width="585"}
-
-### ¿Qué es un Histograma? (Ejemplo: Pesos)
+## ¿Qué es un Histograma? (Ejemplo: Pesos)
 
 Imagina que tienes el peso de 30 alumnos y quieres ver cómo se distribuyen en la clase. Como hay demasiados números distintos, el histograma **agrupa los pesos en intervalos** (ej. de 5 en 5 kg) para visualizar la tendencia.
 
@@ -30,7 +24,7 @@ Imagina que tienes el peso de 30 alumnos y quieres ver cómo se distribuyen en l
 El histograma suele confundirse con el gráfico de barras vertical. En esta tabla se muestran las diferencias:
 
 | Característica | Gráfico de Barras | Histograma |
-|:-----------------------|:-----------------------|:-----------------------|
+|:---|:---|:---|
 | **Tipo de datos** | Categorías (Ej: Fútbol, Tenis) | Números (Ej: Peso, Altura) |
 | **Espacio entre barras** | **Sí** | **No** (están unidas) |
 | **Objetivo** | Comparar grupos | Ver la forma de la distribución |
@@ -41,13 +35,11 @@ El histograma suele confundirse con el gráfico de barras vertical. En esta tabl
 
 Usamos la función `hist(x)`, donde:
 
--   **`x`**: Vector numérico de datos (o columna de una matriz, o de un dataframe...=
+-   **`x`**: Vector numérico de datos.
 -   **`prob = TRUE`**: Muestra la densidad (proporción) en lugar de la frecuencia absoluta.
 -   **`breaks`**: Controla el número de intervalos.
 
-## Ejemplo1: Histograma a partir de un vector
-
-Imagina que tenemos un vector/lista con la distancia que una motocicleta hizo con un tanque de gasolina lleno.
+Ejemplo1: Imagina que tenemos un vector/lista con la distancia que una motocicleta hizo con un tanque de gasolina lleno.
 
 ```{r histogram-data}
 # Datos de distancias
@@ -75,11 +67,9 @@ hist(distancias,
 
 ------------------------------------------------------------------------
 
-Interpretación: Como se observa en el gráfico, R ha hecho agrupaciones (bins) de 5 kg, es decir, de 255 a 260 km, de 260 a 265 km, de 265 a 270 km....
+## Ajuste del número de intervalos o breaks
 
-### Ajuste del número de intervalos o breaks
-
-Podemos ajustar el número de intervalos (bins) de manera manual añadiendo la propiedad `breaks`.
+Podemos ajustar el número de intervalos de manera manual añadiendo la propiedad `breaks`.
 
 ```{r}
 hist(distancias, 
@@ -125,59 +115,4 @@ par(mfrow = c(1, 1)) # Restaurar diseño original
 
 -   **Densidad vs Frecuencia:** Al usar `prob = TRUE`, el área total de las barras suma 1, lo que permite comparar distribuciones aunque el número total de datos sea distinto.
 
-    ```{r}
-    hist(distancias, 
-         main = "Histograma de Frecuencias", 
-         col = "steelblue", 
-         xlab = "Distancia", 
-         ylab = "Frecuencia",
-         prob = TRUE)
-    ```
-
 -   **`par(mfrow = ...)`:** Es un comando muy útil para comparar gráficos lado a lado. Recuerda siempre devolverlo a `c(1,1)` al terminar, o tus siguientes gráficos saldrán todos en una misma fila.
-
-## Ejemplo1: Histograma a partir de un data()
-
-Te dejo un **ejemplo sencillo en formato `.Rmd`** pensado para material didáctico (como el que podrías usar en apuntes o un libro). Incluye explicación breve y el código.
-
-El dataset **mtcars** es un conjunto de datos incluido por defecto en R. Contiene información sobre distintos modelos de coches de los años 70 y varias características técnicas de cada uno. Entre sus variables encontramos: - `mpg`: consumo de combustible (millas por galón) - `hp`: potencia del motor - `wt`: peso del coche - `cyl`: número de cilindros En este ejemplo vamos a representar un **histograma del consumo (`mpg`)**. \## \## Cargar el dataset El dataset `mtcars` ya está incluido en R, por lo que solo necesitamos activarlo. \`\`\`{r} data(mtcars) \# Mostrar las primeras filas head(mtcars)
-
-```{r}
-data(mtcars) ## Cargar el dataset El dataset mtcars ya está incluido en R, por lo que solo necesitamos activarlo.
-
-head(mtcars)  # Mostrar las primeras filas head(mtcars)
-
-```
-
-Ahora representamos un histograma de la variable `mpg`.
-
-```{r}
-
-```
-
-```         
-```
-
-## Histograma personalizado
-
-Podemos mejorar el gráfico añadiendo un título, etiquetas y definiendo el número de intervalos.
-
-```{r}
-hist(mtcars$mpg,      
-     main = "Histograma del consumo de combustible",      
-     xlab = "Millas por galón (mpg)",      
-     ylab = "Frecuencia",      
-     breaks = 8) 
-```
-
-## Interpretación del gráfico
-
-En el histograma podemos observar cómo se distribuyen los valores de consumo de los coches:
-
--   Los coches con menor consumo tienen valores de **mpg más altos**.
-
--   La mayor parte de los coches se concentra aproximadamente entre **15 y 22 mpg**.
-
--   Existen algunos coches con consumos más eficientes que superan los **30 mpg**.
-
-Este tipo de gráfico es muy útil para **analizar la distribución de una variable numérica** antes de realizar análisis estadísticos más avanzados.
